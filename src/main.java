@@ -3,6 +3,8 @@
  */
 public class main {
 
+    private String="hallo";
+
     private static void main (String args[]){
 
     }
