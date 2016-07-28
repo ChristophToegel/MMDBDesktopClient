@@ -1,9 +1,10 @@
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
-import com.sun.xml.internal.fastinfoset.sax.Properties;
 
 import javax.swing.*;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -57,5 +58,33 @@ public class main {
             }
         System.out.println("Connected to database");
         return conn;
+    }
+
+    public static boolean checkPw(String name, char[]  passwordchar) throws SQLException {
+     System.out.println(name+"  "+ String.valueOf(passwordchar));
+        Connection conn =createDbConnection();
+        PreparedStatement pstmt = null;
+        boolean check=false;
+
+        try {
+            String password=String.valueOf(passwordchar);
+            pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM   employee  WHERE emp_id = ? AND password = ?");
+            pstmt.setString(1, name);
+            pstmt.setString(2, password);
+            pstmt.executeQuery();
+            ResultSet rs = pstmt.getResultSet();
+
+            System.out.print(rs.first());
+            check=rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+      finally {
+                conn.close();
+
+        }
+
+        return check;
     }
 }
