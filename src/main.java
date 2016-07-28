@@ -2,6 +2,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import com.sun.xml.internal.fastinfoset.sax.Properties;
 
+import javax.swing.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -16,9 +17,16 @@ public class main {
 
     public static void main (String args[]){
     System.out.print("test");
-
+        initGui();
         createDbConnection();
         test();
+    }
+
+    private static void initGui() {
+        gui window= new gui();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
+        window.setSize(400,400);
+        window.setVisible(true);
     }
 
     private static void test() {
