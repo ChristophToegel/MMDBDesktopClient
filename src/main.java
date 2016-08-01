@@ -1,6 +1,5 @@
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 import javax.swing.*;
 import java.sql.DriverManager;
@@ -24,7 +23,7 @@ public class main{
     }
 
     private static void initGui() {
-        gui window = new gui();
+        GUI window = new GUI();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
         window.setSize(400,400);
         window.setVisible(true);
