@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * Created by Christoph on 06.07.16.
  */
-public class main {
+public class main{
 
 
     private final static String USER="j.dietz";
@@ -20,7 +20,7 @@ public class main {
     System.out.print("test");
         initGui();
         createDbConnection();
-        test();
+
     }
 
     private static void initGui() {
@@ -30,7 +30,7 @@ public class main {
         window.setVisible(true);
     }
 
-    private static void test() {
+    /*private static void test() {
          Connection conn =createDbConnection();
 
         Statement test= null;
@@ -46,7 +46,7 @@ public class main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private static Connection createDbConnection() {
         Connection conn = null;
@@ -68,7 +68,7 @@ public class main {
 
         try {
             String password=String.valueOf(passwordchar);
-            pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM   employee  WHERE emp_id = ? AND password = ?");
+            pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM   employee  WHERE emp_sign = ? AND password = ?");
             pstmt.setString(1, name);
             pstmt.setString(2, password);
             pstmt.executeQuery();
