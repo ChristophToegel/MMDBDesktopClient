@@ -1,0 +1,55 @@
+-Login Screen
+    Technisch fertig
+
+-Alle LoggedInScreens
+ "Angemeldet als FAHRER/MANAGER x y"
+
+-Driver Screen
+    Loginname von Login übergeben
+
+    Datenbank
+    -Eigene Daten
+     Zeile von passender ID in Fahrer und Employee und Vehicle
+    -Auftrag
+     Zeile aus Assignment mit der passenden ID und alle Daten in Textfeld
+
+     -> erledigt
+        eigener akuteller Standort wird Abgabeort vom letzten Auftrag oder STARTPUNKT
+        Auftragsfenster löschen
+        ErledigtButton verschwindet
+        ZeitAbgeliefert eintragen
+        Auftragsfenster  mit neuen Auftragsdaten
+        AnnehmenButton erscheint
+
+     ->annehmen
+        eigener aktueller Standort wird Annahmeort vom nächsten Auftrag
+        AnnehmenButton verschwindet
+        ErledigtButton erscheint
+
+    -Karte erstmal egal
+
+    -NEUER AUFTRAG
+     wird berechnet aus eigenem Standpunkt und allen Standpunkten von nicht erledigt in Assignment
+     und Frachtraum passt und NUR ERSTES ERGEBNIS
+
+
+-Manager Screen(Tabbed Pane)
+
+    Aufträge ändern(nur nicht-angenommene)
+    Liste für ALLE Aufträge nach Status sortiert
+    neue Fahrer erstellen
+    neue Aufträge erstellen
+
+    Offene Aufträge editieren
+    Fahrer ändern (Name und Fahrzeugtyp)
+
+    4 Datentypen
+
+    OPTIONAL (Fahrzeuge hinzufügen und ändern)
+
+
+-Datenbankklasse
+ SQL-Verbindung aufbauen und mehrere Methoden zum Parsen des ResultSets
+
+-GUI Klasse
+    Verwaltet alles Graphische
