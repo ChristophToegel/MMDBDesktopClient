@@ -24,7 +24,7 @@ public class main{
     }
 
     private static void initGui() {
-        gui window= new gui();
+        gui window = new gui();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
         window.setSize(400,400);
         window.setVisible(true);
