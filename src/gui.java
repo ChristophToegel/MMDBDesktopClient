@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Created by juli on 28.07.16.
  */
 
-public class gui extends JFrame {
+public class GUI extends JFrame {
 
 
     private JPanel login;
@@ -17,10 +17,9 @@ public class gui extends JFrame {
     private JPanel driver;
     private Boolean check;
 
-    public gui(){
+    public GUI(){
         super("MMDB desktop client");//titel der Fensters
-        login = new login_screen();//login_screen
-        add(login);//login_screen wird angezeigt
+        openLogin();
     }
 
     public void openLogin(){

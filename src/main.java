@@ -16,10 +16,8 @@ public class main{
     private final static String PASSWORD ="mmdb";
 
     public static void main (String args[]){
-    System.out.print("test");
         initGui();
         createDbConnection();
-
     }
 
     private static void initGui() {
@@ -29,23 +27,6 @@ public class main{
         window.setVisible(true);
     }
 
-    /*private static void test() {
-         Connection conn =createDbConnection();
-
-        Statement test= null;
-        try {
-            test = (Statement) conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        String string="INSERT INTO employee (firstname,lastname) values ('hallo1','test1');";
-
-        try {
-            test.executeUpdate(string);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private static Connection createDbConnection() {
         Connection conn = null;
