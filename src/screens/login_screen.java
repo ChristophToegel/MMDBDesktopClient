@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import controller.*;
+import Objekts.*;
 import log.debug;
 
 /**
@@ -46,8 +47,15 @@ public class login_screen extends JPanel {
                     e1.printStackTrace();
                 }
                 if(pwcheck){
-                    //TODO
-                    main.driver();
+                    try {
+                        if(DBM.DriverOrManager(username.getText())) {
+                                driver driver = DBM.getDriverData("123");
+
+                        main.driver(driver);} else {//TODO
+                        }
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
                 }else {
                     wrongData.setVisible(true);
                 }

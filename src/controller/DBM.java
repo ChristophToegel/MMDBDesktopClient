@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import log.debug;
+import Objekts.*;
 
 /**
  * Created by Christoph on 02.08.16.
@@ -50,6 +51,7 @@ public class DBM {
             ResultSet rs = pstmt.getResultSet();
 
             debug.printout(rs.first());
+
             check=rs.first();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,5 +64,40 @@ public class DBM {
 
         return check;
     }
+
+    public static boolean DriverOrManager (String name) throws SQLException {
+        openDBConnection();
+        String query = "SELECT * FROM driver INNER JOIN employee ON driver.emp_id=employee.emp_id WHERE emp_sign = ?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1,name);
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+
+        if(rs.first()) {
+            closeDBConnection(); return true;} else {
+            closeDBConnection();return false;}
+
+    }
+
+    public static driver getDriverData (String name) throws SQLException {
+        driver driver=null;
+        openDBConnection();
+        String query = "select * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1,name);
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+
+        if(rs.first()) {
+            driver= new driver(rs);
+            closeDBConnection();
+        } else {
+            closeDBConnection();}
+        return driver;
+    }
+
+
+
+
 }
 
