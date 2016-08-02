@@ -67,7 +67,7 @@ public class DBM {
 
     public static boolean DriverOrManager (String name) throws SQLException {
         openDBConnection();
-        String query = "SELECT * FROM Objekts INNER JOIN employee ON Objekts.emp_id=employee.emp_id WHERE emp_sign = ?";
+        String query = "SELECT * FROM driver INNER JOIN employee ON driver.emp_id=employee.emp_id WHERE emp_sign = ?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.setString(1,name);
         p.executeQuery();

@@ -14,7 +14,6 @@ public class GUI extends JFrame {
     private JPanel login;
     private JPanel manager;
     private JLayeredPane driver_screen;
-
     private Boolean check;
 
     public GUI(){

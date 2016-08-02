@@ -22,16 +22,16 @@ public class driver {
 
 
     public driver(ResultSet r) throws SQLException {
-        emp_id = r.getInt(0);
-        emp_sign = r.getString(1);
-        firstname = r.getString(2);
-        lastname = r.getString(3);
-        password = r.getString(4);
-        driver_id = r.getInt(5);
-        location_id = r.getInt(6);
-        vehicle_id = r.getInt(7);
-        super_manager = r.getInt(8);
-        engaged = r.getInt(9);
+        emp_id = r.getInt(1);
+        emp_sign = r.getString(2);
+        firstname = r.getString(3);
+        lastname = r.getString(4);
+        password = r.getString(5);
+        driver_id = r.getInt(6);
+        location_id = r.getInt(8);
+        vehicle_id = r.getInt(9);
+        super_manager = r.getInt(10);
+        engaged = r.getInt(11);
     }
 
     public String getFirstname(){
