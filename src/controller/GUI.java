@@ -18,7 +18,6 @@ public class GUI extends JFrame {
     public GUI(){
         super("MMDB desktop client");//titel der Fensters
         openLogin();
-      //  openDriver();
     }
 
 

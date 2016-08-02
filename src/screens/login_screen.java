@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import controller.*;
+import log.debug;
 
 /**
  * Created by juli on 29.07.16.
@@ -15,9 +16,6 @@ public class login_screen extends JPanel {
 
     private Boolean pwcheck;
     private JPanel login_window;
-
-
-
 
     public login_screen(){
         login_window =new JPanel();
@@ -49,6 +47,7 @@ public class login_screen extends JPanel {
                 }
                 if(pwcheck){
                     //TODO
+                    main.driver();
                 }else {
                     wrongData.setVisible(true);
                 }
