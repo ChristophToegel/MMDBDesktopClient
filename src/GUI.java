@@ -8,18 +8,20 @@ public class GUI extends JFrame {
 
     private JPanel login;
     private JPanel manager;
-    private JPanel driver;
+    private JLayeredPane driver;
     private Boolean check;
 
     public GUI(){
         super("MMDB desktop client");//titel der Fensters
         openLogin();
+      //  openDriver();
     }
 
 
     public void openLogin(){
+        setSize(400,400);
         login = new login_screen();//login_screen
-        add(login);//login_screen wird angezeigt
+        add(login); //login_screen wird angezeigt
     }
 
     public void openManager(){
@@ -29,10 +31,13 @@ public class GUI extends JFrame {
 
     }
 
-    public void opernDriver(){
+    public void openDriver(){
         remove(login);
+        setSize(900,700);
         driver = new login_driver();
+
         add(driver);
+        System.out.print("open driver");
     }
 
 

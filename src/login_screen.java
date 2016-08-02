@@ -15,7 +15,6 @@ public class login_screen extends JPanel {
 
 
     public login_screen(){
-      //  super("MMDB desktop client");//titel der Fensters
         login_window =new JPanel();
         login_window.setLayout(new BoxLayout(login_window,BoxLayout.PAGE_AXIS));
         createElements();

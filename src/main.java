@@ -23,7 +23,7 @@ public class main{
     private static void initGui() {
         GUI window = new GUI();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
-        window.setSize(400,400);
+        //window.setSize(400,400);
         window.setVisible(true);
     }
 
@@ -56,6 +56,7 @@ public class main{
 
             System.out.print(rs.first());
             check=rs.first();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
