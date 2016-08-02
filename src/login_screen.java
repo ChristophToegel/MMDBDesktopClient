@@ -9,51 +9,57 @@ import java.sql.SQLException;
 
 public class login_screen extends JPanel {
 
-    private Boolean check;
-    private JPanel login;
+    private Boolean pwcheck;
+    private JPanel login_window;
+
 
 
     public login_screen(){
       //  super("MMDB desktop client");//titel der Fensters
-        login =new JPanel();
-        login.setLayout(new BoxLayout(login,BoxLayout.PAGE_AXIS));
+        login_window =new JPanel();
+        login_window.setLayout(new BoxLayout(login_window,BoxLayout.PAGE_AXIS));
         createElements();
     }
 
     private void createElements() {
 
-        JLabel test= new JLabel("login Screen");
-        JPasswordField pass= new JPasswordField("password");
-        JTextField name = new JTextField();
-        name.setSize(50,15);
-        JButton weiter= new JButton("login");
-        JLabel falsch= new JLabel("Falscher Login");
-        falsch.setVisible(false);
+        JLabel title= new JLabel("Anmelden");
+        JPasswordField password= new JPasswordField("test");
+        JTextField username = new JTextField();
+        JButton loginButton= new JButton("Login");
+        JLabel wrongData= new JLabel("Falscher Login");
+        username.setSize(50,15);
+        password.setSize(50,15);
+        loginButton.setSize(50,15);
+        wrongData.setSize(50,15);
 
-        weiter.addMouseListener(new MouseAdapter() {
+
+
+        wrongData.setVisible(false);
+
+        loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    check= main.checkPw(name.getText(),pass.getPassword());
-                    falsch.setVisible(false);
-
+                    wrongData.setVisible(false);
+                    pwcheck= main.checkPw(username.getText(),password.getPassword());
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-                if(check){
+                if(pwcheck){
                     //TODO
                 }else {
-                    falsch.setVisible(true);
+                    wrongData.setVisible(true);
                 }
             }
 
         });
-        login.add(test);
-        login.add(name);
-        login.add(pass);
-        login.add(falsch);
-        login.add(weiter);
-        add(login);
+        login_window.add(title);
+        login_window.add(username);
+        login_window.add(password);
+        login_window.add(wrongData);
+        login_window.add(loginButton);
+        add(login_window);
     }
 
 

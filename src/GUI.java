@@ -1,13 +1,7 @@
-import com.sun.xml.internal.bind.v2.TODO;
+
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.SQLException;
 
-/**
- * Created by juli on 28.07.16.
- */
 
 public class GUI extends JFrame {
 
@@ -21,6 +15,7 @@ public class GUI extends JFrame {
         super("MMDB desktop client");//titel der Fensters
         openLogin();
     }
+
 
     public void openLogin(){
         login = new login_screen();//login_screen
