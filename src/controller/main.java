@@ -3,6 +3,7 @@ package controller;
 import controller.GUI;
 
 import javax.swing.*;
+import Objekts.*;
 
 /**
  * Created by Christoph on 06.07.16.
@@ -23,10 +24,10 @@ public class main{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
         window.setSize(400,400);
         window.setVisible(true);
-     //   window.openDriver();
     }
 
-    public static void driver() {
-        window.openDriver();
+    public static void driver(driver driver) {
+        window.openDriver(driver);
     }
+
 }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class driver {
 
     private int emp_id;
-    private int emp_sign;
+    private String emp_sign;
     private String firstname;
     private String lastname;
     private String password;
@@ -18,12 +18,12 @@ public class driver {
     private int location_id;
     private int vehicle_id;
     private int super_manager;
-    private boolean engaged;
+    private int engaged;
 
 
     public driver(ResultSet r) throws SQLException {
         emp_id = r.getInt(0);
-        emp_sign = r.getInt(1);
+        emp_sign = r.getString(1);
         firstname = r.getString(2);
         lastname = r.getString(3);
         password = r.getString(4);
@@ -31,7 +31,11 @@ public class driver {
         location_id = r.getInt(6);
         vehicle_id = r.getInt(7);
         super_manager = r.getInt(8);
-        engaged = r.getBoolean(9);
+        engaged = r.getInt(9);
+    }
+
+    public String getFirstname(){
+        return firstname;
     }
 
 }
