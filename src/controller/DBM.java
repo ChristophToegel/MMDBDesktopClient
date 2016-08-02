@@ -62,5 +62,21 @@ public class DBM {
 
         return check;
     }
+
+    public static boolean DriverOrManager (String name) throws SQLException {
+        openDBConnection();
+        String query = "SELECT * FROM driver INNER JOIN employee ON driver.emp_id=employee.emp_id WHERE emp_sign = ?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1,name);
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+
+        if(rs.first()) {
+            closeDBConnection(); return true;} else {
+            closeDBConnection();return false;}
+
+    }
+
+
 }
 

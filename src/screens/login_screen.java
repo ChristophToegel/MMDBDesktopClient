@@ -46,8 +46,13 @@ public class login_screen extends JPanel {
                     e1.printStackTrace();
                 }
                 if(pwcheck){
-                    //TODO
-                    main.driver();
+                    try {
+                        if(DBM.DriverOrManager(username.getText())) {
+                        main.driver();} else {//TODO
+                        }
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
                 }else {
                     wrongData.setVisible(true);
                 }
