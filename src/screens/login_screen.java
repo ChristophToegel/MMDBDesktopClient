@@ -48,7 +48,7 @@ public class login_screen extends JPanel {
                 if(pwcheck){
                     try {
                         if(DBM.DriverOrManager(username.getText())) {
-                        main.driver();} else {//TODO
+                        main.driver();} else {//TODO manager
                         }
                     } catch (SQLException e1) {
                         e1.printStackTrace();

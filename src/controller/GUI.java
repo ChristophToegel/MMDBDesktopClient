@@ -40,7 +40,7 @@ public class GUI extends JFrame {
         driver = new login_driver();
 
         add(driver);
-        System.out.print("open driver");
+        System.out.print("open Objekts");
     }
 
 
