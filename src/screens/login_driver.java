@@ -1,3 +1,5 @@
+package screens;
+
 import javax.swing.*;
 import java.awt.*;
 

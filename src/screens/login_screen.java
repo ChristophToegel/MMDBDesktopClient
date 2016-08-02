@@ -1,7 +1,10 @@
+package screens;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import controller.*;
 
 /**
  * Created by juli on 29.07.16.
@@ -11,6 +14,7 @@ public class login_screen extends JPanel {
 
     private Boolean pwcheck;
     private JPanel login_window;
+
 
 
 
@@ -31,9 +35,6 @@ public class login_screen extends JPanel {
         password.setSize(50,15);
         loginButton.setSize(50,15);
         wrongData.setSize(50,15);
-
-
-
         wrongData.setVisible(false);
 
         loginButton.addMouseListener(new MouseAdapter() {
@@ -41,7 +42,7 @@ public class login_screen extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 try {
                     wrongData.setVisible(false);
-                    pwcheck= main.checkPw(username.getText(),password.getPassword());
+                    pwcheck= DBM.getLogin(username.getText(),password.getPassword());
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
