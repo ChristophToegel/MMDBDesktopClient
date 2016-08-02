@@ -1,6 +1,6 @@
 package controller;
 
-import controller.GUI;
+
 
 import javax.swing.*;
 
@@ -10,8 +10,6 @@ import javax.swing.*;
 public class main{
 
     private static GUI window;
-
-
 
     public static void main(String args[]){
         initGui();
@@ -23,7 +21,7 @@ public class main{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//bei x --> schließen
         window.setSize(400,400);
         window.setVisible(true);
-     //   window.openDriver();
+        //   window.openDriver();
     }
 
     public static void driver() {

@@ -28,7 +28,7 @@ public class GUI extends JFrame {
     }
 
     public void openManager(){
-      remove(login);
+        remove(login);
         manager = new login_manager();
         add(manager);
 
