@@ -18,7 +18,7 @@ public class driver {
     private int location_id;
     private int vehicle_id;
     private int super_manager;
-    private boolean engaged;
+    private int engaged;
 
 
     public driver(ResultSet r) throws SQLException {
@@ -31,7 +31,7 @@ public class driver {
         location_id = r.getInt(6);
         vehicle_id = r.getInt(7);
         super_manager = r.getInt(8);
-        engaged = r.getBoolean(9);
+        engaged = r.getInt(9);
     }
 
 }
