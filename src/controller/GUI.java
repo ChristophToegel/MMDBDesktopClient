@@ -1,4 +1,8 @@
+package controller;
 
+import screens.login_driver;
+import screens.login_manager;
+import screens.login_screen;
 
 import javax.swing.*;
 
@@ -18,8 +22,8 @@ public class GUI extends JFrame {
 
 
     public void openLogin(){
-        login = new login_screen();//login_screen
-        add(login);//login_screen wird angezeigt
+        login = new login_screen();
+        add(login);
     }
 
     public void openManager(){
