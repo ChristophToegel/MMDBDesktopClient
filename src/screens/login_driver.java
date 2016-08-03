@@ -3,6 +3,7 @@ package screens;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import Objekts.*;
 
 /**
  * Created by Christoph on 01.08.16.
@@ -22,7 +23,7 @@ public class login_driver extends JLayeredPane {
 
 
 
-    public login_driver(){
+    public login_driver(driver driver){
         createElements();
 
     }
