@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import log.debug;
-import Objekts.*;
+import objects.*;
 
 /**
  * Created by Christoph on 02.08.16.

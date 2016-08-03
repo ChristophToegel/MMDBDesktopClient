@@ -1,9 +1,7 @@
 package controller;
 
-import controller.GUI;
-
 import javax.swing.*;
-import Objekts.*;
+import objects.*;
 
 /**
  * Created by Christoph on 06.07.16.

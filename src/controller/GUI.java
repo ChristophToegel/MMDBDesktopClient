@@ -3,7 +3,7 @@ package controller;
 import screens.login_driver;
 import screens.login_manager;
 import screens.login_screen;
-import Objekts.*;
+import objects.*;
 
 import javax.swing.*;
 
@@ -41,7 +41,7 @@ public class GUI extends JFrame {
         driver_screen = new login_driver(driver);
 
         add(driver_screen);
-        System.out.print("open Objekts");
+        System.out.print("open objects");
     }
 
 

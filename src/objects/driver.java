@@ -1,4 +1,4 @@
-package Objekts;
+package objects;
 
 
 import java.sql.ResultSet;

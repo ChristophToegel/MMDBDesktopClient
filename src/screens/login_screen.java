@@ -6,8 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import controller.*;
-import Objekts.*;
-import log.debug;
+import objects.*;
 
 /**
  * Created by juli on 29.07.16.

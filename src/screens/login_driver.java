@@ -3,7 +3,7 @@ package screens;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import Objekts.*;
+import objects.*;
 
 /**
  * Created by Christoph on 01.08.16.
