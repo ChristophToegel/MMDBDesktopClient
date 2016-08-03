@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by juli on 03.08.16.
  */
+
 public class Assignment {
 
     private int ass_id;

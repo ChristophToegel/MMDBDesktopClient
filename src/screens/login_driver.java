@@ -3,6 +3,8 @@ package screens;
 import controller.DBM;
 import objects.Assignment;
 import objects.Driver;
+import objects.Location;
+import objects.Vehicle;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -22,19 +24,18 @@ public class login_driver extends JLayeredPane {
     private static final int DATA_TOP = 80; //First Dataline
     private static final int DATA_GAP = 35; //Space between Datalines
     private static final int DATA_BOT = 460; //First Dataline for Driver
-    private static final String TEST = "testiger Test";
+    private Vehicle vehicle;
+    private Location location;
     private Driver driver;
     private Assignment ass;
 
 
     public login_driver(Driver driver) throws SQLException{
         this.driver=driver;
-        try {
-            ass = DBM.getAssignmentData(driver.getDriver_id());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        log.debug.printout(ass.getAddress_delivery());
+        location =DBM.getLocation(driver.getLocation_id());
+        vehicle = DBM.getVehicle(driver.getVehicle_id());
+        ass = DBM.getAssignmentData(driver.getDriver_id());
+
         createElements();
     }
 
@@ -179,9 +180,9 @@ public class login_driver extends JLayeredPane {
 
         JLabel driverIdData = new JLabel(Integer.toString(driver.getDriver_id()));
         JLabel emp_signData = new JLabel(driver.getEmp_sign());
-        JLabel vehicle_typData = new JLabel(driver.getVehicleType());
-        JLabel vspaceData = new JLabel(Integer.toString(driver.getVehicleSpace()));
-        JLabel positionData = new JLabel(driver.getLocationText());
+        JLabel vehicle_typData = new JLabel(vehicle.getType());
+        JLabel vspaceData = new JLabel(Integer.toString(vehicle.getSpace()));
+        JLabel positionData = new JLabel(location.toText());
 
         driverIdData.setBounds(LEFT_ALLIGN_2, DATA_BOT, BOX_LENGTH, BOX_HEIGHT);
         emp_signData.setBounds(LEFT_ALLIGN_2,DATA_BOT+DATA_GAP ,BOX_LENGTH,BOX_HEIGHT);
