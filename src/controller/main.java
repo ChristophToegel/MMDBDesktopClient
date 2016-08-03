@@ -24,7 +24,7 @@ public class main{
         window.setVisible(true);
     }
 
-    public static void driver(driver driver) {
+    public static void driver(Driver driver) {
         window.openDriver(driver);
     }
 

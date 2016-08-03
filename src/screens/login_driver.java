@@ -1,9 +1,10 @@
 package screens;
 
+import objects.Driver;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import objects.*;
 
 /**
  * Created by Christoph on 01.08.16.
@@ -17,13 +18,14 @@ public class login_driver extends JLayeredPane {
     private static final int BOX_HEIGHT = 30; //Labelheight
     private static final int DATA_TOP = 80; //First Dataline
     private static final int DATA_GAP = 35; //Space between Datalines
-    private static final int DATA_BOT = 460; //First Dataline for driver
+    private static final int DATA_BOT = 460; //First Dataline for Driver
     private static final String TEST = "testiger Test";
+    private Driver driver;
 
 
 
-
-    public login_driver(driver driver){
+    public login_driver(Driver driver){
+        this.driver=driver;
         createElements();
 
     }
@@ -38,7 +40,7 @@ public class login_driver extends JLayeredPane {
     }
     //These Labels don't change their TEXT
     public void createTexts(){
-        JLabel signedInText = new JLabel("Angemeldet als:");
+        JLabel signedInText = new JLabel("Angemeldet als: ");
         JLabel sizeText = new JLabel("Größe:");
         JLabel datecreatedText = new JLabel("Erstellt am:");
         JLabel getaddressText = new JLabel("Abhohladdresse:");
@@ -137,7 +139,7 @@ public class login_driver extends JLayeredPane {
         add(deliveredB);
     }
 
-    //All Data for the driver
+    //All Data for the Driver
     public void createDriverText(){
         JLabel driverId = new JLabel("Fahrer-ID:");
         JLabel emp_sign = new JLabel("Personal-ID:");
@@ -164,7 +166,7 @@ public class login_driver extends JLayeredPane {
 
     }
 
-    //All changing Data for the driver
+    //All changing Data for the Driver
     public void createDriverData(){
         JLabel driverIdData = new JLabel(TEST);
         JLabel emp_signData = new JLabel(TEST);

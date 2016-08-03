@@ -35,11 +35,10 @@ public class GUI extends JFrame {
 
     }
 
-    public void openDriver(driver driver){
+    public void openDriver(Driver driver){
         remove(login);
         setSize(900,700);
         driver_screen = new login_driver(driver);
-
         add(driver_screen);
         System.out.print("open objects");
     }

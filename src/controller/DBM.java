@@ -79,8 +79,8 @@ public class DBM {
 
     }
 
-    public static driver getDriverData (String name) throws SQLException {
-        driver driver=null;
+    public static Driver getDriverData (String name) throws SQLException {
+        Driver driver=null;
         openDBConnection();
         String query = "select * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
@@ -89,7 +89,7 @@ public class DBM {
         ResultSet rs = p.getResultSet();
 
         if(rs.first()) {
-            driver= new driver(rs);
+            driver= new Driver(rs);
             closeDBConnection();
         } else {
             closeDBConnection();}

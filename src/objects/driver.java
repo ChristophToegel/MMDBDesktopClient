@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Created by Andi on 02.08.2016.
  */
-public class driver {
+public class Driver {
 
 
 
@@ -23,7 +23,7 @@ public class driver {
     private int engaged;
 
 
-    public driver(ResultSet r) throws SQLException {
+    public Driver(ResultSet r) throws SQLException {
         emp_id = r.getInt(1);
         emp_sign = r.getString(2);
         firstname = r.getString(3);
