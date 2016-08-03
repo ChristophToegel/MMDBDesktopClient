@@ -1,15 +1,17 @@
 package objects;
 
 
+import controller.DBM;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 
 /**
  * Created by Andi on 02.08.2016.
  */
 public class Driver {
-
-
 
     private int emp_id;
     private String emp_sign;
@@ -21,6 +23,12 @@ public class Driver {
     private int vehicle_id;
     private int super_manager;
     private int engaged;
+    private Vehicle vehicle;
+    private Location location;
+
+
+
+
 
 
     public Driver(ResultSet r) throws SQLException {
@@ -34,25 +42,24 @@ public class Driver {
         vehicle_id = r.getInt(9);
         super_manager = r.getInt(10);
         engaged = r.getInt(11);
+        location = DBM.getLocation(location_id);
+        vehicle = DBM.getVehicle(vehicle_id);
     }
+
+    public String getLocationText() {
+        return location.toText();
+    }
+
+    public int getVehicleSpace() {
+        return vehicle.getSpace();
+    }
+   public String getVehicleType() {
+       return vehicle.getType();
+   }
+
 
     public String getFirstname(){
         return firstname;
-    }
-
-    public int getEmp_id() {
-        return emp_id;
-    }
-    public void setEmp_id(int emp_id) {
-        this.emp_id = emp_id;
-    }
-
-    public String getEmp_sign() {
-        return emp_sign;
-    }
-
-    public void setEmp_sign(String emp_sign) {
-        this.emp_sign = emp_sign;
     }
 
     public void setFirstname(String firstname) {
@@ -115,4 +122,21 @@ public class Driver {
         this.engaged = engaged;
     }
 
+    public String getEmp_sign() {
+
+        return emp_sign;
+    }
+
+    public void setEmp_sign(String emp_sign) {
+        this.emp_sign = emp_sign;
+    }
+
+    public int getEmp_id() {
+
+        return emp_id;
+    }
+
+    public void setEmp_id(int emp_id) {
+        this.emp_id = emp_id;
+    }
 }
