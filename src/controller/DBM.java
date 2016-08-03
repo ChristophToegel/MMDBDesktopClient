@@ -128,6 +128,24 @@ public class DBM {
     }
 
 
+    public static Assignment getAssignmentData (int driver_id) throws SQLException {
+        Assignment assignment=null;
+        openDBConnection();
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE driver_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, String.valueOf(driver_id));
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+
+        if(rs.first()) {
+            assignment = new Assignment(rs);
+            closeDBConnection();
+        } else {
+            closeDBConnection();}
+        return assignment;
+    }
+
+
 
 
 }

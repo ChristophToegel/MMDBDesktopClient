@@ -1,6 +1,7 @@
 package screens;
 
 import controller.DBM;
+import objects.Assignment;
 import objects.Driver;
 
 import javax.swing.*;
@@ -23,13 +24,18 @@ public class login_driver extends JLayeredPane {
     private static final int DATA_BOT = 460; //First Dataline for Driver
     private static final String TEST = "testiger Test";
     private Driver driver;
-
+    private Assignment ass;
 
 
     public login_driver(Driver driver) throws SQLException{
         this.driver=driver;
+        try {
+            ass = DBM.getAssignmentData(driver.getDriver_id());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.debug.printout(ass.getAddress_delivery());
         createElements();
-
     }
 
 
@@ -71,12 +77,12 @@ public class login_driver extends JLayeredPane {
     }
     //These Lables change their TEXT based on the DB
     public void createDataFields(){
-        JLabel sizeData = new JLabel(TEST);
-        JLabel datecreatedData = new JLabel(TEST);
-        JLabel getaddressData = new JLabel(TEST);
-        JLabel destaddressData = new JLabel(TEST);
-        JLabel finaldateData = new JLabel(TEST);
-        JLabel loggedInAsData = new JLabel(TEST);
+        JLabel sizeData = new JLabel(String.valueOf(ass.getSize()));
+        JLabel datecreatedData = new JLabel(String.valueOf(ass.getDate_created()));
+        JLabel getaddressData = new JLabel(ass.getAddress_pickup());
+        JLabel destaddressData = new JLabel(ass.getAddress_delivery());
+        JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
+        JLabel loggedInAsData = new JLabel(driver.getEmp_sign());
         JLabel curAssignmentData = new JLabel("ID 7590");
 
         sizeData.setBounds(LEFT_ALLIGN_2, DATA_TOP, BOX_LENGTH,BOX_HEIGHT);

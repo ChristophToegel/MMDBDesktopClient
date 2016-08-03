@@ -1,11 +1,8 @@
 package objects;
 
-
 import controller.DBM;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 
 /**
@@ -25,10 +22,6 @@ public class Driver {
     private int engaged;
     private Vehicle vehicle;
     private Location location;
-
-
-
-
 
 
     public Driver(ResultSet r) throws SQLException {
