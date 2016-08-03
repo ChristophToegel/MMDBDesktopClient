@@ -173,9 +173,9 @@ public class login_driver extends JLayeredPane {
 
         JLabel driverIdData = new JLabel(Integer.toString(driver.getDriver_id()));
         JLabel emp_signData = new JLabel(driver.getEmp_sign());
-        JLabel vehicle_typData = new JLabel(driver.getVehType());
-        JLabel vspaceData = new JLabel(Integer.toString(driver.getVehSpace()));
-        JLabel positionData = new JLabel(driver.getAddressText());
+        JLabel vehicle_typData = new JLabel(driver.getVehicleType());
+        JLabel vspaceData = new JLabel(Integer.toString(driver.getVehicleSpace()));
+        JLabel positionData = new JLabel(driver.getLocationText());
 
         driverIdData.setBounds(LEFT_ALLIGN_2, DATA_BOT, BOX_LENGTH, BOX_HEIGHT);
         emp_signData.setBounds(LEFT_ALLIGN_2,DATA_BOT+DATA_GAP ,BOX_LENGTH,BOX_HEIGHT);

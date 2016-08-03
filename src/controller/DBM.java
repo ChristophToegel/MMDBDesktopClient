@@ -96,34 +96,8 @@ public class DBM {
         return driver;
     }
 
-    public static String getVehicleType(int veh_id) throws SQLException {
-        openDBConnection();
-        String query = "SELECT model FROM vehicle WHERE vehicle_id= ?";
-        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
-        ps.setInt(1,veh_id);
-        ps.executeQuery();
-        ResultSet rs = ps.getResultSet();
-        rs.next();
-        String vehType = rs.getString(1);
-        closeDBConnection();
-        return vehType;
 
-    }
-
-    public static int getVehicleSpace(int veh_id) throws SQLException {
-        openDBConnection();
-        String query = "SELECT space FROM vehicle WHERE vehicle_id = ?";
-        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
-        ps.setInt(1,veh_id);
-        ps.executeQuery();
-        ResultSet rs = ps.getResultSet();
-        rs.next();
-        int Space = rs.getInt(1);
-        closeDBConnection();
-        return Space;
-    }
-
-    public static String getAddressString(int adress_id) throws SQLException {
+    public static Location getLocation (int adress_id) throws SQLException {
         openDBConnection();
         String query = "SELECT avenue, street FROM address WHERE address_id = ?";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
@@ -131,10 +105,26 @@ public class DBM {
         ps.executeQuery();
         ResultSet rs = ps.getResultSet();
         rs.next();
-        String Avenue = Integer.toString(rs.getInt(1));
-        String Street = Integer.toString(rs.getInt(2));
+        int Avenue = rs.getInt(1);
+        int Street = rs.getInt(2);
+        int locId = adress_id;
         closeDBConnection();
-        return ""+ Avenue+ ". Avenue/"+Street+". Street";
+        return new Location(locId,Avenue,Street);
+    }
+
+    public static Vehicle getVehicle(int vehicle_id) throws SQLException{
+        openDBConnection();
+        String query = "SELECT space, model FROM vehicle WHERE vehicle_id = ?";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setInt(1,vehicle_id);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        rs.next();
+        int space = rs.getInt(1);
+        String type = rs.getString(2);
+        closeDBConnection();
+        return new Vehicle(vehicle_id, type, space);
+
     }
 
 
