@@ -3,6 +3,8 @@ package controller;
 import javax.swing.*;
 import objects.*;
 
+import java.sql.SQLException;
+
 /**
  * Created by Christoph on 06.07.16.
  */
@@ -24,7 +26,7 @@ public class main{
         window.setVisible(true);
     }
 
-    public static void driver(Driver driver) {
+    public static void driver(Driver driver) throws SQLException {
         window.openDriver(driver);
     }
 

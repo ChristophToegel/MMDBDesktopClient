@@ -1,10 +1,12 @@
 package screens;
 
+import controller.DBM;
 import objects.Driver;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  * Created by Christoph on 01.08.16.
@@ -24,14 +26,14 @@ public class login_driver extends JLayeredPane {
 
 
 
-    public login_driver(Driver driver){
+    public login_driver(Driver driver) throws SQLException{
         this.driver=driver;
         createElements();
 
     }
 
 
-    private void createElements() {
+    private void createElements() throws SQLException {
         createTexts();
         createButtons();
         createDataFields();
@@ -167,12 +169,13 @@ public class login_driver extends JLayeredPane {
     }
 
     //All changing Data for the Driver
-    public void createDriverData(){
-        JLabel driverIdData = new JLabel(TEST);
-        JLabel emp_signData = new JLabel(TEST);
-        JLabel vehicle_typData = new JLabel(TEST);
-        JLabel vspaceData = new JLabel(TEST);
-        JLabel positionData = new JLabel(TEST);
+    public void createDriverData() throws SQLException {
+
+        JLabel driverIdData = new JLabel(Integer.toString(driver.getDriver_id()));
+        JLabel emp_signData = new JLabel(driver.getEmp_sign());
+        JLabel vehicle_typData = new JLabel(driver.getVehType());
+        JLabel vspaceData = new JLabel(Integer.toString(driver.getVehSpace()));
+        JLabel positionData = new JLabel(driver.getAddressText());
 
         driverIdData.setBounds(LEFT_ALLIGN_2, DATA_BOT, BOX_LENGTH, BOX_HEIGHT);
         emp_signData.setBounds(LEFT_ALLIGN_2,DATA_BOT+DATA_GAP ,BOX_LENGTH,BOX_HEIGHT);

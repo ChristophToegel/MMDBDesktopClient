@@ -6,6 +6,7 @@ import screens.login_screen;
 import objects.*;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 
 public class GUI extends JFrame {
@@ -35,7 +36,7 @@ public class GUI extends JFrame {
 
     }
 
-    public void openDriver(Driver driver){
+    public void openDriver(Driver driver) throws SQLException{
         remove(login);
         setSize(900,700);
         driver_screen = new login_driver(driver);

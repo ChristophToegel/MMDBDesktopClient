@@ -82,7 +82,7 @@ public class DBM {
     public static Driver getDriverData (String name) throws SQLException {
         Driver driver=null;
         openDBConnection();
-        String query = "select * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
+        String query = "SELECT * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.setString(1,name);
         p.executeQuery();
@@ -94,6 +94,47 @@ public class DBM {
         } else {
             closeDBConnection();}
         return driver;
+    }
+
+    public static String getVehicleType(int veh_id) throws SQLException {
+        openDBConnection();
+        String query = "SELECT model FROM vehicle WHERE vehicle_id= ?";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setInt(1,veh_id);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        rs.next();
+        String vehType = rs.getString(1);
+        closeDBConnection();
+        return vehType;
+
+    }
+
+    public static int getVehicleSpace(int veh_id) throws SQLException {
+        openDBConnection();
+        String query = "SELECT space FROM vehicle WHERE vehicle_id = ?";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setInt(1,veh_id);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        rs.next();
+        int Space = rs.getInt(1);
+        closeDBConnection();
+        return Space;
+    }
+
+    public static String getAddressString(int adress_id) throws SQLException {
+        openDBConnection();
+        String query = "SELECT avenue, street FROM address WHERE address_id = ?";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setInt(1,adress_id);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        rs.next();
+        String Avenue = Integer.toString(rs.getInt(1));
+        String Street = Integer.toString(rs.getInt(2));
+        closeDBConnection();
+        return ""+ Avenue+ ". Avenue/"+Street+". Street";
     }
 
 
