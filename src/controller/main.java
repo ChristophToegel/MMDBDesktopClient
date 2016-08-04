@@ -2,11 +2,9 @@ package controller;
 
 import javax.swing.*;
 
-import log.debug;
 import objects.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by Christoph on 06.07.16.
