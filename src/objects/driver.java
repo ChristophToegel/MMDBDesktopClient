@@ -1,8 +1,11 @@
 package objects;
 
+
 import controller.DBM;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 
 /**
@@ -24,6 +27,10 @@ public class Driver {
     private Location location;
 
 
+
+
+
+
     public Driver(ResultSet r) throws SQLException {
         emp_id = r.getInt(1);
         emp_sign = r.getString(2);
@@ -38,17 +45,6 @@ public class Driver {
         location = DBM.getLocation(location_id);
         vehicle = DBM.getVehicle(vehicle_id);
     }
-
-    public String getLocationText() {
-        return location.toText();
-    }
-
-    public int getVehicleSpace() {
-        return vehicle.getSpace();
-    }
-   public String getVehicleType() {
-       return vehicle.getType();
-   }
 
 
     public String getFirstname(){

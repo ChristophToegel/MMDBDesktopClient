@@ -30,4 +30,9 @@ public class main{
         window.openDriver(driver);
     }
 
+    public static void manager() {
+        window.openManager();
+    }
+
+
 }

@@ -1,11 +1,14 @@
 package controller;
 
+import log.debug;
 import screens.login_driver;
 import screens.login_manager;
 import screens.login_screen;
 import objects.*;
+import screens.manager_assignments;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 
@@ -13,7 +16,7 @@ public class GUI extends JFrame {
 
 
     private JPanel login;
-    private JPanel manager;
+    private JTabbedPane manager_screen;
     private JLayeredPane driver_screen;
     private Boolean check;
 
@@ -31,8 +34,10 @@ public class GUI extends JFrame {
 
     public void openManager(){
         remove(login);
-        manager = new login_manager();
-        add(manager);
+        setSize(900,700);
+        manager_screen = new login_manager();
+        add(manager_screen, BorderLayout.CENTER);
+        debug.printout("open manager");
 
     }
 
@@ -41,7 +46,7 @@ public class GUI extends JFrame {
         setSize(900,700);
         driver_screen = new login_driver(driver);
         add(driver_screen);
-        System.out.print("open objects");
+        debug.printout("open driver");
     }
 
 
