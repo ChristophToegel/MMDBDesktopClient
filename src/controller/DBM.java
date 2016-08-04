@@ -188,6 +188,27 @@ public class DBM {
         return assignments;
     }
 
+    public static ArrayList<Driver> getDriverList() throws SQLException {
+        openDBConnection();
+        ArrayList<Driver> liste = new ArrayList<Driver>();
+        String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
+                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
+                "driver.vehicle_id=vehicle.vehicle_id";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        while(rs.next()) {
+            Vehicle veh = new Vehicle(rs.getInt(5),rs.getString(7),rs.getInt(6));
+            Driver driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
+            liste.add(driver);
+        }
+        closeDBConnection();
+        for(int i=0;i<liste.size();i++) {
+            debug.printout(liste.get(i).getDriver_id()+liste.get(i).getFirstname()+liste.get(i).getLastname()+liste.get(i).getPassword()
+                    +liste.get(i).getVehicle().getType());
+        }
+        return liste;
+    }
 
 
 }
