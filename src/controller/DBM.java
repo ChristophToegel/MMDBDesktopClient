@@ -6,7 +6,6 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 
 import log.debug;
@@ -170,7 +169,7 @@ public class DBM {
     }
 
 
-    public static ArrayList<Assignment> getAllAssignments () throws SQLException {
+    public static ArrayList<Assignment> getAllAssignments() throws SQLException {
         ArrayList<Assignment> assignments=new ArrayList<>();
         openDBConnection();
         String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id";

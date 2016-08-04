@@ -2,19 +2,21 @@ package screens;
 
 import controller.DBM;
 import controller.main;
+import objects.Assignment;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Andi on 04.08.2016.
  */
 public class manager_assignments extends JPanel {
-
     private static final int X_SIGNEDINTEXT = 450;//Start x logintext
     private static final int Y_SIGNEDINTEXT = 0;  //Start y logintext
     private static final int X_FIELDS = 100;
@@ -24,8 +26,20 @@ public class manager_assignments extends JPanel {
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
 
+    ArrayList<Assignment> AssignmentArrayList;
+    DefaultListModel listModel = new DefaultListModel();
+    JList list = new JList(listModel);
 
-    public manager_assignments() {
+
+    JTextField sizeData = new JTextField("SIZE");
+    JTextField dateData = new JTextField("DATE");
+    JTextField getAddressData = new JTextField("GETADDRESS");
+    JTextField destAddressData = new JTextField("DESTADDRESS");
+    JTextField driverData = new JTextField("DRIVER");
+    JTextField statusData = new JTextField("STATUS");
+    JScrollPane listScroll = new JScrollPane(list);
+
+    public manager_assignments(){
 
         this.setLayout(null);
         createInfoSignedIn();
@@ -34,7 +48,6 @@ public class manager_assignments extends JPanel {
         createButtons();
         createList();
     }
-
 
 
     private void createInfoSignedIn() {
@@ -83,12 +96,7 @@ public class manager_assignments extends JPanel {
     }
 
     private void createAssignmentDatafields() {
-        JTextField sizeData = new JTextField("SIZE");
-        JTextField dateData = new JTextField("DATE");
-        JTextField getAddressData = new JTextField("GETADDRESS");
-        JTextField destAddressData = new JTextField("DESTADDRESS");
-        JTextField driverData = new JTextField("DRIVER");
-        JTextField statusData = new JTextField("STATUS");
+
 
         sizeData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         dateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
@@ -96,6 +104,8 @@ public class manager_assignments extends JPanel {
         destAddressData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         driverData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         statusData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        listScroll.setBounds(X_FIELDS+BOX_LENGTH*2+X_GAP,Y_FIELDSSTART,BOX_LENGTH+BOX_LENGTH/2,5*Y_GAP+BOX_HEIGHT);
+
 
         EmptyBorder border = new EmptyBorder(2,5,2,5);
 
@@ -129,6 +139,7 @@ public class manager_assignments extends JPanel {
         add(destAddressData);
         add(driverData);
         add(statusData);
+        add(listScroll);
 
 
 
@@ -143,6 +154,7 @@ public class manager_assignments extends JPanel {
 
             }
         });
+
         JButton assign = new JButton("Auftrag abgeben");
 
         logout.setBackground(Color.LIGHT_GRAY);
@@ -155,9 +167,39 @@ public class manager_assignments extends JPanel {
     }
 
     private void createList() {
-        JPanel list = new JPanel();
-        list.setBounds(X_FIELDS+BOX_LENGTH*2+X_GAP,Y_FIELDSSTART,BOX_LENGTH+BOX_LENGTH/2,5*Y_GAP+BOX_HEIGHT);
         list.setBackground(Color.lightGray);
-        add(list);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.VERTICAL);
+        fillList();
+        list.setSelectedIndex(0);
+        //list.addListSelectionListener(this);
+        list.setVisibleRowCount(-1);
+
+    }
+
+    private void fillList()  {
+
+        try {
+            AssignmentArrayList = DBM.getAllAssignments();
+            for (Assignment a : AssignmentArrayList)
+                listModel.addElement(a.getAss_id());
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+    public void valueChanged(ListSelectionEvent e){
+        if(e.getValueIsAdjusting() == false){
+            if (list.getSelectedIndex() == -1) {
+                //TODO nothing
+            }else{
+                sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
+
+            }
+        }
     }
 }
