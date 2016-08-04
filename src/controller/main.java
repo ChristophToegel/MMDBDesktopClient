@@ -4,10 +4,10 @@ import javax.swing.*;
 import objects.*;
 
 import java.sql.SQLException;
-
 /**
  * Created by Christoph on 06.07.16.
  */
+
 public class main{
 
     private static GUI window;
@@ -32,6 +32,10 @@ public class main{
 
     public static void manager() {
         window.openManager();
+    }
+
+    public static void logout() {
+        window.openLogin();
     }
 
 

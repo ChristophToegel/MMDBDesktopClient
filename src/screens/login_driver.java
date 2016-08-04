@@ -1,6 +1,7 @@
 package screens;
 
 import controller.DBM;
+import controller.main;
 import objects.Assignment;
 import objects.Driver;
 import objects.Location;
@@ -9,6 +10,8 @@ import objects.Vehicle;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 /**
@@ -84,7 +87,7 @@ public class login_driver extends JLayeredPane {
         JLabel destaddressData = new JLabel(ass.getAddress_delivery());
         JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
         JLabel loggedInAsData = new JLabel(driver.getEmp_sign());
-        JLabel curAssignmentData = new JLabel("ID 7590");
+        JLabel curAssignmentData = new JLabel("ID "+ ass.getAss_id());
 
         sizeData.setBounds(LEFT_ALLIGN_2, DATA_TOP, BOX_LENGTH,BOX_HEIGHT);
         datecreatedData.setBounds(LEFT_ALLIGN_2, DATA_TOP+DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
@@ -138,6 +141,13 @@ public class login_driver extends JLayeredPane {
 
         logoutB.setBackground(Color.lightGray);
         logoutB.setBounds(780,20, 100,50);
+        logoutB.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               main.logout();
+
+            }
+        });
         acceptB.setBackground(Color.lightGray);
         acceptB.setBounds(200,275,100,50);
         deliveredB.setBackground(Color.lightGray);

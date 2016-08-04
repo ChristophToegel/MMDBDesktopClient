@@ -1,8 +1,12 @@
 package screens;
 
+import controller.main;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by Andi on 04.08.2016.
@@ -132,6 +136,13 @@ public class manager_drivers extends JPanel {
 
     private void createButtons() {
         JButton logout = new JButton("Logout");
+        logout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                main.logout();
+
+            }
+        });
         JButton create = new JButton("Fahrer eintragen");
 
         logout.setBackground(Color.LIGHT_GRAY);

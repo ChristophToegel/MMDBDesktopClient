@@ -1,16 +1,13 @@
 package objects;
 
-
 import controller.DBM;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 
 /**
  * Created by Andi on 02.08.2016.
  */
+
 public class Driver {
 
     private int emp_id;
@@ -23,13 +20,6 @@ public class Driver {
     private int vehicle_id;
     private int super_manager;
     private int engaged;
-    private Vehicle vehicle;
-    private Location location;
-
-
-
-
-
 
     public Driver(ResultSet r) throws SQLException {
         emp_id = r.getInt(1);
@@ -42,8 +32,6 @@ public class Driver {
         vehicle_id = r.getInt(9);
         super_manager = r.getInt(10);
         engaged = r.getInt(11);
-        location = DBM.getLocation(location_id);
-        vehicle = DBM.getVehicle(vehicle_id);
     }
 
 

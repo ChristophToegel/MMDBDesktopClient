@@ -5,7 +5,6 @@ import screens.login_driver;
 import screens.login_manager;
 import screens.login_screen;
 import objects.*;
-import screens.manager_assignments;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +27,13 @@ public class GUI extends JFrame {
 
     public void openLogin(){
         setSize(400,400);
+        if(manager_screen!=null){
+            remove(manager_screen);
+        }
+        if(driver_screen!=null){
+            remove(driver_screen);
+        }
+
         login = new login_screen();//login_screen
         add(login); //login_screen wird angezeigt
     }
