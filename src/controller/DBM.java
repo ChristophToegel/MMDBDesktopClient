@@ -173,7 +173,8 @@ public class DBM {
     public static ArrayList<Assignment> getAllAssignments () throws SQLException {
         ArrayList<Assignment> assignments=new ArrayList<>();
         openDBConnection();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id";
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON" +
+                " a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.executeQuery();
         ResultSet rs = p.getResultSet();

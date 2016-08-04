@@ -33,7 +33,7 @@ public class main{
         window.openDriver(driver);
     }
 
-    public static void manager() {
+    public static void manager() throws SQLException {
         window.openManager();
     }
 
