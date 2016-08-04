@@ -6,6 +6,7 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 
 import log.debug;
@@ -147,27 +148,47 @@ public class DBM {
         return assignment;
     }
 
-    public static ArrayList<Driver> getDriverList() throws SQLException {
+    public static ArrayList<Vehicle> getAllVehicles() throws SQLException{
+        ArrayList<Vehicle> vehicles= new ArrayList<>();
         openDBConnection();
-        ArrayList<Driver> liste = new ArrayList<Driver>();
-        String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
-                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
-                "driver.vehicle_id=vehicle.vehicle_id";
+        String query = "SELECT * FROM vehicle";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
         ps.executeQuery();
         ResultSet rs = ps.getResultSet();
-        while(rs.next()) {
-            Vehicle veh = new Vehicle(rs.getInt(5),rs.getString(7),rs.getInt(6));
-            Driver driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
-            liste.add(driver);
+        while (rs.next()) {
+            int vehicle_id= rs.getInt(1);
+            int space = rs.getInt(2);
+            String type = rs.getString(3);
+            Vehicle aktvehicle=new Vehicle(vehicle_id, type ,space);
+            vehicles.add(aktvehicle);
         }
+
         closeDBConnection();
-        for(int i=0;i<liste.size();i++) {
-            debug.printout(liste.get(i).getDriver_id()+liste.get(i).getFirstname()+liste.get(i).getLastname()+liste.get(i).getPassword()
-            +liste.get(i).getVehicle().getType());
-        }
-        return liste;
+        log.debug.printout(vehicles.size()+"Fahrzeuge");
+        return vehicles;
+
     }
+
+
+    public static ArrayList<Assignment> getAllAssignments () throws SQLException {
+        ArrayList<Assignment> assignments=new ArrayList<>();
+        openDBConnection();
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+
+        while (rs.next()){
+            Assignment aktassignment = new Assignment(rs);
+            assignments.add(aktassignment);
+        }
+        log.debug.printout(assignments.size());
+        closeDBConnection();
+        log.debug.printout(assignments.size()+"Aufträge");
+        return assignments;
+    }
+
+
 
 }
 

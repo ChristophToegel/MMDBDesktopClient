@@ -1,5 +1,6 @@
 package screens;
 
+import controller.DBM;
 import controller.main;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 /**
  * Created by Andi on 04.08.2016.
