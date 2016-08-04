@@ -79,12 +79,12 @@ public class manager_drivers extends JPanel {
     }
 
     private void createAssignmentDatafields() {
-        JLabel preName = new JLabel("VORNAME");
-        JLabel surName = new JLabel("NACHNAME");
-        JLabel vehicle = new JLabel("FAHRZEUG");
-        JLabel password = new JLabel("PASSWORT");
-        JLabel driverSince = new JLabel("FAHRER SEIT");
-        JLabel driverID = new JLabel("FAHRERID");
+        JTextField preName = new JTextField("VORNAME");
+        JTextField surName = new JTextField("NACHNAME");
+        JTextField vehicle = new JTextField("FAHRZEUG");
+        JTextField password = new JTextField("PASSWORT");
+        JTextField driverSince = new JTextField("FAHRER SEIT");
+        JTextField driverID = new JTextField("FAHRERID");
 
         preName.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         surName.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);

@@ -77,12 +77,12 @@ public class manager_assignments extends JPanel {
     }
 
     private void createAssignmentDatafields() {
-        JLabel sizeData = new JLabel("SIZE");
-        JLabel dateData = new JLabel("DATE");
-        JLabel getAddressData = new JLabel("GETADDRESS");
-        JLabel destAddressData = new JLabel("DESTADDRESS");
-        JLabel driverData = new JLabel("DRIVER");
-        JLabel statusData = new JLabel("STATUS");
+        JTextField sizeData = new JTextField("SIZE");
+        JTextField dateData = new JTextField("DATE");
+        JTextField getAddressData = new JTextField("GETADDRESS");
+        JTextField destAddressData = new JTextField("DESTADDRESS");
+        JTextField driverData = new JTextField("DRIVER");
+        JTextField statusData = new JTextField("STATUS");
 
         sizeData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         dateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);

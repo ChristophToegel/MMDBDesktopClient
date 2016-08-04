@@ -69,8 +69,8 @@ public class manager_vehicles extends JPanel {
     }
 
     private void createAssignmentDatafields() {
-        JLabel type = new JLabel("TYP");
-        JLabel size = new JLabel("GRÖ?E");
+        JTextField type = new JTextField("TYP");
+        JTextField size = new JTextField("GRÖ?E");
 
         type.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         size.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
