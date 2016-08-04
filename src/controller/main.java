@@ -1,9 +1,13 @@
 package controller;
 
 import javax.swing.*;
+
+import log.debug;
 import objects.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  * Created by Christoph on 06.07.16.
  */
@@ -14,9 +18,8 @@ public class main{
 
 
 
-    public static void main(String args[]){
+    public static void main(String args[])  {
         initGui();
-
     }
 
     private static void initGui() {

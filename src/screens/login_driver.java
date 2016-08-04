@@ -38,7 +38,6 @@ public class login_driver extends JLayeredPane {
         location =DBM.getLocation(driver.getLocation_id());
         vehicle = DBM.getVehicle(driver.getVehicle_id());
         ass = DBM.getAssignmentData(driver.getDriver_id());
-
         createElements();
     }
 

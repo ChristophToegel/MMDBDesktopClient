@@ -18,6 +18,8 @@ public class Vehicle {
         return vehicle_id;
     }
 
+
+
     public void setVehicle_id(int vehicle_id) {
         this.vehicle_id = vehicle_id;
     }
