@@ -38,10 +38,10 @@ public class GUI extends JFrame {
         add(login); //login_screen wird angezeigt
     }
 
-    public void openManager() throws SQLException{
+    public void openManager(Manager manager) throws SQLException{
         remove(login);
         setSize(900,700);
-        manager_screen = new login_manager();
+        manager_screen = new login_manager(manager);
         add(manager_screen, BorderLayout.CENTER);
         debug.printout("open manager");
 

@@ -6,6 +6,8 @@ import controller.DBM;
 import objects.Assignment;
 import controller.DBM;
 import controller.main;
+import objects.Manager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -31,6 +33,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private static final int X_GAP = 35;
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
+    private Manager manager;
 
     ArrayList<Assignment> AssignmentArrayList;
     DefaultListModel listModel = new DefaultListModel();
@@ -44,7 +47,8 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     JScrollPane listScroll = new JScrollPane(list);
 
 
-    public manager_assignments(){
+    public manager_assignments(Manager manager){
+        this.manager=manager;
         this.setLayout(null);
         createInfoSignedIn();
         createAssignmentTexts();
@@ -55,7 +59,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
-        JLabel signedInAs = new JLabel("Insert....");
+        JLabel signedInAs = new JLabel(manager.getFirstname()+"  "+manager.getLastname());
         //TODO DBM.getManager Data genau wie Driverdata
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);

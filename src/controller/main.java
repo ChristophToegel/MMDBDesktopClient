@@ -31,8 +31,8 @@ public class main{
         window.openDriver(driver);
     }
 
-    public static void manager() throws SQLException {
-        window.openManager();
+    public static void manager(Manager manager) throws SQLException {
+        window.openManager(manager);
     }
 
     public static void logout() {

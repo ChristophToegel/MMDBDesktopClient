@@ -50,7 +50,9 @@ public class login_screen extends JPanel {
                         if(DBM.DriverOrManager(username.getText())) {
                             Driver driver = DBM.getDriverData(username.getText());
 
-                        main.driver(driver);} else { main.manager();
+                        main.driver(driver);} else {
+                            Manager manager = DBM.getManagerData(username.getText());
+                           main.manager(manager);
                         }
                     } catch (SQLException e1) {
                         e1.printStackTrace();

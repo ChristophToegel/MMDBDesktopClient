@@ -97,6 +97,22 @@ public class DBM {
         return driver;
     }
 
+    public static Manager getManagerData (String name) throws SQLException {
+        Manager manager=null;
+        openDBConnection();
+        String query = "SELECT * FROM employee WHERE emp_sign=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, name);
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+        if(rs.first()) {
+            manager= new Manager(rs);
+            closeDBConnection();
+        } else {
+            closeDBConnection();}
+        log.debug.printout(manager.getEmp_sign());
+        return manager;
+    }
 
     public static Location getLocation (int adress_id) throws SQLException {
         openDBConnection();
