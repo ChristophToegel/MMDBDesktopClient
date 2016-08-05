@@ -4,10 +4,8 @@ package screens;
 
 import controller.DBM;
 import objects.Assignment;
-
 import controller.DBM;
 import controller.main;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -15,15 +13,14 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.util.ArrayList;
-
 import java.sql.SQLException;
 
 
 /**
  * Created by Andi on 04.08.2016.
  */
+
 public class manager_assignments extends JPanel implements ListSelectionListener{
 
     private static final int X_SIGNEDINTEXT = 450;//Start x logintext
@@ -38,8 +35,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     ArrayList<Assignment> AssignmentArrayList;
     DefaultListModel listModel = new DefaultListModel();
     JList list = new JList(listModel);
-
-
     JTextField sizeData = new JTextField("SIZE");
     JTextField dateData = new JTextField("DATE");
     JTextField getAddressData = new JTextField("GETADDRESS");
@@ -49,9 +44,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     JScrollPane listScroll = new JScrollPane(list);
 
 
-    public manager_assignments()  {
-
-
+    public manager_assignments(){
         this.setLayout(null);
         createInfoSignedIn();
         createAssignmentTexts();
@@ -60,12 +53,10 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         createList();
     }
 
-
-
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
         JLabel signedInAs = new JLabel("Insert....");
-
+        //TODO DBM.getManager Data genau wie Driverdata
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
 
@@ -153,8 +144,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         add(statusData);
         add(listScroll);
 
-
-
     }
 
     private void createButtons() {
@@ -198,6 +187,10 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         } catch(SQLException e){
             e.printStackTrace();
         }
+
+
+
+
     }
 
     public void valueChanged(ListSelectionEvent e){
@@ -206,6 +199,12 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 //TODO nothing
             }else{
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
+                dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_accepted()));
+                getAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_pickup()));
+                destAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_delivery()));
+                //TODO get driver via driver_id
+                driverData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id()));
+                statusData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getStatus()));
             }
         }
     }

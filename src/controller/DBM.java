@@ -40,7 +40,6 @@ public class DBM {
 
     public static boolean getLogin (String name, char[] passwordchar) throws SQLException{
         openDBConnection();
-
         PreparedStatement pstmt = null;
         boolean check=false;
 
@@ -86,15 +85,15 @@ public class DBM {
         openDBConnection();
         String query = "SELECT * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
-        p.setString(1,name);
+        p.setString(1, name);
         p.executeQuery();
         ResultSet rs = p.getResultSet();
-
         if(rs.first()) {
             driver= new Driver(rs);
             closeDBConnection();
-        } else {
+         } else {
             closeDBConnection();}
+        log.debug.printout(driver.getEmp_sign());
         return driver;
     }
 
@@ -138,7 +137,6 @@ public class DBM {
         p.setString(1, String.valueOf(driver_id));
         p.executeQuery();
         ResultSet rs = p.getResultSet();
-
         if(rs.first()) {
             assignment = new Assignment(rs);
             closeDBConnection();
