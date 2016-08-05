@@ -21,6 +21,7 @@ public class Assignment {
     private int street_pickup;
     private int avenue_pickup;
     private String address_delivery;
+    private int address_delivery_id;
     private int street_delivery;
     private int avenue_delivery;
     private Date date_created;
@@ -33,13 +34,12 @@ public class Assignment {
         driver_id = r.getInt(2);
         size = r.getInt(4);
         Status = r.getString(5);
-
+        address_delivery_id=r.getInt(7);
         date_created =r.getDate(8);
         date_created =r.getDate(8);
         date_accepted = r.getDate(9);
         date_delievered = r.getDate(10);
         date_desired = r.getDate(11);
-
             street_delivery = r.getInt(13);
             avenue_delivery = r.getInt(14);
             street_pickup = r.getInt(16);
@@ -85,6 +85,9 @@ public class Assignment {
         return address_delivery;
     }
 
+    public int getAddress_delivery_id(){
+        return address_delivery_id;
+    }
     public void setAddress_delivery(String address_delivery) {
         this.address_delivery = address_delivery;
     }

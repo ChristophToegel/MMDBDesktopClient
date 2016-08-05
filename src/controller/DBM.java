@@ -76,7 +76,7 @@ public class DBM {
 
         if(rs.first()) {
             closeDBConnection(); return true;} else {
-            closeDBConnection();return false;}
+            closeDBConnection(); return false;}
 
     }
 
@@ -96,6 +96,27 @@ public class DBM {
         log.debug.printout(driver.getEmp_sign());
         return driver;
     }
+
+    public static void updateDriverPos(int delivery_id, int driver_id) throws SQLException {
+        openDBConnection();
+        String query = "UPDATE driver SET location_id=? WHERE driver_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, String.valueOf(delivery_id));
+        p.setString(2, String.valueOf(driver_id));
+        p.executeUpdate();
+        closeDBConnection();
+    }
+
+    public static void updateAssStatus(String status, int assignment_id) throws SQLException {
+        openDBConnection();
+        String query = "UPDATE assignment SET status=? WHERE assignment_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, status);
+        p.setString(2, String.valueOf(assignment_id));
+        p.executeUpdate();
+        closeDBConnection();
+    }
+
 
     public static Manager getManagerData (String name) throws SQLException {
         Manager manager=null;
@@ -141,14 +162,13 @@ public class DBM {
         String type = rs.getString(2);
         closeDBConnection();
         return new Vehicle(vehicle_id, type, space);
-
     }
 
 
     public static Assignment getAssignmentData (int driver_id) throws SQLException {
         Assignment assignment=null;
         openDBConnection();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE driver_id=?";
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE driver_id=? AND status='open'";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.setString(1, String.valueOf(driver_id));
         p.executeQuery();

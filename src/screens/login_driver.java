@@ -37,7 +37,6 @@ public class login_driver extends JLayeredPane {
     private JLabel getaddressData = new JLabel();
     private JLabel destaddressData = new JLabel();
     private JLabel finaldateData = new JLabel();
-    private JLabel loggedInAsData = new JLabel();
     private JLabel curAssignmentData = new JLabel();
 
 
@@ -93,13 +92,7 @@ public class login_driver extends JLayeredPane {
         loggedInAsData.setForeground(Color.GREEN);
         add(loggedInAsData);
 
-        if(ass!=null) {
-            JLabel sizeData = new JLabel(String.valueOf(ass.getSize()));
-            JLabel datecreatedData = new JLabel(String.valueOf(ass.getDate_created()));
-            JLabel getaddressData = new JLabel(ass.getAddress_pickup());
-            JLabel destaddressData = new JLabel(ass.getAddress_delivery());
-            JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
-            JLabel curAssignmentData = new JLabel("ID "+ ass.getAss_id());}
+        updateAssData();
 
         sizeData.setBounds(LEFT_ALLIGN_2, DATA_TOP, BOX_LENGTH,BOX_HEIGHT);
         datecreatedData.setBounds(LEFT_ALLIGN_2, DATA_TOP+DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
@@ -131,8 +124,6 @@ public class login_driver extends JLayeredPane {
         finaldateData.setBorder(border);
         finaldateData.setBackground(Color.white);
 
-
-
         curAssignmentData.setFont(new Font(curAssignmentData.getFont().getName(), Font.PLAIN, curAssignmentData.getFont().getSize()*2));
 
         add(sizeData);
@@ -157,7 +148,6 @@ public class login_driver extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                main.logout();
-
             }
         });
         acceptB.setBackground(Color.lightGray);
@@ -165,9 +155,13 @@ public class login_driver extends JLayeredPane {
         acceptB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //TODO
+                try {
+                    DBM.updateAssStatus("executing",ass.getAss_id());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 deliveredB.setVisible(true);
-
+                acceptB.setVisible(false);
             }
         });
         deliveredB.setVisible(false);
@@ -176,14 +170,43 @@ public class login_driver extends JLayeredPane {
         deliveredB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //TODO
+                try {
+                    DBM.updateDriverPos(ass.getAddress_delivery_id(),driver.getDriver_id());
+                    DBM.updateAssStatus("finished",ass.getAss_id());
+                    ass=DBM.getAssignmentData(driver.getDriver_id());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                updateAssData();
                 deliveredB.setVisible(false);
+                acceptB.setVisible(true);
+
             }
         });
 
         add(logoutB);
         add(acceptB);
         add(deliveredB);
+    }
+
+    //updates Textfields
+    private void updateAssData(){
+        if(ass!=null) {
+            sizeData.setText(String.valueOf(ass.getSize()));
+            datecreatedData.setText(String.valueOf(ass.getDate_created()));
+            getaddressData.setText(ass.getAddress_pickup());
+            destaddressData.setText(ass.getAddress_delivery());
+            finaldateData.setText(String.valueOf(ass.getDate_desired()));
+            curAssignmentData.setText("ID " + ass.getAss_id());
+        }else{
+            //TODO Button aktualisieren??? wenn kein Auftrag mehr vorhanden ist
+            sizeData.setText("-----");
+            datecreatedData.setText("----");
+            getaddressData.setText("-----");
+            destaddressData.setText("-----");
+            finaldateData.setText("-----");
+            curAssignmentData.setText("ID ");
+        }
     }
 
     //All Data for the Driver
