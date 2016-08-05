@@ -88,6 +88,10 @@ public class login_driver extends JLayeredPane {
     }
     //These Lables change their TEXT based on the DB
     public void createDataFields(){
+        JLabel loggedInAsData = new JLabel(driver.getFirstname()+" "+driver.getLastname());
+        loggedInAsData.setBounds(635, 25, BOX_LENGTH,BOX_HEIGHT);
+        loggedInAsData.setForeground(Color.GREEN);
+        add(loggedInAsData);
 
         if(ass!=null) {
             JLabel sizeData = new JLabel(String.valueOf(ass.getSize()));
@@ -95,7 +99,6 @@ public class login_driver extends JLayeredPane {
             JLabel getaddressData = new JLabel(ass.getAddress_pickup());
             JLabel destaddressData = new JLabel(ass.getAddress_delivery());
             JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
-            JLabel loggedInAsData = new JLabel(driver.getEmp_sign());
             JLabel curAssignmentData = new JLabel("ID "+ ass.getAss_id());}
 
         sizeData.setBounds(LEFT_ALLIGN_2, DATA_TOP, BOX_LENGTH,BOX_HEIGHT);
@@ -103,7 +106,7 @@ public class login_driver extends JLayeredPane {
         getaddressData.setBounds(LEFT_ALLIGN_2, DATA_TOP+2*DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
         destaddressData.setBounds(LEFT_ALLIGN_2, DATA_TOP+3*DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
         finaldateData.setBounds(LEFT_ALLIGN_2, DATA_TOP+4*DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
-        loggedInAsData.setBounds(635, 25, BOX_LENGTH,BOX_HEIGHT);
+
         curAssignmentData.setBounds(350, 25, BOX_LENGTH,BOX_HEIGHT);
 
         EmptyBorder border = new EmptyBorder(2,5,2,5);
@@ -128,7 +131,7 @@ public class login_driver extends JLayeredPane {
         finaldateData.setBorder(border);
         finaldateData.setBackground(Color.white);
 
-        loggedInAsData.setForeground(Color.GREEN);
+
 
         curAssignmentData.setFont(new Font(curAssignmentData.getFont().getName(), Font.PLAIN, curAssignmentData.getFont().getSize()*2));
 
@@ -137,7 +140,7 @@ public class login_driver extends JLayeredPane {
         add(getaddressData);
         add(destaddressData);
         add(finaldateData);
-        add(loggedInAsData);
+
         add(curAssignmentData);
     }
 
@@ -159,8 +162,24 @@ public class login_driver extends JLayeredPane {
         });
         acceptB.setBackground(Color.lightGray);
         acceptB.setBounds(200,275,100,50);
+        acceptB.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //TODO
+                deliveredB.setVisible(true);
+
+            }
+        });
+        deliveredB.setVisible(false);
         deliveredB.setBackground(Color.lightGray);
         deliveredB.setBounds(200, 325, 100,50);
+        deliveredB.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //TODO
+                deliveredB.setVisible(false);
+            }
+        });
 
         add(logoutB);
         add(acceptB);
