@@ -49,7 +49,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     JScrollPane listScroll = new JScrollPane(list);
 
 
-    public manager_assignments() throws SQLException {
+    public manager_assignments()  {
 
 
         this.setLayout(null);
@@ -198,10 +198,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         } catch(SQLException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
     public void valueChanged(ListSelectionEvent e){
@@ -210,7 +206,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 //TODO nothing
             }else{
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
-
             }
         }
     }

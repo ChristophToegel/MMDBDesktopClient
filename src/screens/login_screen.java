@@ -48,7 +48,7 @@ public class login_screen extends JPanel {
                 if(pwcheck){
                     try {
                         if(DBM.DriverOrManager(username.getText())) {
-                                Driver driver = DBM.getDriverData("123");
+                                Driver driver = DBM.getDriverData(username.getText());
 
                         main.driver(driver);} else { main.manager();
                         }

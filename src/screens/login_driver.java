@@ -32,6 +32,14 @@ public class login_driver extends JLayeredPane {
     private Driver driver;
     private Assignment ass;
 
+    private JLabel sizeData = new JLabel();
+    private JLabel datecreatedData = new JLabel();
+    private JLabel getaddressData = new JLabel();
+    private JLabel destaddressData = new JLabel();
+    private JLabel finaldateData = new JLabel();
+    private JLabel loggedInAsData = new JLabel();
+    private JLabel curAssignmentData = new JLabel();
+
 
     public login_driver(Driver driver) throws SQLException{
         this.driver=driver;
@@ -80,13 +88,15 @@ public class login_driver extends JLayeredPane {
     }
     //These Lables change their TEXT based on the DB
     public void createDataFields(){
-        JLabel sizeData = new JLabel(String.valueOf(ass.getSize()));
-        JLabel datecreatedData = new JLabel(String.valueOf(ass.getDate_created()));
-        JLabel getaddressData = new JLabel(ass.getAddress_pickup());
-        JLabel destaddressData = new JLabel(ass.getAddress_delivery());
-        JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
-        JLabel loggedInAsData = new JLabel(driver.getEmp_sign());
-        JLabel curAssignmentData = new JLabel("ID "+ ass.getAss_id());
+
+        if(ass!=null) {
+            JLabel sizeData = new JLabel(String.valueOf(ass.getSize()));
+            JLabel datecreatedData = new JLabel(String.valueOf(ass.getDate_created()));
+            JLabel getaddressData = new JLabel(ass.getAddress_pickup());
+            JLabel destaddressData = new JLabel(ass.getAddress_delivery());
+            JLabel finaldateData = new JLabel(String.valueOf(ass.getDate_desired()));
+            JLabel loggedInAsData = new JLabel(driver.getEmp_sign());
+            JLabel curAssignmentData = new JLabel("ID "+ ass.getAss_id());}
 
         sizeData.setBounds(LEFT_ALLIGN_2, DATA_TOP, BOX_LENGTH,BOX_HEIGHT);
         datecreatedData.setBounds(LEFT_ALLIGN_2, DATA_TOP+DATA_GAP,BOX_LENGTH, BOX_HEIGHT);
