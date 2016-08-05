@@ -3,6 +3,7 @@ package screens;
 import controller.DBM;
 import controller.main;
 import objects.Driver;
+import objects.Manager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -27,6 +28,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
     private static final int X_GAP = 35;
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
+    private Manager manager;
 
     ArrayList<Driver> DriverArrayList;
     DefaultListModel listModel = new DefaultListModel();
@@ -43,8 +45,8 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
 
 
-    public manager_drivers() {
-
+    public manager_drivers(Manager manager) {
+        this.manager=manager;
         this.setLayout(null);
         createInfoSignedIn();
         createAssignmentTexts();
@@ -57,7 +59,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
-        JLabel signedInAs = new JLabel("Insert....");//TODO
+        JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());
 
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         signedInAs.setBounds(635,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
