@@ -18,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.sql.SQLException;
-import java.util.Calendar;
 
 
 /**
@@ -174,8 +173,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 java.util.Date utilDate = new java.util.Date();
                 Date date_created = new java.sql.Date(utilDate.getTime());
                 try {
-                    //manger.getManagerID()
-                    DBM.InsertAssignment(2,größe,status,add_get,add_dest,date_created,date_desired);
+                    DBM.InsertAssignment(manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

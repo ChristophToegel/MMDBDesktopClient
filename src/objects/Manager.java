@@ -8,10 +8,13 @@ import java.sql.SQLException;
  */
 public class Manager {
 
+    private int manager_id;
     private int emp_id;
     private int emp_sign;
     private String firstname;
     private String lastname;
+
+
 
 
     public Manager (ResultSet result) throws SQLException {
@@ -19,9 +22,12 @@ public class Manager {
         emp_sign = result.getInt(2);
         firstname = result.getString(3);
         lastname = result.getString(4);
-
+        manager_id= result.getInt(6);
     }
 
+    public int getManager_id() {
+        return manager_id;
+    }
     public int getEmp_id() {
         return emp_id;
     }

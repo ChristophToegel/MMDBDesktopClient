@@ -122,7 +122,7 @@ public class DBM {
     public static Manager getManagerData (String name) throws SQLException {
         Manager manager=null;
         openDBConnection();
-        String query = "SELECT * FROM employee WHERE emp_sign=?";
+        String query = "SELECT * FROM employee e INNER JOIN manager m on e.emp_id=m.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.setString(1, name);
         p.executeQuery();
