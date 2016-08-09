@@ -155,7 +155,13 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
             }
         });
-        JButton create = new JButton("Fahrer eintragen"); //TODO
+        JButton create = new JButton("Fahrer eintragen");
+        create.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+             DBM.insertDriver(manager,firstNameData.getText(),lastNameData.getText(),vehicleData.getText(),passwordData.getText());
+            }
+        });//TODO
 
         JButton clearFields = new JButton("Felder leeren");
         clearFields.addMouseListener(new MouseAdapter() {

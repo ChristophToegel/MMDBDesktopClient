@@ -307,5 +307,49 @@ public class DBM {
         ps.executeUpdate();
         closeDBConnection();
     }
+
+    public static void insertDriver (Manager manager, String prename, String surname,String vehType, String password) {
+
+        try {
+            java.util.Date utilDate = new java.util.Date();
+            Date date_created = new java.sql.Date(utilDate.getTime());
+            debug.printout(date_created);
+            openDBConnection();
+            String getVehicleID = "SELECT vehicle_id FROM vehicle WHERE model =?;";
+            PreparedStatement p1 = (PreparedStatement) conn.prepareStatement(getVehicleID);
+            p1.setString(1,vehType);
+            p1.executeQuery();
+            ResultSet VehicleID = p1.getResultSet();
+            int VehiclID;
+            if(VehicleID.next()) {VehiclID=VehicleID.getInt(1);} else {
+                //TODO text "geht nicht"
+                return;}
+            String insertEmployee = "INSERT INTO employee (firstname, lastname, password) VALUES('"+prename+"'"+","+"'"+surname+"'"+","+"'"+password+"');";
+            debug.printout(insertEmployee);
+            PreparedStatement insert = (PreparedStatement) conn.prepareStatement(insertEmployee);
+            insert.executeUpdate();
+            debug.printout("EMPLOYEE INSERTED");
+            String getEmpId = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1 ";
+            PreparedStatement ps = (PreparedStatement) conn.prepareStatement(getEmpId);
+            ps.executeQuery();
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+            int employeeID = rs.getInt(1);
+            String updateEmployee = "UPDATE employee SET emp_sign= "+"'"+employeeID+"'"+"WHERE emp_id="+employeeID+";";
+            PreparedStatement p = (PreparedStatement) conn.prepareStatement(updateEmployee);
+            p.executeUpdate();
+            debug.printout("EMPLOYEE UPDATED");
+            String insertDriver = "INSERT INTO driver (emp_id,location_id, vehicle_id, super_manager,engaged, driverSince)" +
+                    " VALUES(" + employeeID+",1,"+ VehiclID+",1"+",1,?);";;
+            PreparedStatement updateFahrer = (PreparedStatement) conn.prepareStatement(insertDriver);
+            updateFahrer.setString(1, String.valueOf(date_created));
+            updateFahrer.executeUpdate();
+            debug.printout("DRIVER INSERTED");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
 
