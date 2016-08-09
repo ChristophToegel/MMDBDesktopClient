@@ -4,7 +4,6 @@ package screens;
 
 import controller.DBM;
 import log.debug;
-
 import objects.Assignment;
 import controller.main;
 import objects.Manager;
