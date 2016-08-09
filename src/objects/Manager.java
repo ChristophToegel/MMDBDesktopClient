@@ -25,6 +25,7 @@ public class Manager {
         manager_id= result.getInt(6);
     }
 
+
     public int getManager_id() {
         return manager_id;
     }
