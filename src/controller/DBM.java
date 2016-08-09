@@ -82,7 +82,7 @@ public class DBM {
     }
 
     public static Driver getDriverData (String name) throws SQLException {
-        Driver driver=null;
+        Driver Driver =null;
         openDBConnection();
         String query = "SELECT * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
@@ -90,12 +90,12 @@ public class DBM {
         p.executeQuery();
         ResultSet rs = p.getResultSet();
         if(rs.first()) {
-            driver= new Driver(rs);
+            Driver = new Driver(rs);
             closeDBConnection();
          } else {
             closeDBConnection();}
-        log.debug.printout(driver.getEmp_sign());
-        return driver;
+        log.debug.printout(Driver.getEmp_sign());
+        return Driver;
     }
 
     public static void updateDriverPos(int delivery_id, int driver_id) throws SQLException {
@@ -234,8 +234,8 @@ public class DBM {
         ResultSet rs = ps.getResultSet();
         while(rs.next()) {
             Vehicle veh = new Vehicle(rs.getInt(5),rs.getString(7),rs.getInt(6));
-            Driver driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
-            liste.add(driver);
+            Driver Driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
+            liste.add(Driver);
         }
         closeDBConnection();
         for(int i=0;i<liste.size();i++) {
@@ -245,6 +245,28 @@ public class DBM {
         return liste;
     }
 
+    public static ArrayList<Driver> getOpenDrivers() throws SQLException {
+        openDBConnection();
+        ArrayList<Driver> list = new ArrayList<Driver>();
+        String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
+                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
+                "driver.vehicle_id=vehicle.vehicle_id WHERE driver.status = 1" ;
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        while(rs.next()){
+            Vehicle veh = new Vehicle(rs.getInt(5), rs.getString(7), rs.getInt(6));
+            Driver d = new Driver(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), veh);
+            list.add(d);
+
+        }
+        closeDBConnection();
+        for(int i = 0; i<list.size(); i++){
+            debug.printout("OpenDriver Liste " + list.get(i).getDriver_id() + list.get(i).getFirstname() + list.get(i).getLastname() + list.get(i).getPassword()
+                    + list.get(i).getVehicle().getType());
+        }
+    return list;
+    }
 
     public static void insertVehicle(String typ, int größe)  throws SQLException {
         openDBConnection();

@@ -47,10 +47,10 @@ public class GUI extends JFrame {
 
     }
 
-    public void openDriver(Driver driver) throws SQLException{
+    public void openDriver(Driver Driver) throws SQLException{
         remove(login);
         setSize(900,700);
-        driver_screen = new login_driver(driver);
+        driver_screen = new login_driver(Driver);
         add(driver_screen);
         debug.printout("open driver");
     }
