@@ -16,7 +16,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
-
 /**
  * Created by Andi on 04.08.2016.
  */
@@ -63,7 +62,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         //TODO DBM.getManager Data genau wie Driverdata
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
-
         add(signedInText);
         add(signedInAs);
 

@@ -160,9 +160,10 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         create.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
              DBM.insertDriver(manager,firstNameData.getText(),lastNameData.getText(),vehicleData.getText(),passwordData.getText());
             }
-        });//TODO
+        }); //TODO
 
         JButton clearFields = new JButton("Felder leeren");
         clearFields.addMouseListener(new MouseAdapter() {

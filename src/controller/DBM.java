@@ -372,5 +372,16 @@ public class DBM {
         p.executeUpdate();
         closeDBConnection();
     }
+
+    public static void updateVehicle(int vehicleId, String typ, int size) throws SQLException {
+        openDBConnection();
+        String query = "UPDATE vehicle SET model=?, space=?WHERE vehicle_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, typ);
+        p.setString(2, String.valueOf(size));
+        p.setString(3, String.valueOf(vehicleId));
+        p.executeUpdate();
+        closeDBConnection();
+    }
 }
 

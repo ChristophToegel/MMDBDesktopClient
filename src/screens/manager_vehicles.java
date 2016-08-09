@@ -120,14 +120,26 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
         create.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
+
+
                    String typ=type.getText();
                     int größe=Integer.parseInt(size.getText());
-                    DBM.insertVehicle(typ,größe);
-                    type.setText("");
-                    size.setText("");
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    if(list.isSelectionEmpty()){
+                        try {  DBM.insertVehicle(typ,größe);
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        type.setText("");
+                        size.setText("");}
+                else{
+                        try {
+                            DBM.updateVehicle(VehicleArrayList.get(list.getSelectedIndex()).getVehicle_id(),typ,größe);
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        create.setText("Typ eintragen");
+                        type.setText("");
+                        size.setText("");
                 }
 
             }
@@ -140,7 +152,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
                 type.setText("");
                 size.setText("");
                 list.clearSelection();
-
+                create.setText("Typ eintragen");
             }
         });
 
@@ -189,7 +201,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
             if (list.getSelectedIndex() == -1) {
                 //TODO nothing
             }else{
-                create.setText("Auftrag ändern");
+                create.setText("Typ updaten");
                 type.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getType()));
                 size.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getSpace()));
 
