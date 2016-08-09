@@ -1,18 +1,10 @@
 
 package screens;
-
-
 import controller.DBM;
 import log.debug;
 import objects.Assignment;
-<<<<<<< Updated upstream
 import controller.main;
 import objects.Manager;
-
-=======
-import controller.DBM;
-import controller.main;
->>>>>>> Stashed changes
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -20,10 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-<<<<<<< Updated upstream
 import java.sql.Date;
-=======
->>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.sql.SQLException;
 
@@ -56,12 +45,9 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     JScrollPane listScroll = new JScrollPane(list);
 
 
-<<<<<<< Updated upstream
-    public manager_assignments(Manager manager){
-        this.manager=manager;
-=======
-    public manager_assignments(){
->>>>>>> Stashed changes
+
+    public manager_assignments(Manager manager) {
+        this.manager = manager;
         this.setLayout(null);
         createInfoSignedIn();
         createAssignmentTexts();
@@ -266,14 +252,12 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             }else{
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
                 dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_accepted()));
-<<<<<<< Updated upstream
                 getAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_pickup()));
                 destAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_delivery()));
                 //TODO get driver via driver_id
                 driverData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id()));
                 statusData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getStatus()));
-=======
->>>>>>> Stashed changes
+
             }
         }
     }
