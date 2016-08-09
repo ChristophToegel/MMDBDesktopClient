@@ -3,8 +3,8 @@ package screens;
 
 
 import controller.DBM;
+import log.debug;
 import objects.Assignment;
-import controller.DBM;
 import controller.main;
 import objects.Manager;
 
@@ -15,8 +15,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 
 /**
@@ -161,14 +163,64 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         });
 
         JButton assign = new JButton("Auftrag abgeben");
+        assign.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int größe=Integer.parseInt(sizeData.getText());
+                Date date_desired =Date.valueOf(dateData.getText());
+                int add_get=getAddressID(getAddressData.getText());
+                int add_dest=getAddressID(destAddressData.getText());
+                String status= statusData.getText();
+                java.util.Date utilDate = new java.util.Date();
+                Date date_created = new java.sql.Date(utilDate.getTime());
+                try {
+                    //manger.getManagerID()
+                    DBM.InsertAssignment(2,größe,status,add_get,add_dest,date_created,date_desired);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
 
+        JButton clearFields = new JButton("Felder leeren");
+        clearFields.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                sizeData.setText("");
+                dateData.setText("");
+                getAddressData.setText("");
+                destAddressData.setText("");
+                driverData.setText("");
+                statusData.setText("");
+                list.setSelectedIndex(-1);
+            }
+        });
+
+        clearFields.setBackground(Color.lightGray);
+        clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         logout.setBackground(Color.LIGHT_GRAY);
         logout.setBounds(X_SIGNEDINTEXT+BOX_LENGTH*2,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
         assign.setBackground(Color.LIGHT_GRAY);
         assign.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
+        add(clearFields);
         add(logout);
         add(assign);
+    }
+
+    private int getAddressID(String add) {
+        String[] text;
+        text = add.split(" ");
+        int street= Integer.parseInt(String.valueOf(text[0].charAt(0)));
+        int avenue= Integer.parseInt(String.valueOf(text[1].charAt(0)));
+        debug.printout("street"+street+"  Avenue"+avenue);
+        int add_id= 0;
+        try {
+            add_id = DBM.getAddressId(street,avenue);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return add_id;
     }
 
     private void createList() {

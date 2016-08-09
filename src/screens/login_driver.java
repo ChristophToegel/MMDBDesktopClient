@@ -156,12 +156,16 @@ public class login_driver extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    DBM.updateAssStatus("executing",ass.getAss_id());
+                    if(ass!=null) {
+
+                        DBM.updateAssStatus("executing", ass.getAss_id());
+                        deliveredB.setVisible(true);
+                        acceptB.setVisible(false);
+                    }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-                deliveredB.setVisible(true);
-                acceptB.setVisible(false);
+
             }
         });
         deliveredB.setVisible(false);

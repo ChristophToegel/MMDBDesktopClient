@@ -114,11 +114,25 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
             @Override
             public void mouseClicked(MouseEvent e) {
                 main.logout();
-
             }
         });
 
-        JButton create = new JButton("Typ eintragen"); //TODO
+        JButton create = new JButton("Typ eintragen");
+        create.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                   String typ=type.getText();
+                    int größe=Integer.parseInt(size.getText());
+                    DBM.insertVehicle(typ,größe);
+                    type.setText("");
+                    size.setText("");
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+            }
+        });
 
         JButton clearFields = new JButton("Felder leeren");
         clearFields.addMouseListener(new MouseAdapter() {

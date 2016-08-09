@@ -40,10 +40,10 @@ public class Assignment {
         date_accepted = r.getDate(9);
         date_delievered = r.getDate(10);
         date_desired = r.getDate(11);
-            street_delivery = r.getInt(13);
-            avenue_delivery = r.getInt(14);
-            street_pickup = r.getInt(16);
-            avenue_pickup = r.getInt(17);
+        avenue_delivery = r.getInt(13);
+        street_delivery = r.getInt(14);
+        avenue_pickup = r.getInt(16);
+        street_pickup = r.getInt(17);
 
 
     }

@@ -3,6 +3,7 @@ package controller;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -245,5 +246,44 @@ public class DBM {
     }
 
 
+    public static void insertVehicle(String typ, int größe)  throws SQLException {
+        openDBConnection();
+        String query = "INSERT INTO vehicle (model,space) VALUES (?,?);";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setString(1, typ);
+        ps.setString(2,String.valueOf(größe));
+        ps.executeUpdate();
+        closeDBConnection();
+    }
+
+    public static int getAddressId(int street, int avenue) throws SQLException {
+        int add_id;
+        openDBConnection();
+        String query = "SELECT * FROM address Where avenue=? AND street=?;";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setString(1, String.valueOf(avenue));
+        ps.setString(2, String.valueOf(street));
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        rs.next();
+        add_id=rs.getInt(1);
+        closeDBConnection();
+        return add_id;
+    }
+
+    public static void InsertAssignment(int mangager_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired) throws SQLException{
+        openDBConnection();
+        String query = "INSERT INTO assignment (manager_id,size,status,address_pickup,address_delivery,date_created,date_desired) VALUES (?,?,?,?,?,?,?);";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setString(1, String.valueOf(mangager_id));
+        ps.setString(2,String.valueOf(größe));
+        ps.setString(3,status);
+        ps.setString(4,String.valueOf(add_get));
+        ps.setString(5,String.valueOf(add_dest));
+        ps.setString(6, String.valueOf(date_created));
+        ps.setString(7, String.valueOf(date_desired));
+        ps.executeUpdate();
+        closeDBConnection();
+    }
 }
 
