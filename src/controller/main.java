@@ -27,8 +27,8 @@ public class main{
         window.setVisible(true);
     }
 
-    public static void driver(Driver driver) throws SQLException {
-        window.openDriver(driver);
+    public static void driver(Driver Driver) throws SQLException {
+        window.openDriver(Driver);
     }
 
     public static void manager(Manager manager) throws SQLException {

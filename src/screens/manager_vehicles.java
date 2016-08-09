@@ -2,8 +2,6 @@ package screens;
 
 import controller.DBM;
 import controller.main;
-import objects.Assignment;
-import objects.Driver;
 import objects.Manager;
 import objects.Vehicle;
 

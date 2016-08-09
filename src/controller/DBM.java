@@ -82,7 +82,7 @@ public class DBM {
     }
 
     public static Driver getDriverData (String name) throws SQLException {
-        Driver driver=null;
+        Driver Driver =null;
         openDBConnection();
         String query = "SELECT * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE emp_sign=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
@@ -90,12 +90,12 @@ public class DBM {
         p.executeQuery();
         ResultSet rs = p.getResultSet();
         if(rs.first()) {
-            driver= new Driver(rs);
+            Driver = new Driver(rs);
             closeDBConnection();
          } else {
             closeDBConnection();}
-        log.debug.printout(driver.getEmp_sign());
-        return driver;
+        log.debug.printout(Driver.getEmp_sign());
+        return Driver;
     }
 
     public static void updateDriverPos(int delivery_id, int driver_id) throws SQLException {
@@ -234,8 +234,8 @@ public class DBM {
         ResultSet rs = ps.getResultSet();
         while(rs.next()) {
             Vehicle veh = new Vehicle(rs.getInt(5),rs.getString(7),rs.getInt(6));
-            Driver driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
-            liste.add(driver);
+            Driver Driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
+            liste.add(Driver);
         }
         closeDBConnection();
         for(int i=0;i<liste.size();i++) {
@@ -245,6 +245,28 @@ public class DBM {
         return liste;
     }
 
+    public static ArrayList<Driver> getOpenDrivers() throws SQLException {
+        openDBConnection();
+        ArrayList<Driver> list = new ArrayList<Driver>();
+        String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
+                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
+                "driver.vehicle_id=vehicle.vehicle_id WHERE driver.status = 1" ;
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.executeQuery();
+        ResultSet rs = ps.getResultSet();
+        while(rs.next()){
+            Vehicle veh = new Vehicle(rs.getInt(5), rs.getString(7), rs.getInt(6));
+            Driver d = new Driver(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), veh);
+            list.add(d);
+
+        }
+        closeDBConnection();
+        for(int i = 0; i<list.size(); i++){
+            debug.printout("OpenDriver Liste " + list.get(i).getDriver_id() + list.get(i).getFirstname() + list.get(i).getLastname() + list.get(i).getPassword()
+                    + list.get(i).getVehicle().getType());
+        }
+    return list;
+    }
 
     public static void insertVehicle(String typ, int größe)  throws SQLException {
         openDBConnection();
@@ -285,6 +307,50 @@ public class DBM {
         ps.setString(7, String.valueOf(date_desired));
         ps.executeUpdate();
         closeDBConnection();
+    }
+
+    public static void insertDriver (Manager manager, String prename, String surname,String vehType, String password) {
+
+        try {
+            java.util.Date utilDate = new java.util.Date();
+            Date date_created = new java.sql.Date(utilDate.getTime());
+            debug.printout(date_created);
+            openDBConnection();
+            String getVehicleID = "SELECT vehicle_id FROM vehicle WHERE model =?;";
+            PreparedStatement p1 = (PreparedStatement) conn.prepareStatement(getVehicleID);
+            p1.setString(1,vehType);
+            p1.executeQuery();
+            ResultSet VehicleID = p1.getResultSet();
+            int VehiclID;
+            if(VehicleID.next()) {VehiclID=VehicleID.getInt(1);} else {
+                //TODO text "geht nicht"
+                return;}
+            String insertEmployee = "INSERT INTO employee (firstname, lastname, password) VALUES('"+prename+"'"+","+"'"+surname+"'"+","+"'"+password+"');";
+            debug.printout(insertEmployee);
+            PreparedStatement insert = (PreparedStatement) conn.prepareStatement(insertEmployee);
+            insert.executeUpdate();
+            debug.printout("EMPLOYEE INSERTED");
+            String getEmpId = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1 ";
+            PreparedStatement ps = (PreparedStatement) conn.prepareStatement(getEmpId);
+            ps.executeQuery();
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+            int employeeID = rs.getInt(1);
+            String updateEmployee = "UPDATE employee SET emp_sign= "+"'"+employeeID+"'"+"WHERE emp_id="+employeeID+";";
+            PreparedStatement p = (PreparedStatement) conn.prepareStatement(updateEmployee);
+            p.executeUpdate();
+            debug.printout("EMPLOYEE UPDATED");
+            String insertDriver = "INSERT INTO driver (emp_id,location_id, vehicle_id, super_manager,engaged, driverSince)" +
+                    " VALUES(" + employeeID+",1,"+ VehiclID+",1"+",1,?);";;
+            PreparedStatement updateFahrer = (PreparedStatement) conn.prepareStatement(insertDriver);
+            updateFahrer.setString(1, String.valueOf(date_created));
+            updateFahrer.executeUpdate();
+            debug.printout("DRIVER INSERTED");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 
