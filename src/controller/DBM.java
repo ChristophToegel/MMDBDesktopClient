@@ -278,6 +278,7 @@ public class DBM {
         ps.setString(1, String.valueOf(mangager_id));
         ps.setString(2,String.valueOf(größe));
         ps.setString(3,status);
+
         ps.setString(4,String.valueOf(add_get));
         ps.setString(5,String.valueOf(add_dest));
         ps.setString(6, String.valueOf(date_created));
