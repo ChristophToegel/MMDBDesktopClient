@@ -173,7 +173,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
                 passwordData.setText("");
                 driverSinceData.setText("");
                 driverIDData.setText("");
-                list.setSelectedIndex(-1);
+                list.clearSelection();
             }
         });
 

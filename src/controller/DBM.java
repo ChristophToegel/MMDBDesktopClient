@@ -268,6 +268,8 @@ public class DBM {
     return list;
     }
 
+
+
     public static void insertVehicle(String typ, int größe)  throws SQLException {
         openDBConnection();
         String query = "INSERT INTO vehicle (model,space) VALUES (?,?);";

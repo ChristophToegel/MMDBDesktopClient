@@ -188,7 +188,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 destAddressData.setText("");
                 driverData.setText("");
                 statusData.setText("");
-                list.setSelectedIndex(-1);
+                list.clearSelection();
             }
         });
 
@@ -224,7 +224,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         fillList();
-        list.setSelectedIndex(0);
+        list.setSelectedIndex(-1);
         list.addListSelectionListener(this);
         list.setVisibleRowCount(-1);
 

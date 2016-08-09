@@ -138,6 +138,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
             public void mouseClicked(MouseEvent e) {
                 type.setText("");
                 size.setText("");
+                list.clearSelection();
 
             }
         });
