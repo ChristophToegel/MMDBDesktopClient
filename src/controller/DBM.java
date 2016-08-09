@@ -309,6 +309,7 @@ public class DBM {
         closeDBConnection();
     }
 
+
     public static void insertDriver (Manager manager, String prename, String surname,String vehType, String password) {
 
         try {
