@@ -32,6 +32,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
     private Manager manager;
+    private  JButton assign;
 
     ArrayList<Assignment> AssignmentArrayList;
     DefaultListModel listModel = new DefaultListModel();
@@ -155,26 +156,40 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 main.logout();
-
             }
         });
 
-        JButton assign = new JButton("Auftrag abgeben");
+        assign = new JButton("Auftrag abgeben");
         assign.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int größe=Integer.parseInt(sizeData.getText());
-                Date date_desired =Date.valueOf(dateData.getText());
-                int add_get=getAddressID(getAddressData.getText());
-                int add_dest=getAddressID(destAddressData.getText());
-                String status= statusData.getText();
-                java.util.Date utilDate = new java.util.Date();
-                Date date_created = new java.sql.Date(utilDate.getTime());
-                try {
-                    DBM.InsertAssignment(manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    int größe=Integer.parseInt(sizeData.getText());
+                    Date date_desired =Date.valueOf(dateData.getText());
+                    int add_get=getAddressID(getAddressData.getText());
+                    int add_dest=getAddressID(destAddressData.getText());
+                    int driver_id=Integer.parseInt(driverData.getText());
+                    String status= statusData.getText();
+                    java.util.Date utilDate = new java.util.Date();
+                    Date date_created = new java.sql.Date(utilDate.getTime());
+                if(list.isSelectionEmpty()){
+                    debug.printout("insert");
+                   try {
+                        DBM.InsertAssignment(manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
+                    } catch (SQLException e1) {
+                       e1.printStackTrace();
+                    }
                 }
+                else{
+                    debug.printout("updaten");
+                    int ass_id =AssignmentArrayList.get(list.getSelectedIndex()).getAss_id();
+                    try {
+                        DBM.UpdateAssignment(ass_id,manager.getManager_id(), driver_id,größe,status,add_get,add_dest,date_created,date_desired);
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    clearAllFields();
+                }
+
             }
         });
 
@@ -182,13 +197,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         clearFields.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                sizeData.setText("");
-                dateData.setText("");
-                getAddressData.setText("");
-                destAddressData.setText("");
-                driverData.setText("");
-                statusData.setText("");
-                list.clearSelection();
+                clearAllFields();
             }
         });
 
@@ -202,6 +211,17 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         add(clearFields);
         add(logout);
         add(assign);
+    }
+
+    private void clearAllFields() {
+        assign.setText("Auftrag abgeben");
+        sizeData.setText("");
+        dateData.setText("");
+        getAddressData.setText("");
+        destAddressData.setText("");
+        driverData.setText("");
+        statusData.setText("");
+        list.clearSelection();
     }
 
     private int getAddressID(String add) {
@@ -250,8 +270,9 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             if (list.getSelectedIndex() == -1) {
                 //TODO nothing
             }else{
+                assign.setText("Auftrag ändern");
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
-                dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_accepted()));
+                dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired()));
                 getAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_pickup()));
                 destAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_delivery()));
                 //TODO get driver via driver_id

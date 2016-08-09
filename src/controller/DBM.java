@@ -355,5 +355,22 @@ public class DBM {
         }
 
     }
+
+    public static void UpdateAssignment(int ass_id, int manager_id, int driver_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired)throws SQLException {
+        openDBConnection();
+        String query = "UPDATE assignment SET manager_id=?, driver_id=?,size=?,status=?,address_pickup=?,address_delivery=?,date_created=?,date_desired=? WHERE assignment_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, String.valueOf(manager_id));
+        p.setString(2, String.valueOf(driver_id));
+        p.setString(3, String.valueOf(größe));
+        p.setString(4, status);
+        p.setString(5, String.valueOf(add_get));
+        p.setString(6, String.valueOf(add_dest));
+        p.setString(7, String.valueOf(date_created));
+        p.setString(8, String.valueOf(date_desired));
+        p.setString(9, String.valueOf(ass_id));
+        p.executeUpdate();
+        closeDBConnection();
+    }
 }
 

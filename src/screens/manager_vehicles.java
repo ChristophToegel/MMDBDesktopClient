@@ -31,6 +31,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
     private Manager manager;
+    private  JButton create;
 
     JTextField type = new JTextField("TYP");
     JTextField size = new JTextField("GRÖßE");
@@ -115,7 +116,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
             }
         });
 
-        JButton create = new JButton("Typ eintragen");
+        create = new JButton("Typ eintragen");
         create.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -188,6 +189,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
             if (list.getSelectedIndex() == -1) {
                 //TODO nothing
             }else{
+                create.setText("Auftrag ändern");
                 type.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getType()));
                 size.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getSpace()));
 

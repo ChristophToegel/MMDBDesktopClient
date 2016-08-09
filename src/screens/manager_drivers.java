@@ -29,6 +29,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
     private Manager manager;
+    private JButton create;
 
     ArrayList<Driver> driverArrayList;
     DefaultListModel listModel = new DefaultListModel();
@@ -155,7 +156,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
             }
         });
-        JButton create = new JButton("Fahrer eintragen");
+        create = new JButton("Fahrer eintragen");
         create.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -221,6 +222,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
             if (list.getSelectedIndex() == -1) {
                 //TODO nothing
             }else{
+                create.setText("Auftrag ändern");
                 firstNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getFirstname()));
                 lastNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getLastname()));
                 vehicleData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getVehicle_id()));
