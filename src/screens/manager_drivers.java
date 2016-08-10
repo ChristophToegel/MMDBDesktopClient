@@ -2,6 +2,7 @@ package screens;
 
 import controller.DBM;
 import controller.main;
+import log.debug;
 import objects.Driver;
 import objects.Manager;
 
@@ -35,12 +36,12 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
     DefaultListModel listModel = new DefaultListModel();
     JList list = new JList(listModel);
 
-    JTextField firstNameData = new JTextField("VORNAME");
-    JTextField lastNameData = new JTextField("NACHNAME");
-    JTextField vehicleData = new JTextField("FAHRZEUG");
-    JTextField passwordData = new JTextField("PASSWORT");
-    JTextField driverSinceData = new JTextField("FAHRER SEIT");
-    JTextField driverIDData = new JTextField("FAHRERID");
+    JTextField firstNameData = new JTextField();
+    JTextField lastNameData = new JTextField();
+    JTextField vehicleData = new JTextField();
+    JTextField passwordData = new JTextField();
+    JTextField driverSinceData = new JTextField();
+    JTextField driverIDData = new JTextField();
     JScrollPane listScroll = new JScrollPane(list);
 
 
@@ -161,21 +162,32 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
             @Override
             public void mouseClicked(MouseEvent e) {
 
-             DBM.insertDriver(manager,firstNameData.getText(),lastNameData.getText(),vehicleData.getText(),passwordData.getText());
+                String firstname = firstNameData.getText();
+                String lastname = lastNameData.getText();
+                String vehicleType = vehicleData.getText();
+                String password = passwordData.getText();
+
+                if (list.isSelectionEmpty()) {
+                    DBM.insertDriver(firstname, lastname, vehicleType, password);
+                    clearAllFields();
+                } else {
+                    int driverID = Integer.parseInt(driverIDData.getText());
+                    try{
+                        DBM.UpdateDriver(firstname,lastname,vehicleType,password,driverID);
+                    } catch(SQLException a ) {
+                        a.printStackTrace();
+                    }
+                    clearAllFields();
+                }
             }
-        }); //TODO
+        });
+
 
         JButton clearFields = new JButton("Felder leeren");
         clearFields.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                firstNameData.setText("");
-                lastNameData.setText("");
-                vehicleData.setText("");
-                passwordData.setText("");
-                driverSinceData.setText("");
-                driverIDData.setText("");
-                list.clearSelection();
+                clearAllFields();
             }
         });
 
@@ -190,6 +202,17 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         add(logout);
         add(create);
         add(clearFields);
+    }
+
+    private void clearAllFields() {
+        create.setText("Fahrer eintragen");
+        firstNameData.setText("");
+        lastNameData.setText("");
+        vehicleData.setText("");
+        passwordData.setText("");
+        driverSinceData.setText("");
+        driverIDData.setText("");
+        list.clearSelection();
     }
 
     private void createList() {
@@ -212,10 +235,6 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         } catch(SQLException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
     public void valueChanged(ListSelectionEvent e){
@@ -223,12 +242,12 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
             if (list.getSelectedIndex() == -1) {
                 //TODO nothing
             }else{
-                create.setText("Auftrag ändern");
+                create.setText("Fahrer ändern");
                 firstNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getFirstname()));
                 lastNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getLastname()));
-                vehicleData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getVehicle_id()));
+                vehicleData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getVehicle().getType()));
                 passwordData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getPassword()));
-                //driverSinceData.setText(String.valueOf(DriverArrayList.get(list.getSelectedIndex()).get)) //TODO Datum fehlt
+                driverSinceData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriverSince())); //TODO Datum fehlt
                 driverIDData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriver_id()));
 
             }

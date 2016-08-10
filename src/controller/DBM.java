@@ -227,14 +227,14 @@ public class DBM {
         openDBConnection();
         ArrayList<Driver> liste = new ArrayList<Driver>();
         String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
-                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
+                "vehicle.space, vehicle.model, driver.driverSince FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
                 "driver.vehicle_id=vehicle.vehicle_id";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
         ps.executeQuery();
         ResultSet rs = ps.getResultSet();
         while(rs.next()) {
             Vehicle veh = new Vehicle(rs.getInt(5),rs.getString(7),rs.getInt(6));
-            Driver Driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh);
+            Driver Driver = new Driver(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),veh, rs.getDate(8));
             liste.add(Driver);
         }
         closeDBConnection();
@@ -256,7 +256,7 @@ public class DBM {
         ResultSet rs = ps.getResultSet();
         while(rs.next()){
             Vehicle veh = new Vehicle(rs.getInt(5), rs.getString(7), rs.getInt(6));
-            Driver d = new Driver(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), veh);
+            Driver d = new Driver(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), veh, rs.getDate(8));
             list.add(d);
 
         }
@@ -329,48 +329,97 @@ public class DBM {
     }
 
 
-    public static void insertDriver (Manager manager, String prename, String surname,String vehType, String password) {
-
-        try {
+    public static void insertDriver  (String prename, String surname,String vehType, String password) {
+            try {
+            openDBConnection();
             java.util.Date utilDate = new java.util.Date();
             Date date_created = new java.sql.Date(utilDate.getTime());
-            debug.printout(date_created);
-            openDBConnection();
+            int vehiclID;
+
             String getVehicleID = "SELECT vehicle_id FROM vehicle WHERE model =?;";
             PreparedStatement p1 = (PreparedStatement) conn.prepareStatement(getVehicleID);
             p1.setString(1,vehType);
             p1.executeQuery();
-            ResultSet VehicleID = p1.getResultSet();
-            int VehiclID;
-            if(VehicleID.next()) {VehiclID=VehicleID.getInt(1);} else {
-                //TODO text "geht nicht"
+            ResultSet VehicleIDResult = p1.getResultSet();
+
+            if(VehicleIDResult.next()) {vehiclID=VehicleIDResult.getInt(1);} else {
+                //TODO text "FEHLER"
                 return;}
-            String insertEmployee = "INSERT INTO employee (firstname, lastname, password) VALUES('"+prename+"'"+","+"'"+surname+"'"+","+"'"+password+"');";
+
+            String insertEmployee = "INSERT INTO employee (firstname, lastname, password) VALUES(?,?,?);";
             debug.printout(insertEmployee);
-            PreparedStatement insert = (PreparedStatement) conn.prepareStatement(insertEmployee);
-            insert.executeUpdate();
+            PreparedStatement insertEmp = (PreparedStatement) conn.prepareStatement(insertEmployee);
+            insertEmp.setString(1,prename);
+            insertEmp.setString(2,surname);
+            insertEmp.setString(3,password);
+            insertEmp.executeUpdate();
             debug.printout("EMPLOYEE INSERTED");
+
             String getEmpId = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1 ";
             PreparedStatement ps = (PreparedStatement) conn.prepareStatement(getEmpId);
             ps.executeQuery();
-            ResultSet rs = ps.getResultSet();
-            rs.next();
-            int employeeID = rs.getInt(1);
-            String updateEmployee = "UPDATE employee SET emp_sign= "+"'"+employeeID+"'"+"WHERE emp_id="+employeeID+";";
-            PreparedStatement p = (PreparedStatement) conn.prepareStatement(updateEmployee);
-            p.executeUpdate();
-            debug.printout("EMPLOYEE UPDATED");
-            String insertDriver = "INSERT INTO driver (emp_id,location_id, vehicle_id, super_manager,engaged, driverSince)" +
-                    " VALUES(" + employeeID+",1,"+ VehiclID+",1"+",1,?);";;
-            PreparedStatement updateFahrer = (PreparedStatement) conn.prepareStatement(insertDriver);
-            updateFahrer.setString(1, String.valueOf(date_created));
-            updateFahrer.executeUpdate();
-            debug.printout("DRIVER INSERTED");
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+            ResultSet empIDRes = ps.getResultSet();
+            empIDRes.next();
+            int employeeID = empIDRes.getInt(1);
 
+
+            String updateEmployee = "UPDATE employee SET emp_sign=? WHERE emp_id=?;";
+            PreparedStatement updateEmp = (PreparedStatement) conn.prepareStatement(updateEmployee);
+            updateEmp.setString(1,Integer.toString(employeeID));
+            updateEmp.setInt(2,employeeID);
+            updateEmp.executeUpdate();
+            debug.printout("EMPLOYEE UPDATED");
+
+            String insertDriver = "INSERT INTO driver (emp_id,location_id, vehicle_id, super_manager,engaged, driverSince)" +
+                    " VALUES(?,1,?,1,1,?);";
+            PreparedStatement updateFahrer = (PreparedStatement) conn.prepareStatement(insertDriver);
+            updateFahrer.setInt(1,employeeID);
+            updateFahrer.setInt(2,vehiclID);
+            updateFahrer.setString(3, String.valueOf(date_created));
+            updateFahrer.executeUpdate();
+            debug.printout("DRIVER INSERTED");  }
+
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+    public static void UpdateDriver(String preName, String surName,String vehicle, String password, int DriverID ) throws SQLException {
+        openDBConnection();
+        int empID; int vehID;
+        String queryEmpId = "SELECT emp_id FROM driver WHERE driver_id=?;";
+        PreparedStatement getEmpId = (PreparedStatement) conn.prepareStatement(queryEmpId);
+        getEmpId.setInt(1,DriverID);
+        getEmpId.executeQuery();
+        ResultSet rs = getEmpId.getResultSet();
+        rs.next();
+        empID = rs.getInt(1);
+
+        String findVehicleID = "SELECT vehicle_id FROM vehicle WHERE vehicle_id=?";
+        PreparedStatement findVehicle = (PreparedStatement) conn.prepareStatement(findVehicleID);
+        findVehicle.setString(1,vehicle);
+        findVehicle.executeQuery();
+        ResultSet resultVehId = findVehicle.getResultSet();
+        if(resultVehId.next()) {vehID=resultVehId.getInt(1);} else {//TODO fehlgeschlagen, gibt vehicl nicht
+            return; }
+
+
+        String updateEmployee = "UPDATE employee SET firstname=?,lastname=?,password=? WHERE emp_id=?";
+        PreparedStatement updateEmp = (PreparedStatement) conn.prepareStatement(updateEmployee);
+        updateEmp.setString(1,preName);
+        updateEmp.setString(2,surName);
+        updateEmp.setString(3,password);
+        updateEmp.setInt(4,DriverID);
+        updateEmp.executeUpdate();
+        debug.printout("UPDATED EMPLOYEE");
+
+        String updateDriver = "UPDATE driver SET vehicle_id =? WHERE driver_id=?";
+        PreparedStatement updateDriv = (PreparedStatement) conn.prepareStatement(updateDriver);
+        updateDriv.setInt(1,vehID);
+        updateDriv.setInt(2,DriverID);
+        updateDriv.executeUpdate();
+        debug.printout("UPDATE DRIVER");
     }
 
     public static void UpdateAssignment(int ass_id, int manager_id, int driver_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired)throws SQLException {
