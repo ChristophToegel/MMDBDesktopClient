@@ -107,6 +107,12 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
 
     }
 
+    private void updateList() {
+        listModel =new DefaultListModel<>();
+        fillList();
+
+    }
+
     private void createButtons() {
         JButton logout = new JButton("Logout");
         logout.addMouseListener(new MouseAdapter() {
@@ -141,7 +147,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
                         type.setText("");
                         size.setText("");
                 }
-
+                updateList();
             }
         });
 
@@ -182,7 +188,6 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
     }
 
     private void fillList()  {
-
         try {
             VehicleArrayList = DBM.getAllVehicles();
             for (Vehicle v: VehicleArrayList)
@@ -190,9 +195,6 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
         } catch(SQLException e){
             e.printStackTrace();
         }
-
-
-
 
     }
 

@@ -215,6 +215,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private void updateList() {
         listModel =new DefaultListModel<>();
         fillList();
+        list.updateUI();
     }
 
     private void clearAllFields() {
@@ -253,7 +254,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         list.setVisibleRowCount(-1);
     }
 
-    private void fillList()  {
+    private void fillList(){
         try {
             AssignmentArrayList = DBM.getAllAssignments();
             for (Assignment a : AssignmentArrayList)
