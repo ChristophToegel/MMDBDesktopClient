@@ -411,7 +411,7 @@ public class DBM {
         rs.next();
         empID = rs.getInt(1);
 
-        String findVehicleID = "SELECT vehicle_id FROM vehicle WHERE vehicle_id=?";
+        String findVehicleID = "SELECT vehicle_id FROM vehicle WHERE model=?";
         PreparedStatement findVehicle = (PreparedStatement) conn.prepareStatement(findVehicleID);
         findVehicle.setString(1,vehicle);
         findVehicle.executeQuery();
@@ -425,7 +425,7 @@ public class DBM {
         updateEmp.setString(1,preName);
         updateEmp.setString(2,surName);
         updateEmp.setString(3,password);
-        updateEmp.setInt(4,DriverID);
+        updateEmp.setInt(4,empID);
         updateEmp.executeUpdate();
         debug.printout("UPDATED EMPLOYEE");
 
@@ -435,6 +435,7 @@ public class DBM {
         updateDriv.setInt(2,DriverID);
         updateDriv.executeUpdate();
         debug.printout("UPDATE DRIVER");
+        closeDBConnection();
     }
 
     public static void UpdateAssignment(int ass_id, int manager_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired)throws SQLException {

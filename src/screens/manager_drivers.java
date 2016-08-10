@@ -170,6 +170,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
                 if (list.isSelectionEmpty()) {
                     DBM.insertDriver(firstname, lastname, vehicleType, password);
                     clearAllFields();
+                    updateList();
                 } else {
                     int driverID = Integer.parseInt(driverIDData.getText());
                     try{
@@ -178,6 +179,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
                         a.printStackTrace();
                     }
                     clearAllFields();
+                    updateList();
                 }
             }
         });
@@ -224,6 +226,11 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         list.addListSelectionListener(this);
         list.setVisibleRowCount(-1);
 
+    }
+
+    private void updateList() {
+        listModel =new DefaultListModel<>();
+        fillList();
     }
 
     private void fillList()  {
