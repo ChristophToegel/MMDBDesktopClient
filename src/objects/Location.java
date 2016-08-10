@@ -4,9 +4,36 @@ package objects;
  * Created by Andi on 03.08.2016.
  */
 public class Location {
+
+
     private int location_id;
     private int avenue;
     private int street;
+
+
+    public int getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(int location_id) {
+        this.location_id = location_id;
+    }
+
+    public int getAvenue() {
+        return avenue;
+    }
+
+    public void setAvenue(int avenue) {
+        this.avenue = avenue;
+    }
+
+    public int getStreet() {
+        return street;
+    }
+
+    public void setStreet(int street) {
+        this.street = street;
+    }
 
     public Location(int location_id, int avenue, int street) {
         this.avenue = avenue;
@@ -15,6 +42,6 @@ public class Location {
     }
 
     public String toText() {
-        return ""+avenue+".Avenue/"+street+"Street";
+        return ""+avenue+". Avenue/"+street+" Street";
     }
 }

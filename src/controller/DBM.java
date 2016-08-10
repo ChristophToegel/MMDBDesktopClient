@@ -268,6 +268,23 @@ public class DBM {
     return list;
     }
 
+    public static ArrayList<Assignment> getOpenAssignments() throws SQLException {
+        openDBConnection();
+        ArrayList<Assignment> list = new ArrayList<Assignment>();
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON" +
+                " a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ResultSet rs = ps.getResultSet();
+        while(rs.next()){
+            Assignment a = new Assignment(rs);
+            list.add(a);
+
+        }
+        closeDBConnection();
+        log.debug.printout(list.size()+"offene Aufträge");
+        return list;
+    }
+
 
 
     public static void insertVehicle(String typ, int größe)  throws SQLException {

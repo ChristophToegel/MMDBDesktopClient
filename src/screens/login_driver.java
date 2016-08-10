@@ -2,6 +2,7 @@ package screens;
 
 import controller.DBM;
 import controller.main;
+import log.debug;
 import objects.Assignment;
 import objects.Driver;
 import objects.Location;
@@ -13,6 +14,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Christoph on 01.08.16.
@@ -262,7 +265,22 @@ public class login_driver extends JLayeredPane {
         add(positionData);
     }
 
-    public void getBestAssignment() throws SQLException {
+    public Assignment getBestAssignment(ArrayList<Assignment> openList, Driver driver) throws SQLException {
+        ArrayList<Location> posList =  new ArrayList<>();
+        Location driLoc = DBM.getLocation(driver.getLocation_id());
+        for(Assignment a: openList){
+             Location l = DBM.getLocation(a.getAddress_delivery_id());
+            posList.add(l);
+        }
+        ArrayList<Double> manScore = new ArrayList<Double>();
+        for(Location l : posList){
+           double man = Math.sqrt(l.getAvenue()-driLoc.getAvenue())+Math.sqrt(l.getStreet()-driLoc.getStreet());
+            manScore.add(man);
+        }
+        int minMan = manScore.indexOf(Collections.min(manScore));
+        debug.printout("Niedrigster Index" + minMan);
+        debug.printout("ID des nähesten Auftrags " + openList.get(minMan).getAss_id());
+        return openList.get(minMan);
 
     }
 
