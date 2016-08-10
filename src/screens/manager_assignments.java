@@ -215,7 +215,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private void updateList() {
         listModel =new DefaultListModel<>();
         fillList();
-        list.updateUI();
+        list.setModel(listModel);
     }
 
     private void clearAllFields() {
