@@ -2,13 +2,11 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import log.debug;
 import objects.*;
 
@@ -269,16 +267,17 @@ public class DBM {
     }
 
     public static ArrayList<Assignment> getOpenAssignments() throws SQLException {
+        log.debug.printout("get open assignments!!");
         openDBConnection();
         ArrayList<Assignment> list = new ArrayList<Assignment>();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON" +
-                " a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.executeQuery();
         ResultSet rs = ps.getResultSet();
+        log.debug.printout(rs.wasNull());
         while(rs.next()){
             Assignment a = new Assignment(rs);
             list.add(a);
-
         }
         closeDBConnection();
         log.debug.printout(list.size()+"offene Aufträge");
