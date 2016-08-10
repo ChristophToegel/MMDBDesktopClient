@@ -105,6 +105,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
         add(size);
         add(listScroll);
 
+
     }
 
     private void updateList() {
