@@ -466,5 +466,15 @@ public class DBM {
         p.executeUpdate();
         closeDBConnection();
     }
+
+    public static void updateAssDriver_id(int ass_id, int driver_id) throws SQLException {
+        openDBConnection();
+        String query = "UPDATE assignment SET driver_id=? WHERE=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, String.valueOf(driver_id));
+        p.setString(2, String.valueOf(ass_id));
+        p.executeUpdate();
+        closeDBConnection();
+    }
 }
 

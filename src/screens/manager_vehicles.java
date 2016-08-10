@@ -54,8 +54,6 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
         createList();
     }
 
-
-
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
         JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());

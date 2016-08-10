@@ -47,8 +47,10 @@ public class login_driver extends JLayeredPane {
         this.driver=driver;
         location =DBM.getLocation(driver.getLocation_id());
         vehicle = DBM.getVehicle(driver.getVehicle_id());
-
-        ass =getBestAssignment(DBM.getOpenAssignments(),driver);
+        ass=DBM.getAssignmentData(driver.getDriver_id());
+        if(ass==null) {
+            ass = getBestAssignment(DBM.getOpenAssignments(), driver);
+        }
         createElements();
     }
 
@@ -181,7 +183,7 @@ public class login_driver extends JLayeredPane {
                     DBM.updateDriverPos(ass.getAddress_delivery_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
                     ass=getBestAssignment(DBM.getOpenAssignments(),driver);
-                    //
+
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
@@ -281,6 +283,8 @@ public class login_driver extends JLayeredPane {
         int minMan = manScore.indexOf(Collections.min(manScore));
         debug.printout("Niedrigster Index" + minMan);
         debug.printout("ID des nähesten Auftrags " + openList.get(minMan).getAss_id());
+        //TODO assignment mit driver_id updaten groöße testen
+        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
         return openList.get(minMan);
 
     }
