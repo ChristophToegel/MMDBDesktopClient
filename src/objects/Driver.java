@@ -1,16 +1,12 @@
 package objects;
 
 
-import controller.DBM;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
-
 /**
  * Created by Andi on 02.08.2016.
  */
+
 public class Driver {
 
     private int emp_id;
@@ -35,7 +31,6 @@ public class Driver {
         this.password = password;
         this.driver_id = driver_id;
         this.vehicle = vehicle;
-
     }
 
 
@@ -126,7 +121,6 @@ public class Driver {
     }
 
     public String getEmp_sign() {
-
         return emp_sign;
     }
 
@@ -135,7 +129,6 @@ public class Driver {
     }
 
     public int getEmp_id() {
-
         return emp_id;
     }
 
