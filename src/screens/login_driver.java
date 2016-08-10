@@ -77,6 +77,7 @@ public class login_driver extends JLayeredPane {
         finaldateText.setBounds(LEFT_ALLIGN, DATA_TOP+4*DATA_GAP, BOX_LENGTH ,BOX_HEIGHT);
         curAssignmentText.setBounds(LEFT_ALLIGN ,25, BOX_LENGTH*2,BOX_HEIGHT);
 
+
         curAssignmentText.setFont(new Font(curAssignmentText.getFont().getName(), Font.PLAIN, curAssignmentText.getFont().getSize()*2));
 
         add(curAssignmentText);

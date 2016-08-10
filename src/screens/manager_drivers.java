@@ -119,6 +119,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         firstNameData.setBorder(border);
         firstNameData.setBackground(Color.white);
 
+
         lastNameData.setOpaque(true);
         lastNameData.setBorder(border);
         lastNameData.setBackground(Color.white);
