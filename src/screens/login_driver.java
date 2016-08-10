@@ -47,10 +47,10 @@ public class login_driver extends JLayeredPane {
         this.driver=driver;
         location =DBM.getLocation(driver.getLocation_id());
         vehicle = DBM.getVehicle(driver.getVehicle_id());
-        ass = DBM.getAssignmentData(driver.getDriver_id());
+
+        ass =getBestAssignment(DBM.getOpenAssignments(),driver);
         createElements();
     }
-
 
     private void createElements() throws SQLException {
         createTexts();
@@ -180,7 +180,8 @@ public class login_driver extends JLayeredPane {
                 try {
                     DBM.updateDriverPos(ass.getAddress_delivery_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
-                    ass=DBM.getAssignmentData(driver.getDriver_id());
+                    ass=getBestAssignment(DBM.getOpenAssignments(),driver);
+                    //
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

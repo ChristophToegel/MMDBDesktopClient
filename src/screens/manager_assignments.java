@@ -4,6 +4,7 @@ import controller.DBM;
 import log.debug;
 import objects.Assignment;
 import controller.main;
+import objects.Driver;
 import objects.Manager;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -59,7 +60,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
         JLabel signedInAs = new JLabel(manager.getFirstname()+"  "+manager.getLastname());
-        //TODO DBM.getManager Data genau wie Driverdata
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         add(signedInText);
@@ -138,6 +138,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         statusData.setBorder(border);
         statusData.setBackground(Color.white);
 
+        driverData.setEditable(false);
         add(sizeData);
         add(dateData);
         add(getAddressData);
@@ -165,7 +166,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                     Date date_desired =Date.valueOf(dateData.getText());
                     int add_get=getAddressID(getAddressData.getText());
                     int add_dest=getAddressID(destAddressData.getText());
-                    int driver_id=Integer.parseInt(driverData.getText());
                     String status= statusData.getText();
                     java.util.Date utilDate = new java.util.Date();
                     Date date_created = new java.sql.Date(utilDate.getTime());
@@ -176,18 +176,19 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                     } catch (SQLException e1) {
                        e1.printStackTrace();
                     }
+
                 }
                 else{
                     debug.printout("updaten");
                     int ass_id =AssignmentArrayList.get(list.getSelectedIndex()).getAss_id();
                     try {
-                        DBM.UpdateAssignment(ass_id,manager.getManager_id(), driver_id,größe,status,add_get,add_dest,date_created,date_desired);
+                        DBM.UpdateAssignment(ass_id,manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
                     clearAllFields();
                 }
-
+                updateList();
             }
         });
 
@@ -209,6 +210,11 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         add(clearFields);
         add(logout);
         add(assign);
+    }
+
+    private void updateList() {
+        listModel =new DefaultListModel<>();
+        fillList();
     }
 
     private void clearAllFields() {
@@ -245,11 +251,9 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         list.setSelectedIndex(-1);
         list.addListSelectionListener(this);
         list.setVisibleRowCount(-1);
-
     }
 
     private void fillList()  {
-
         try {
             AssignmentArrayList = DBM.getAllAssignments();
             for (Assignment a : AssignmentArrayList)
@@ -257,10 +261,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         } catch(SQLException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
     public void valueChanged(ListSelectionEvent e){
@@ -273,10 +273,20 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired()));
                 getAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_pickup()));
                 destAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_delivery()));
-                //TODO get driver via driver_id
-                driverData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id()));
+                log.debug.printout(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id());
+                int ass_id=AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id();
+               if(ass_id!=0){
+                    Driver driver=null;
+                try {
+                     driver= DBM.getDriverById(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                    driverData.setText(String.valueOf(driver.getFirstname() + " " + driver.getLastname()));
+                }else {
+                    driverData.setText("-------");
+                }
                 statusData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getStatus()));
-
             }
         }
     }

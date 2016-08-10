@@ -2,13 +2,11 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import log.debug;
 import objects.*;
 
@@ -43,7 +41,6 @@ public class DBM {
         openDBConnection();
         PreparedStatement pstmt = null;
         boolean check=false;
-
         try {
             String password=String.valueOf(passwordchar);
             pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM   employee  WHERE emp_sign = ? AND password = ?");
@@ -93,6 +90,23 @@ public class DBM {
             Driver = new Driver(rs);
             closeDBConnection();
          } else {
+            closeDBConnection();}
+        log.debug.printout(Driver.getEmp_sign());
+        return Driver;
+    }
+
+    public static Driver getDriverById (int driver_id) throws SQLException {
+        Driver Driver =null;
+        openDBConnection();
+        String query = "SELECT * FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id WHERE driver_id=?";
+        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+        p.setString(1, String.valueOf(driver_id));
+        p.executeQuery();
+        ResultSet rs = p.getResultSet();
+        if(rs.first()) {
+            Driver = new Driver(rs);
+            closeDBConnection();
+        } else {
             closeDBConnection();}
         log.debug.printout(Driver.getEmp_sign());
         return Driver;
@@ -269,16 +283,17 @@ public class DBM {
     }
 
     public static ArrayList<Assignment> getOpenAssignments() throws SQLException {
+        log.debug.printout("get open assignments!!");
         openDBConnection();
         ArrayList<Assignment> list = new ArrayList<Assignment>();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON" +
-                " a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.executeQuery();
         ResultSet rs = ps.getResultSet();
+        log.debug.printout(rs.wasNull());
         while(rs.next()){
             Assignment a = new Assignment(rs);
             list.add(a);
-
         }
         closeDBConnection();
         log.debug.printout(list.size()+"offene Aufträge");
@@ -422,19 +437,18 @@ public class DBM {
         debug.printout("UPDATE DRIVER");
     }
 
-    public static void UpdateAssignment(int ass_id, int manager_id, int driver_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired)throws SQLException {
+    public static void UpdateAssignment(int ass_id, int manager_id, int größe, String status, int add_get, int add_dest, Date date_created, Date date_desired)throws SQLException {
         openDBConnection();
-        String query = "UPDATE assignment SET manager_id=?, driver_id=?,size=?,status=?,address_pickup=?,address_delivery=?,date_created=?,date_desired=? WHERE assignment_id=?";
+        String query = "UPDATE assignment SET manager_id=?,size=?,status=?,address_pickup=?,address_delivery=?,date_created=?,date_desired=? WHERE assignment_id=?";
         PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
         p.setString(1, String.valueOf(manager_id));
-        p.setString(2, String.valueOf(driver_id));
-        p.setString(3, String.valueOf(größe));
-        p.setString(4, status);
-        p.setString(5, String.valueOf(add_get));
-        p.setString(6, String.valueOf(add_dest));
-        p.setString(7, String.valueOf(date_created));
-        p.setString(8, String.valueOf(date_desired));
-        p.setString(9, String.valueOf(ass_id));
+        p.setString(2, String.valueOf(größe));
+        p.setString(3, status);
+        p.setString(4, String.valueOf(add_get));
+        p.setString(5, String.valueOf(add_dest));
+        p.setString(6, String.valueOf(date_created));
+        p.setString(7, String.valueOf(date_desired));
+        p.setString(8, String.valueOf(ass_id));
         p.executeUpdate();
         closeDBConnection();
     }
