@@ -275,7 +275,7 @@ public class login_driver extends JLayeredPane {
         }
         ArrayList<Double> manScore = new ArrayList<Double>();
         for(Location l : posList){
-           double man = Math.sqrt(l.getAvenue()-driLoc.getAvenue())+Math.sqrt(l.getStreet()-driLoc.getStreet());
+           double man = Math.abs(l.getAvenue()-driLoc.getAvenue())+Math.abs(l.getStreet()-driLoc.getStreet());
             manScore.add(man);
         }
         int minMan = manScore.indexOf(Collections.min(manScore));

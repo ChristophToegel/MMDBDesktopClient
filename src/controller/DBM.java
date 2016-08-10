@@ -392,11 +392,13 @@ public class DBM {
             updateFahrer.setInt(2,vehiclID);
             updateFahrer.setString(3, String.valueOf(date_created));
             updateFahrer.executeUpdate();
-            debug.printout("DRIVER INSERTED");  }
+            debug.printout("DRIVER INSERTED");
+            closeDBConnection();}
 
             catch (SQLException e) {
                 e.printStackTrace();
             }
+
 
     }
 
