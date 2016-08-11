@@ -33,8 +33,8 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
     private Manager manager;
     private  JButton create;
 
-    JTextField type = new JTextField("TYP");
-    JTextField size = new JTextField("GRÖßE");
+    JTextField type = new JTextField();
+    JTextField size = new JTextField();
 
     ArrayList<Vehicle> VehicleArrayList;
     DefaultListModel listModel = new DefaultListModel();
