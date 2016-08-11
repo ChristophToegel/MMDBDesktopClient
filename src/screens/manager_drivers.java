@@ -5,12 +5,15 @@ import controller.main;
 import log.debug;
 import objects.Driver;
 import objects.Manager;
+import objects.Vehicle;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by Andi on 04.08.2016.
  */
-public class manager_drivers extends JPanel implements ListSelectionListener{
+public class manager_drivers extends JPanel implements ListSelectionListener, ActionListener{
 
     private static final int X_SIGNEDINTEXT = 450;//Start x logintext
     private static final int Y_SIGNEDINTEXT = 0;  //Start y logintext
@@ -36,6 +39,11 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
     DefaultListModel listModel = new DefaultListModel();
     JList list = new JList(listModel);
 
+
+    JComboBox vehicBoxList = new JComboBox();
+
+
+
     JTextField firstNameData = new JTextField();
     JTextField lastNameData = new JTextField();
     JTextField vehicleData = new JTextField();
@@ -47,9 +55,11 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
 
 
+
     public manager_drivers(Manager manager) {
         this.manager=manager;
         this.setLayout(null);
+
         createInfoSignedIn();
         createAssignmentTexts();
         createAssignmentDatafields();
@@ -112,6 +122,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         driverSinceData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         driverIDData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         listScroll.setBounds(X_FIELDS+BOX_LENGTH*2+X_GAP,Y_FIELDSSTART,BOX_LENGTH+BOX_LENGTH/2,5*Y_GAP+BOX_HEIGHT);
+        vehicBoxList.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
         EmptyBorder border = new EmptyBorder(2,5,2,5);
 
@@ -140,6 +151,12 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         driverIDData.setBorder(border);
         driverIDData.setBackground(Color.white);
 
+        ArrayList<String> VehicleStrings =  getVehicleList();
+        for(String s: VehicleStrings){
+            vehicBoxList.addItem(s);
+        }
+        vehicBoxList.addActionListener(this);
+
         add(firstNameData);
         add(lastNameData);
         add(vehicleData);
@@ -147,6 +164,22 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         add(driverSinceData);
         add(driverIDData);
         add(listScroll);
+        add(vehicBoxList);
+    }
+
+    private ArrayList getVehicleList(){
+        ArrayList<String> VehicleStrings = new ArrayList<>();
+        ArrayList<Vehicle> VehicleAList= null;
+        try {
+            VehicleAList = DBM.getAllVehicles();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(Vehicle v: VehicleAList){
+            String vehicleS = v.getType();
+            VehicleStrings.add(vehicleS);
+        }
+        return VehicleStrings;
     }
 
     private void createButtons() {
@@ -261,5 +294,11 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
 
             }
         }
+    }
+
+    public void actionPerformed(ActionEvent e){
+        JComboBox JBox = (JComboBox) e.getSource();
+        String vehicName = (String) JBox.getSelectedItem();
+        vehicleData.setText(vehicName);
     }
 }
