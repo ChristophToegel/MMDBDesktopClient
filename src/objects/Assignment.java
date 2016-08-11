@@ -16,8 +16,8 @@ public class Assignment {
     private Date date_delievered;
     private Date date_desired;
 
-    Location pickupLocation;
-    Location deliveryLocation;
+    private Location pickupLocation;
+    private Location deliveryLocation;
 
 
 
