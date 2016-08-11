@@ -21,8 +21,8 @@ import java.util.ArrayList;
  */
 public class manager_drivers extends JPanel implements ListSelectionListener{
 
-    private static final int X_SIGNEDINTEXT = 530;//Start x logintext
-    private static final int Y_SIGNEDINTEXT = 25;  //Start y logintext
+    private static final int X_SIGNEDINTEXT = 450;//Start x logintext
+    private static final int Y_SIGNEDINTEXT = 0;  //Start y logintext
     private static final int X_FIELDS = 100;
     private static final int Y_FIELDSSTART = 125;
     private static final int Y_GAP = 50;
@@ -64,7 +64,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());
 
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
-        signedInAs.setBounds(635,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
+        signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
 
         add(signedInText);
         add(signedInAs);
@@ -198,7 +198,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener{
         clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
         logout.setBackground(Color.LIGHT_GRAY);
-        logout.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
+        logout.setBounds(X_SIGNEDINTEXT+BOX_LENGTH*2,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
         create.setBackground(Color.LIGHT_GRAY);
         create.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 

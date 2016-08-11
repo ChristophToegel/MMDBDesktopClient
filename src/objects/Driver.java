@@ -29,8 +29,6 @@ public class Driver {
     private Location location;
 
 
-
-
     public Driver(String firstname, String lastname, String password, int driver_id, Vehicle vehicle, Date driverSince) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -38,8 +36,6 @@ public class Driver {
         this.driver_id = driver_id;
         this.vehicle = vehicle;
         this.driverSince=driverSince;
-
-
     }
 
 
