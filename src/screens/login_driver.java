@@ -166,6 +166,7 @@ public class login_driver extends JLayeredPane {
             public void mouseClicked(MouseEvent e) {
                 try {
                     if(ass!=null) {
+                        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
                         DBM.updateAssStatus("executing", ass.getAss_id());
                         deliveredB.setVisible(true);
                         acceptB.setVisible(false);
@@ -193,10 +194,7 @@ public class login_driver extends JLayeredPane {
                     DBM.updateDriverPos(ass.getDeliveryLocation().getLocation_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
                     ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
-                    if(ass!=null){
-                        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
-                    }
-                   else{
+                    if(ass==null) {
                         acceptB.setText("Aktualisieren");
                     }
                 } catch (SQLException e1) {

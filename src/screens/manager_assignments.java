@@ -167,7 +167,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                     Date date_desired =Date.valueOf(dateData.getText());
                     int add_get=getAddressID(getAddressData.getText());
                     int add_dest=getAddressID(destAddressData.getText());
-                    String status= statusData.getText();
+                    String status="open";
                     java.util.Date utilDate = new java.util.Date();
                     Date date_created = new java.sql.Date(utilDate.getTime());
                 if(list.isSelectionEmpty()){
@@ -227,7 +227,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         getAddressData.setText("");
         destAddressData.setText("");
         driverData.setText("");
-        statusData.setText("");
+        statusData.setText("open");
         list.clearSelection();
     }
 
