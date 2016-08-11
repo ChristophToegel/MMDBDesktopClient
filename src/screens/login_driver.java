@@ -171,6 +171,11 @@ public class login_driver extends JLayeredPane {
                         acceptB.setVisible(false);
                     }else{
                      acceptB.setText("Aktualisieren");
+                        ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
+                        if (ass!=null){
+                            acceptB.setText("Annehmen");
+                            updateAssData();
+                        }
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
@@ -193,11 +198,6 @@ public class login_driver extends JLayeredPane {
                     }
                    else{
                         acceptB.setText("Aktualisieren");
-                        ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
-                        if (ass!=null){
-                            acceptB.setText("Annehmen");
-                            updateAssData();
-                        }
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
