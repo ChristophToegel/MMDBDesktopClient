@@ -7,7 +7,6 @@ import objects.Assignment;
 import objects.Driver;
 import objects.Location;
 import objects.Vehicle;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -49,7 +48,10 @@ public class login_driver extends JLayeredPane {
         vehicle = DBM.getVehicle(driver.getVehicle_id());
         ass=DBM.getAssignmentData(driver.getDriver_id());
         if(ass==null) {
-            ass = getBestAssignment(DBM.getOpenAssignments(), driver);
+            ass = getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()), driver);
+            if(ass!=null){
+                DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
+            }
         }
         createElements();
     }
@@ -158,15 +160,17 @@ public class login_driver extends JLayeredPane {
         });
         acceptB.setBackground(Color.lightGray);
         acceptB.setBounds(200,275,100,50);
+        if(ass==null){acceptB.setText("Aktualisieren");}
         acceptB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
                     if(ass!=null) {
-
                         DBM.updateAssStatus("executing", ass.getAss_id());
                         deliveredB.setVisible(true);
                         acceptB.setVisible(false);
+                    }else{
+                     acceptB.setText("Aktualisieren");
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
@@ -183,8 +187,18 @@ public class login_driver extends JLayeredPane {
                 try {
                     DBM.updateDriverPos(ass.getAddress_delivery_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
-                    ass=getBestAssignment(DBM.getOpenAssignments(),driver);
-
+                    ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
+                    if(ass!=null){
+                        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
+                    }
+                   else{
+                        acceptB.setText("Aktualisieren");
+                        ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
+                        if (ass!=null){
+                            acceptB.setText("Annehmen");
+                            updateAssData();
+                        }
+                    }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
@@ -270,24 +284,28 @@ public class login_driver extends JLayeredPane {
     }
 
     public Assignment getBestAssignment(ArrayList<Assignment> openList, Driver driver) throws SQLException {
-        ArrayList<Location> posList =  new ArrayList<>();
-        Location driLoc = DBM.getLocation(driver.getLocation_id());
-        for(Assignment a: openList){
-             Location l = DBM.getLocation(a.getAddress_delivery_id());
-            posList.add(l);
+        if(openList.size()==0) {
+            log.debug.printout("keine Aufträge");
+            ass = null;
+            updateAssData();
+            return null;
+        }else {
+            ArrayList<Location> posList = new ArrayList<>();
+            Location driLoc = DBM.getLocation(driver.getLocation_id());
+            for (Assignment a : openList) {
+                Location l = DBM.getLocation(a.getAddress_delivery_id());
+                posList.add(l);
+            }
+            ArrayList<Double> manScore = new ArrayList<Double>();
+            for (Location l : posList) {
+                double man = Math.abs(l.getAvenue() - driLoc.getAvenue()) + Math.abs(l.getStreet() - driLoc.getStreet());
+                manScore.add(man);
+            }
+            int minMan = manScore.indexOf(Collections.min(manScore));
+            debug.printout("Niedrigster Index" + minMan);
+            debug.printout("ID des nähesten Auftrags " + openList.get(minMan).getAss_id());
+            return openList.get(minMan);
         }
-        ArrayList<Double> manScore = new ArrayList<Double>();
-        for(Location l : posList){
-           double man = Math.abs(l.getAvenue()-driLoc.getAvenue())+Math.abs(l.getStreet()-driLoc.getStreet());
-            manScore.add(man);
-        }
-        int minMan = manScore.indexOf(Collections.min(manScore));
-        debug.printout("Niedrigster Index" + minMan);
-        debug.printout("ID des nähesten Auftrags " + openList.get(minMan).getAss_id());
-        //TODO assignment mit driver_id updaten groöße testen
-        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
-        return openList.get(minMan);
-
     }
 
 }

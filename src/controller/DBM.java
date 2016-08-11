@@ -282,12 +282,13 @@ public class DBM {
     return list;
     }
 
-    public static ArrayList<Assignment> getOpenAssignments() throws SQLException {
+    public static ArrayList<Assignment> getOpenAssignments(int size) throws SQLException {
         log.debug.printout("get open assignments!!");
         openDBConnection();
         ArrayList<Assignment> list = new ArrayList<Assignment>();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN'";
+        String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN' AND a.size<=? ";
         PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
+        ps.setString(1, String.valueOf(size));
         ps.executeQuery();
         ResultSet rs = ps.getResultSet();
         log.debug.printout(rs.wasNull());
