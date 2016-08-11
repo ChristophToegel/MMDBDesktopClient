@@ -157,6 +157,10 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         }
         vehicBoxList.addActionListener(this);
 
+        vehicleData.setEditable(false);
+        driverSinceData.setEditable(false);
+
+
         add(firstNameData);
         add(lastNameData);
         add(vehicleData);
