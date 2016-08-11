@@ -138,7 +138,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         statusData.setBorder(border);
         statusData.setBackground(Color.white);
 
-        driverData.setEditable(false);
+
         statusData.setEditable(false);
         add(sizeData);
         add(dateData);
