@@ -181,7 +181,7 @@ public class login_driver extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    DBM.updateDriverPos(ass.getAddress_delivery_id(),driver.getDriver_id());
+                    DBM.updateDriverPos(ass.getDeliveryLocation().getLocation_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
                     ass=getBestAssignment(DBM.getOpenAssignments(),driver);
 
@@ -270,25 +270,18 @@ public class login_driver extends JLayeredPane {
     }
 
     public Assignment getBestAssignment(ArrayList<Assignment> openList, Driver driver) throws SQLException {
-        ArrayList<Location> posList =  new ArrayList<>();
+
         Location driLoc = DBM.getLocation(driver.getLocation_id());
-        for(Assignment a: openList){
-             Location l = DBM.getLocation(a.getAddress_delivery_id());
-            posList.add(l);
-        }
-        ArrayList<Double> manScore = new ArrayList<Double>();
-        for(Location l : posList){
-           double man = Math.abs(l.getAvenue()-driLoc.getAvenue())+Math.abs(l.getStreet()-driLoc.getStreet());
-            manScore.add(man);
-        }
-        int minMan = manScore.indexOf(Collections.min(manScore));
-        debug.printout("Niedrigster Index" + minMan);
-        debug.printout("ID des nähesten Auftrags " + openList.get(minMan).getAss_id());
-        //TODO assignment mit driver_id updaten groöße testen
-        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
-        return openList.get(minMan);
+        int currentStreet = driLoc.getStreet();
+        int currentAvenue = driLoc.getAvenue();
+        Assignment ass = null;
 
+        for(Assignment a: openList) {
+            if(ass==null || a.Manhattan(currentStreet,currentAvenue)<ass.Manhattan(currentStreet,currentAvenue)) {
+                ass=a;
+            }
+        }
+        return ass;
     }
-
 }
 
