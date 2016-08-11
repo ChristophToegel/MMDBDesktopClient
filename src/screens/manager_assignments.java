@@ -34,16 +34,16 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private Manager manager;
     private  JButton assign;
 
-    ArrayList<Assignment> AssignmentArrayList;
-    DefaultListModel listModel = new DefaultListModel();
-    JList list = new JList(listModel);
-    JTextField sizeData = new JTextField();
-    JTextField dateData = new JTextField();
-    JTextField getAddressData = new JTextField();
-    JTextField destAddressData = new JTextField();
-    JTextField driverData = new JTextField();
-    JTextField statusData = new JTextField();
-    JScrollPane listScroll = new JScrollPane(list);
+    private ArrayList<Assignment> AssignmentArrayList;
+    private DefaultListModel listModel = new DefaultListModel();
+    private JList list = new JList(listModel);
+    private JTextField sizeData = new JTextField();
+    private JTextField dateData = new JTextField();
+    private JTextField getAddressData = new JTextField();
+    private JTextField destAddressData = new JTextField();
+    private JTextField driverData = new JTextField();
+    private JTextField statusData = new JTextField();
+    private JScrollPane listScroll = new JScrollPane(list);
 
 
 

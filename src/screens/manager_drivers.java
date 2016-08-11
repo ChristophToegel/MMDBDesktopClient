@@ -35,26 +35,20 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
     private Manager manager;
     private JButton create;
 
-    ArrayList<Driver> driverArrayList;
-    DefaultListModel listModel = new DefaultListModel();
-    JList list = new JList(listModel);
+    private ArrayList<Driver> driverArrayList;
+    private DefaultListModel listModel = new DefaultListModel();
+    private JList list = new JList(listModel);
 
 
-    JComboBox vehicBoxList = new JComboBox();
+    private JComboBox vehicBoxList = new JComboBox();
 
-
-
-    JTextField firstNameData = new JTextField();
-    JTextField lastNameData = new JTextField();
-    JTextField vehicleData = new JTextField();
-    JTextField passwordData = new JTextField();
-    JTextField driverSinceData = new JTextField();
-    JTextField driverIDData = new JTextField();
-    JScrollPane listScroll = new JScrollPane(list);
-
-
-
-
+    private JTextField firstNameData = new JTextField();
+    private JTextField lastNameData = new JTextField();
+    private JTextField vehicleData = new JTextField();
+    private JTextField passwordData = new JTextField();
+    private JTextField driverSinceData = new JTextField();
+    private JTextField driverIDData = new JTextField();
+    private JScrollPane listScroll = new JScrollPane(list);
 
     public manager_drivers(Manager manager) {
         this.manager=manager;
@@ -295,7 +289,6 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
                 passwordData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getPassword()));
                 driverSinceData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriverSince())); //TODO Datum fehlt
                 driverIDData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriver_id()));
-
             }
         }
     }

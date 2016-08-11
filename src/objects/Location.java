@@ -15,24 +15,12 @@ public class Location {
         return location_id;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
-    }
-
     public int getAvenue() {
         return avenue;
     }
 
-    public void setAvenue(int avenue) {
-        this.avenue = avenue;
-    }
-
     public int getStreet() {
         return street;
-    }
-
-    public void setStreet(int street) {
-        this.street = street;
     }
 
     public Location(int location_id, int avenue, int street) {

@@ -33,13 +33,13 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
     private Manager manager;
     private  JButton create;
 
-    JTextField type = new JTextField();
-    JTextField size = new JTextField();
+    private JTextField type = new JTextField();
+    private JTextField size = new JTextField();
 
-    ArrayList<Vehicle> VehicleArrayList;
-    DefaultListModel listModel = new DefaultListModel();
-    JList list = new JList(listModel);
-    JScrollPane listScroll = new JScrollPane(list);
+    private ArrayList<Vehicle> VehicleArrayList;
+    private DefaultListModel listModel = new DefaultListModel();
+    private JList list = new JList(listModel);
+    private JScrollPane listScroll = new JScrollPane(list);
 
 
 

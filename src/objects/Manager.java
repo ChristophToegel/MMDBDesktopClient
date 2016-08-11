@@ -29,9 +29,6 @@ public class Manager {
     public int getManager_id() {
         return manager_id;
     }
-    public int getEmp_id() {
-        return emp_id;
-    }
 
     public int getEmp_sign() {
         return emp_sign;

@@ -3,13 +3,6 @@ package objects;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-/**
- * Created by juli on 03.08.16.
- */
 
 public class Assignment {
 
@@ -25,6 +18,9 @@ public class Assignment {
 
     Location pickupLocation;
     Location deliveryLocation;
+
+
+
 
     public Assignment(ResultSet r) throws SQLException {
         ass_id = r.getInt(1);
@@ -57,41 +53,12 @@ public class Assignment {
         return deliveryLocation;
     }
 
-    public Location getPickupLocation() {
-        return pickupLocation;
-    }
-
-
     public Date getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
-    }
-
-    public Date getDate_accepted() {
-        return date_accepted;
-    }
-
-    public void setDate_accepted(Date date_accepted) {
-        this.date_accepted = date_accepted;
-    }
-
-    public Date getDate_delievered() {
-        return date_delievered;
-    }
-
-    public void setDate_delievered(Date date_delievered) {
-        this.date_delievered = date_delievered;
-    }
-
     public Date getDate_desired() {
         return date_desired;
-    }
-
-    public void setDate_desired(Date date_desired) {
-        this.date_desired = date_desired;
     }
 
     public String getAddress_delivery() {
@@ -100,12 +67,9 @@ public class Assignment {
         return address_deliveryStr;
     }
 
+
     public String getStatus() {
         return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
     }
 
     public int getAss_id() {
@@ -113,24 +77,12 @@ public class Assignment {
         return ass_id;
     }
 
-    public void setAss_id(int ass_id) {
-        this.ass_id = ass_id;
-    }
-
     public int getDriver_id() {
         return driver_id;
     }
 
-    public void setDriver_id(int driver_id) {
-        this.driver_id = driver_id;
-    }
-
     public int getSize() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public String getAddress_pickup() {
