@@ -275,7 +275,6 @@ public class login_driver extends JLayeredPane {
         int currentStreet = driLoc.getStreet();
         int currentAvenue = driLoc.getAvenue();
         Assignment ass = null;
-
         for(Assignment a: openList) {
             if(ass==null || a.Manhattan(currentStreet,currentAvenue)<ass.Manhattan(currentStreet,currentAvenue)) {
                 ass=a;
