@@ -2,13 +2,14 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import log.debug;
+import objects.*;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import log.debug;
-import objects.*;
 
 /**
  * Created by Christoph on 02.08.16.
@@ -33,7 +34,7 @@ public class DBM {
 
     private static void closeDBConnection() throws SQLException{
         conn.close();
-        debug.printout("Disconnected from database via debug");
+        debug.printout("Disconnected from database (via debug)");
     }
 
 
@@ -43,7 +44,7 @@ public class DBM {
         boolean check=false;
         try {
             String password=String.valueOf(passwordchar);
-            pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM   employee  WHERE emp_sign = ? AND password = ?");
+            pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM  employee  WHERE emp_sign = ? AND password = ?");
             pstmt.setString(1, name);
             pstmt.setString(2, password);
             pstmt.executeQuery();
@@ -283,7 +284,7 @@ public class DBM {
     }
 
     public static ArrayList<Assignment> getOpenAssignments(int size) throws SQLException {
-        log.debug.printout("get open assignments!!");
+        log.debug.printout("Get open assignments!");
         openDBConnection();
         ArrayList<Assignment> list = new ArrayList<Assignment>();
         String query = "SELECT * FROM assignment a INNER JOIN address ad ON a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id WHERE a.status = 'OPEN' AND a.size<=? ";
@@ -297,7 +298,7 @@ public class DBM {
             list.add(a);
         }
         closeDBConnection();
-        log.debug.printout(list.size()+"offene Aufträge");
+        log.debug.printout(list.size()+"open assignments");
         return list;
     }
 
@@ -345,7 +346,7 @@ public class DBM {
     }
 
 
-    public static void insertDriver  (String prename, String surname,String vehType, String password) {
+    public static void insertDriver(String prename, String surname,String vehType, String password) {
             try {
             openDBConnection();
             java.util.Date utilDate = new java.util.Date();
@@ -450,6 +451,16 @@ public class DBM {
         p.setString(3, status);
         p.setString(4, String.valueOf(add_get));
         p.setString(5, String.valueOf(add_dest));
+        /*DateFormat df = new SimpleDateFormat("YYYY-mm-DD");
+
+            Date createD = new java.sql.Date(date_created.getTime());
+            String reportDate = df.format(createD);
+            if (isDateValid(reportDate) == true) {  */
+                p.setString(6, String.valueOf(date_created));
+        /*  } else {
+              debug.printout("DATE INVALID");
+           } */
+
         p.setString(6, String.valueOf(date_created));
         p.setString(7, String.valueOf(date_desired));
         p.setString(8, String.valueOf(ass_id));
@@ -478,5 +489,16 @@ public class DBM {
         closeDBConnection();
     }
 
+    /*final static String DATE_FORMAT = "yyyy-MM-dd";
+    public static boolean isDateValid(String date) {
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }*/
 }
 

@@ -1,12 +1,15 @@
 package screens;
 
 
+import controller.DBM;
+import controller.main;
+import objects.Driver;
+import objects.Manager;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import controller.*;
-import objects.*;
 
 /**
  * Created by juli on 29.07.16.
@@ -26,8 +29,8 @@ public class login_screen extends JPanel {
     private void createElements() {
 
         JLabel title= new JLabel("Anmelden");
-        JPasswordField password= new JPasswordField("test");
-        JTextField username = new JTextField();
+        JPasswordField password= new JPasswordField("qqq");
+        JTextField username = new JTextField("User");
         JButton loginButton= new JButton("Login");
         JLabel wrongData= new JLabel("Falscher Login");
         username.setSize(50,15);
@@ -49,8 +52,8 @@ public class login_screen extends JPanel {
                     try {
                         if(DBM.DriverOrManager(username.getText())) {
                             Driver Driver = DBM.getDriverData(username.getText());
-
-                        main.driver(Driver);} else {
+                        main.driver(Driver);
+                            } else {
                             Manager manager = DBM.getManagerData(username.getText());
                            main.manager(manager);
                         }

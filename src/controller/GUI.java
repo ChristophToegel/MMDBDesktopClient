@@ -17,10 +17,9 @@ public class GUI extends JFrame {
     private JPanel login;
     private JTabbedPane manager_screen;
     private JLayeredPane driver_screen;
-    private Boolean check;
 
     public GUI(){
-        super("MMDB desktop client");//titel der Fensters
+        super("MMDB Desktop Client");//Titel der Fenster
         openLogin();
     }
 
@@ -34,8 +33,8 @@ public class GUI extends JFrame {
             remove(driver_screen);
         }
 
-        login = new login_screen();//login_screen
-        add(login); //login_screen wird angezeigt
+        login = new login_screen();//Login-Screen
+        add(login); //Login-Screen wird hinzufügt und angezeigt
     }
 
     public void openManager(Manager manager) throws SQLException{
@@ -43,7 +42,8 @@ public class GUI extends JFrame {
         setSize(900,700);
         manager_screen = new login_manager(manager);
         add(manager_screen, BorderLayout.CENTER);
-        debug.printout("open manager");
+        debug.printout("Authentification successful!");
+        debug.printout("Open manager screen...");
 
     }
 
@@ -52,7 +52,8 @@ public class GUI extends JFrame {
         setSize(900,700);
         driver_screen = new login_driver(Driver);
         add(driver_screen);
-        debug.printout("open driver");
+        debug.printout("Authentification successful!");
+        debug.printout("Open driver screen...");
     }
 
 

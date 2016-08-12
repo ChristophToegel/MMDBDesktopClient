@@ -22,16 +22,16 @@ import java.util.ArrayList;
  */
 public class manager_vehicles extends JPanel implements ListSelectionListener{
 
-    private static final int X_SIGNEDINTEXT = 450;//Start x logintext
-    private static final int Y_SIGNEDINTEXT = 0;  //Start y logintext
+    private static final int X_SIGNEDINTEXT = 450;//Start-X Logintext
+    private static final int Y_SIGNEDINTEXT = 0;  //Start-Y Logintext
     private static final int X_FIELDS = 100;
     private static final int Y_FIELDSSTART = 125;
     private static final int Y_GAP = 50;
     private static final int X_GAP = 35;
-    private static final int BOX_LENGTH = 170; //Labellength
-    private static final int BOX_HEIGHT = 40; //Labelheight
+    private static final int BOX_LENGTH = 170; //Label-Länge
+    private static final int BOX_HEIGHT = 40; //Label-Höhe
     private Manager manager;
-    private  JButton create;
+    private JButton create;
 
     private JTextField type = new JTextField();
     private JTextField size = new JTextField();
@@ -59,7 +59,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
         JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());
 
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
-        signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
+        signedInAs.setBounds(X_SIGNEDINTEXT+105,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
 
         add(signedInText);
         add(signedInAs);
@@ -68,9 +68,9 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
 
     private void createVehicleTexts() {
 
-        JLabel makeVehicle = new JLabel("Neuen Fahrzeugtyp erstellen");
+        JLabel makeVehicle = new JLabel("Fahrzeug hinzufügen");
         JLabel type = new JLabel("Typ");
-        JLabel size = new JLabel("Größe");
+        JLabel size = new JLabel("Frachtraum");
 
         type.setBounds(X_FIELDS,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         size.setBounds(X_FIELDS,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);

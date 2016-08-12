@@ -2,7 +2,6 @@ package screens;
 
 import controller.DBM;
 import controller.main;
-import log.debug;
 import objects.Driver;
 import objects.Manager;
 import objects.Vehicle;
@@ -68,7 +67,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());
 
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
-        signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
+        signedInAs.setBounds(X_SIGNEDINTEXT+105,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
 
         add(signedInText);
         add(signedInAs);
@@ -83,7 +82,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         JLabel vehicle = new JLabel("Fahrzeug");
         JLabel password = new JLabel("Passwort");
         JLabel driverSince = new JLabel("Fahrer seit");
-        JLabel driverID= new JLabel("FahrerID");
+        JLabel driverID= new JLabel("Fahrer-ID");
 
         firstNameData.setBounds(X_FIELDS,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         lastNameData.setBounds(X_FIELDS,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);

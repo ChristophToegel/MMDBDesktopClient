@@ -32,7 +32,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private static final int BOX_LENGTH = 170; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
     private Manager manager;
-    private  JButton assign;
+    private JButton assign;
 
     private ArrayList<Assignment> AssignmentArrayList;
     private DefaultListModel listModel = new DefaultListModel();
@@ -59,11 +59,12 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
     private void createInfoSignedIn() {
         JLabel signedInText = new JLabel("Angemeldet als: ");
-        JLabel signedInAs = new JLabel(manager.getFirstname()+"  "+manager.getLastname());
+        JLabel signedInAs = new JLabel(manager.getFirstname()+" "+manager.getLastname());
         signedInText.setBounds(X_SIGNEDINTEXT,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
-        signedInAs.setBounds(X_SIGNEDINTEXT+BOX_LENGTH,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
+        signedInAs.setBounds(X_SIGNEDINTEXT+105,Y_SIGNEDINTEXT,BOX_LENGTH,BOX_HEIGHT);
         add(signedInText);
         add(signedInAs);
+
 
     }
 
@@ -236,7 +237,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         text = add.split(" ");
         int street= Integer.parseInt(String.valueOf(text[0].charAt(0)));
         int avenue= Integer.parseInt(String.valueOf(text[1].charAt(0)));
-        debug.printout("street"+street+"  Avenue"+avenue);
+        debug.printout("Street"+street+"  Avenue"+avenue);
         int add_id= 0;
         try {
             add_id = DBM.getAddressId(street,avenue);

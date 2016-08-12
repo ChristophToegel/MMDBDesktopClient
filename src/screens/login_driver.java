@@ -2,11 +2,11 @@ package screens;
 
 import controller.DBM;
 import controller.main;
-import log.debug;
 import objects.Assignment;
 import objects.Driver;
 import objects.Location;
 import objects.Vehicle;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -14,7 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Christoph on 01.08.16.
@@ -22,10 +21,10 @@ import java.util.Collections;
 public class login_driver extends JLayeredPane {
 
 
-    private static final int LEFT_ALLIGN = 30; //left allign of TEXT
-    private static final int LEFT_ALLIGN_2 = 180; //left allign of DATA
-    private static final int BOX_LENGTH = 170; //Labellength
-    private static final int BOX_HEIGHT = 30; //Labelheight
+    private static final int LEFT_ALLIGN = 30; //linke Ausrichtung von "text"
+    private static final int LEFT_ALLIGN_2 = 180; //linke Ausrichtung von "data"
+    private static final int BOX_LENGTH = 170; //Label-Länge
+    private static final int BOX_HEIGHT = 30; //Label-Höhe
     private static final int DATA_TOP = 80; //First Dataline
     private static final int DATA_GAP = 35; //Space between Datalines
     private static final int DATA_BOT = 460; //First Dataline for Driver
@@ -65,12 +64,12 @@ public class login_driver extends JLayeredPane {
     }
     //These Labels don't change their TEXT
     public void createTexts(){
-        JLabel signedInText = new JLabel("Angemeldet als: ");
+        JLabel signedInText = new JLabel("Angemeldet als:");
         JLabel sizeText = new JLabel("Größe:");
         JLabel datecreatedText = new JLabel("Erstellt am:");
-        JLabel getaddressText = new JLabel("Abhohladdresse:");
+        JLabel getaddressText = new JLabel("Abholaddresse:");
         JLabel destaddressText = new JLabel("Zieladdresse:");
-        JLabel finaldateText = new JLabel("Abliefern bis");
+        JLabel finaldateText = new JLabel("Abliefern bis:");
         JLabel curAssignmentText = new JLabel("Angenommener Auftrag:");
 
         signedInText.setBounds(530,25,150,BOX_HEIGHT);
@@ -97,7 +96,7 @@ public class login_driver extends JLayeredPane {
     public void createDataFields(){
         JLabel loggedInAsData = new JLabel(driver.getFirstname()+" "+driver.getLastname());
         loggedInAsData.setBounds(635, 25, BOX_LENGTH,BOX_HEIGHT);
-        loggedInAsData.setForeground(Color.GREEN);
+        loggedInAsData.setForeground(Color.BLACK);
         add(loggedInAsData);
 
         updateAssData();
@@ -220,11 +219,11 @@ public class login_driver extends JLayeredPane {
             getaddressData.setText(ass.getAddress_pickup());
             destaddressData.setText(ass.getAddress_delivery());
             finaldateData.setText(String.valueOf(ass.getDate_desired()));
-            curAssignmentData.setText("ID " + ass.getAss_id());
+            curAssignmentData.setText("ID" + ass.getAss_id());
         }else{
             //TODO Button aktualisieren??? wenn kein Auftrag mehr vorhanden ist
             sizeData.setText("-----");
-            datecreatedData.setText("----");
+            datecreatedData.setText("-----");
             getaddressData.setText("-----");
             destaddressData.setText("-----");
             finaldateData.setText("-----");
@@ -283,7 +282,7 @@ public class login_driver extends JLayeredPane {
 
     public Assignment getBestAssignment(ArrayList<Assignment> openList, Driver driver) throws SQLException {
         if(openList.size()==0) {
-            log.debug.printout("keine Aufträge");
+            log.debug.printout("Keine Aufträge vorhanden");
             ass = null;
             updateAssData();
             return ass;
