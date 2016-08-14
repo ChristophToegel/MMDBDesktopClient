@@ -15,12 +15,13 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 
 /**
  * Created by Andi on 04.08.2016.
  */
-public class manager_vehicles extends JPanel implements ListSelectionListener{
+public class manager_vehicles extends JPanel implements ListSelectionListener {
 
     private static final int X_SIGNEDINTEXT = 450;//Start-X Logintext
     private static final int Y_SIGNEDINTEXT = 0;  //Start-Y Logintext
@@ -131,7 +132,9 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
                    String typ=type.getText();
                     int größe=Integer.parseInt(size.getText());
                     if(list.isSelectionEmpty()){
-                        try {  DBM.insertVehicle(typ,größe);
+                        try {
+                            DBM.insertVehicle(typ,größe);
+                            manager_drivers.updateDropdown();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
@@ -140,6 +143,7 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
                 else{
                         try {
                             DBM.updateVehicle(VehicleArrayList.get(list.getSelectedIndex()).getVehicle_id(),typ,größe);
+                            manager_drivers.updateDropdown();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
@@ -206,7 +210,6 @@ public class manager_vehicles extends JPanel implements ListSelectionListener{
                 create.setText("Typ updaten");
                 type.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getType()));
                 size.setText(String.valueOf(VehicleArrayList.get(list.getSelectedIndex()).getSpace()));
-
             }
         }
     }

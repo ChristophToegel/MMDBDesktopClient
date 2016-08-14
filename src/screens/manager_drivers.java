@@ -17,11 +17,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 /**
  * Created by Andi on 04.08.2016.
  */
-public class manager_drivers extends JPanel implements ListSelectionListener, ActionListener{
+public class manager_drivers extends JPanel implements ListSelectionListener {
 
     private static final int X_SIGNEDINTEXT = 450;//Start x logintext
     private static final int Y_SIGNEDINTEXT = 0;  //Start y logintext
@@ -38,16 +39,13 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
     private DefaultListModel listModel = new DefaultListModel();
     private JList list = new JList(listModel);
 
-
-    private JComboBox vehicBoxList = new JComboBox();
-
     private JTextField firstNameData = new JTextField();
     private JTextField lastNameData = new JTextField();
-    private JTextField vehicleData = new JTextField();
     private JTextField passwordData = new JTextField();
     private JTextField driverSinceData = new JTextField();
     private JTextField driverIDData = new JTextField();
     private JScrollPane listScroll = new JScrollPane(list);
+    private static JComboBox vehicBoxList = new JComboBox();
 
     public manager_drivers(Manager manager) {
         this.manager=manager;
@@ -71,7 +69,6 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
 
         add(signedInText);
         add(signedInAs);
-
     }
 
     private void createAssignmentTexts() {
@@ -86,10 +83,10 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
 
         firstNameData.setBounds(X_FIELDS,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         lastNameData.setBounds(X_FIELDS,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        vehicle.setBounds(X_FIELDS,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        password.setBounds(X_FIELDS,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        driverSince.setBounds(X_FIELDS,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        driverID.setBounds(X_FIELDS,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        vehicle.setBounds(X_FIELDS,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        password.setBounds(X_FIELDS,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        driverSince.setBounds(X_FIELDS,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        driverID.setBounds(X_FIELDS,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
         makeDriver.setBounds(X_FIELDS,Y_FIELDSSTART-Y_GAP,BOX_LENGTH*2,BOX_HEIGHT);
 
@@ -103,19 +100,17 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         add(driverID);
         add(makeDriver);
 
-
     }
 
     private void createAssignmentDatafields() {
 
         firstNameData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
         lastNameData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        vehicleData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        passwordData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        driverSinceData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        driverIDData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        passwordData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        driverSinceData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        driverIDData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         listScroll.setBounds(X_FIELDS+BOX_LENGTH*2+X_GAP,Y_FIELDSSTART,BOX_LENGTH+BOX_LENGTH/2,5*Y_GAP+BOX_HEIGHT);
-        vehicBoxList.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        vehicBoxList.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
         EmptyBorder border = new EmptyBorder(2,5,2,5);
 
@@ -128,35 +123,30 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         lastNameData.setBorder(border);
         lastNameData.setBackground(Color.white);
 
-        vehicleData.setOpaque(true);
-        vehicleData.setBorder(border);
-        vehicleData.setBackground(Color.white);
-
         passwordData.setOpaque(true);
         passwordData.setBorder(border);
         passwordData.setBackground(Color.white);
 
         driverSinceData.setOpaque(true);
         driverSinceData.setBorder(border);
-        driverSinceData.setBackground(Color.white);
+        driverSinceData.setBackground(Color.lightGray);
+        driverSinceData.setEditable(false);
 
         driverIDData.setOpaque(true);
         driverIDData.setBorder(border);
-        driverIDData.setBackground(Color.white);
+        driverIDData.setBackground(Color.lightGray);
+        driverIDData.setEditable(false);
+
+
+
 
         ArrayList<String> VehicleStrings =  getVehicleList();
         for(String s: VehicleStrings){
             vehicBoxList.addItem(s);
         }
-        vehicBoxList.addActionListener(this);
-
-        vehicleData.setEditable(false);
-        driverSinceData.setEditable(false);
-
 
         add(firstNameData);
         add(lastNameData);
-        add(vehicleData);
         add(passwordData);
         add(driverSinceData);
         add(driverIDData);
@@ -164,7 +154,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         add(vehicBoxList);
     }
 
-    private ArrayList getVehicleList(){
+    private static ArrayList getVehicleList(){
         ArrayList<String> VehicleStrings = new ArrayList<>();
         ArrayList<Vehicle> VehicleAList= null;
         try {
@@ -195,7 +185,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
 
                 String firstname = firstNameData.getText();
                 String lastname = lastNameData.getText();
-                String vehicleType = vehicleData.getText();
+                String vehicleType = vehicBoxList.getSelectedItem().toString();
                 String password = passwordData.getText();
 
                 if (list.isSelectionEmpty()) {
@@ -224,13 +214,13 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
             }
         });
 
-        clearFields.setBackground(Color.lightGray);
-        clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+8*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-
         logout.setBackground(Color.LIGHT_GRAY);
         logout.setBounds(X_SIGNEDINTEXT+BOX_LENGTH*2,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
         create.setBackground(Color.LIGHT_GRAY);
-        create.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        create.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        clearFields.setBackground(Color.lightGray);
+        clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+
 
         add(logout);
         add(create);
@@ -241,11 +231,11 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         create.setText("Fahrer eintragen");
         firstNameData.setText("");
         lastNameData.setText("");
-        vehicleData.setText("");
         passwordData.setText("");
         driverSinceData.setText("");
         driverIDData.setText("");
         list.clearSelection();
+        vehicBoxList.setSelectedIndex(-1);
     }
 
     private void createList() {
@@ -284,7 +274,7 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
                 create.setText("Fahrer ändern");
                 firstNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getFirstname()));
                 lastNameData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getLastname()));
-                vehicleData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getVehicle().getType()));
+                vehicBoxList.setSelectedItem(driverArrayList.get(list.getSelectedIndex()).getVehicle().getType());
                 passwordData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getPassword()));
                 driverSinceData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriverSince())); //TODO Datum fehlt
                 driverIDData.setText(String.valueOf(driverArrayList.get(list.getSelectedIndex()).getDriver_id()));
@@ -292,9 +282,12 @@ public class manager_drivers extends JPanel implements ListSelectionListener, Ac
         }
     }
 
-    public void actionPerformed(ActionEvent e){
-        JComboBox JBox = (JComboBox) e.getSource();
-        String vehicName = (String) JBox.getSelectedItem();
-        vehicleData.setText(vehicName);
+    public static void updateDropdown() {
+        vehicBoxList.removeAllItems();
+        ArrayList<String> VehicleStrings = getVehicleList();
+        for (String s : VehicleStrings) {
+            vehicBoxList.addItem(s);
+        }
     }
+
 }
