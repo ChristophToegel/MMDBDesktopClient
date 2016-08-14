@@ -72,10 +72,7 @@ public class Assignment {
         return Status;
     }
 
-    public int getAss_id() {
-
-        return ass_id;
-    }
+    public int getAss_id() { return ass_id; }
 
     public int getDriver_id() {
         return driver_id;
