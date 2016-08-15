@@ -20,8 +20,6 @@ public class Assignment {
     private Location deliveryLocation;
 
 
-
-
     public Assignment(ResultSet r) throws SQLException {
         ass_id = r.getInt(1);
         driver_id = r.getInt(2);
@@ -61,13 +59,6 @@ public class Assignment {
         return date_desired;
     }
 
-    public String getAddress_delivery() {
-
-        String address_deliveryStr = deliveryLocation.getStreet() + ".Street " + deliveryLocation.getAvenue() + ".Avenue";
-        return address_deliveryStr;
-    }
-
-
     public String getStatus() {
         return Status;
     }
@@ -85,11 +76,5 @@ public class Assignment {
     public Location getPickupLocation() {
         return pickupLocation;
     }
-
-    public String getAddress_pickup() {
-        String address_pickup = pickupLocation.getStreet() + ".Street " + pickupLocation.getAvenue() + ".Avenue";
-        return address_pickup;
-    }
-
 
 }

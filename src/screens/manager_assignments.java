@@ -34,7 +34,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private Manager manager;
     private JButton assign;
 
-    private ArrayList<Assignment> Assignments;
+    private ArrayList<Assignment> AssignmentArrayList;
     private DefaultListModel listModel = new DefaultListModel();
     private JList list = new JList(listModel);
     private JTextField sizeData = new JTextField();
@@ -49,6 +49,9 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private JTextField driverData = new JTextField();
     private JTextField statusData = new JTextField();
     private JScrollPane listScroll = new JScrollPane(list);
+
+
+
 
     public manager_assignments(Manager manager) {
         this.manager = manager;
@@ -246,7 +249,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 }
                 else{
                     debug.printout("updaten");
-                    int ass_id = Assignments.get(list.getSelectedIndex()).getAss_id();
+                    int ass_id =AssignmentArrayList.get(list.getSelectedIndex()).getAss_id();
                     try {
                         DBM.UpdateAssignment(ass_id,manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
                     } catch (SQLException e1) {
@@ -266,8 +269,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             }
         });
 
-
-
         clearFields.setBackground(Color.lightGray);
         clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         logout.setBackground(Color.LIGHT_GRAY);
@@ -284,6 +285,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         listModel =new DefaultListModel<>();
         fillList();
         list.setModel(listModel);
+
     }
 
     private void clearAllFields() {
@@ -328,11 +330,10 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
     private void fillList(){
         try {
-            Assignments = DBM.getOpenAssignments(Integer.MAX_VALUE);
-            for (Assignment a : Assignments)
+            AssignmentArrayList = DBM.getAllAssignments();
+            for (Assignment a : AssignmentArrayList)
                 listModel.addElement(a.getAss_id());
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             e.printStackTrace();
         }
     }
@@ -343,20 +344,21 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 //TODO nothing
             }else{
                 assign.setText("Auftrag ändern");
-                sizeData.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getSize()));
-                dateDay.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getDate_desired().getDay()));
-                dateMonth.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getDate_desired().getMonth()));
-                dateYear.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getDate_desired().getYear()+1900));
-                getAddressStreet.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getPickupLocation().getStreet()));
-                getAddressAvenue.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getPickupLocation().getAvenue()));
-                destAddressStreet.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getDeliveryLocation().getStreet()));
-                destAddressAvenue.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getDeliveryLocation().getAvenue()));
-                log.debug.printout(Assignments.get(list.getSelectedIndex()).getDriver_id());
-                int ass_id= Assignments.get(list.getSelectedIndex()).getDriver_id();
+                sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
+                dateDay.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getDay()));
+
+                dateMonth.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getMonth()));
+                dateYear.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getYear()+1900));
+                getAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getStreet()));
+                getAddressAvenue.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getAvenue()));
+                destAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDeliveryLocation().getStreet()));
+                destAddressAvenue.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDeliveryLocation().getAvenue()));
+                log.debug.printout(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id());
+                int ass_id=AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id();
                if(ass_id!=0){
                     Driver driver=null;
                 try {
-                     driver= DBM.getDriverById(Assignments.get(list.getSelectedIndex()).getDriver_id());
+                     driver= DBM.getDriverById(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id());
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
@@ -364,7 +366,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                 }else {
                     driverData.setText("-------");
                 }
-                statusData.setText(String.valueOf(Assignments.get(list.getSelectedIndex()).getStatus()));
+                statusData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getStatus()));
             }
         }
     }
