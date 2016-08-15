@@ -1,22 +1,3 @@
-Login Design anpassen
+Fehlermeldung bei Eingabe insert,update
 
-Fehlermeldung bei Eingabe
-
-Generelle Abfragen, Datums fehler meldungen
-
-DropList bei Manager sachen
-
-aktualisieren Driver fenster falls kein AUftrag offen ist
-
-//
-
-Spezialfälle inserts etc überprüfen
-
-Driver: Eigene Daten Positionsupdate
-
-Manager_Driver: Fahrzeug-feld durch dropdownliste ersetzen, FahrerId und Fahrer-seit unbeschreibbar machen und ausgrauen,
-                EINGETRAGENE Fahrzeuge werden noch nicht übernommen(DROPDOWN)
-
-Manager-Assignment: Darstellung adressen, nur offene Auftröge darstellen/änderbar machen, evtl. buttons zum wechseln offen/geschlossene Aufträge,
-                    Lieferdatum als YYYY MM DD anzeigen, Status leert sich nicht
-
+truncaten, vorgegebene fahrer etc erstellen
