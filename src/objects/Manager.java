@@ -14,9 +14,6 @@ public class Manager {
     private String firstname;
     private String lastname;
 
-
-
-
     public Manager (ResultSet result) throws SQLException {
         emp_id = result.getInt(1);
         emp_sign = result.getInt(2);

@@ -82,6 +82,10 @@ public class Assignment {
         return size;
     }
 
+    public Location getPickupLocation() {
+        return pickupLocation;
+    }
+
     public String getAddress_pickup() {
         String address_pickup = pickupLocation.getStreet() + ".Street " + pickupLocation.getAvenue() + ".Avenue";
         return address_pickup;

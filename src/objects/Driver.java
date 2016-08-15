@@ -3,9 +3,6 @@ package objects;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
-
 /**
  * Created by Andi on 02.08.2016.
  */

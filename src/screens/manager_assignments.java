@@ -29,7 +29,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private static final int Y_FIELDSSTART = 125;
     private static final int Y_GAP = 50;
     private static final int X_GAP = 35;
-    private static final int BOX_LENGTH = 170; //Labellength
+    private static final int BOX_LENGTH = 200; //Labellength
     private static final int BOX_HEIGHT = 40; //Labelheight
     private Manager manager;
     private JButton assign;
@@ -38,12 +38,18 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private DefaultListModel listModel = new DefaultListModel();
     private JList list = new JList(listModel);
     private JTextField sizeData = new JTextField();
-    private JTextField dateData = new JTextField();
-    private JTextField getAddressData = new JTextField();
-    private JTextField destAddressData = new JTextField();
+//    private JTextField dateData = new JTextField();
+    private JTextField dateYear;
+    private JTextField dateMonth;
+    private JTextField dateDay;
+    private JTextField getAddressStreet;
+    private JTextField getAddressAvenue;
+    private JTextField destAddressStreet;
+    private JTextField destAddressAvenue;
     private JTextField driverData = new JTextField();
     private JTextField statusData = new JTextField();
     private JScrollPane listScroll = new JScrollPane(list);
+
 
 
 
@@ -103,11 +109,11 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
     private void createAssignmentDatafields() {
 
-
         sizeData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
-        dateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        getAddressData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
-        destAddressData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+       // dateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        createDate();
+        createGetAddress();
+        createDestAddress();
         driverData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+4*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         statusData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+5*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         listScroll.setBounds(X_FIELDS+BOX_LENGTH*2+X_GAP,Y_FIELDSSTART,BOX_LENGTH+BOX_LENGTH/2,5*Y_GAP+BOX_HEIGHT);
@@ -119,17 +125,9 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         sizeData.setBorder(border);
         sizeData.setBackground(Color.white);
 
-        dateData.setOpaque(true);
-        dateData.setBorder(border);
-        dateData.setBackground(Color.white);
-
-        getAddressData.setOpaque(true);
-        getAddressData.setBorder(border);
-        getAddressData.setBackground(Color.white);
-
-        destAddressData.setOpaque(true);
-        destAddressData.setBorder(border);
-        destAddressData.setBackground(Color.white);
+     //   dateData.setOpaque(true);
+     //   dateData.setBorder(border);
+     //   dateData.setBackground(Color.white);
 
         driverData.setOpaque(true);
         driverData.setBorder(border);
@@ -137,18 +135,84 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
         statusData.setOpaque(true);
         statusData.setBorder(border);
-        statusData.setBackground(Color.white);
+        statusData.setBackground(Color.lightGray);
 
 
         statusData.setEditable(false);
         add(sizeData);
-        add(dateData);
-        add(getAddressData);
-        add(destAddressData);
+       // add(dateData);
         add(driverData);
         add(statusData);
         add(listScroll);
+    }
 
+    private void createDate() {
+        JPanel DateData =new JPanel();
+        DateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        DateData.setOpaque(true);
+        EmptyBorder border = new EmptyBorder(2,5,2,5);
+        DateData.setBorder(border);
+        DateData.setBackground(Color.white);
+        JLabel year = new JLabel("J:");
+        dateYear = new JTextField("");
+        JLabel month = new JLabel("M:");
+        dateMonth = new JTextField("");
+        JLabel day = new JLabel("T:");
+        dateDay = new JTextField("");
+        dateYear.setPreferredSize( new Dimension( 60, BOX_HEIGHT-10 ) );
+        dateMonth.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+        dateDay.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+
+        DateData.add(day);
+        DateData.add(dateDay);
+        DateData.add(month);
+        DateData.add(dateMonth);
+        DateData.add(year);
+        DateData.add(dateYear);
+        add(DateData);
+    }
+
+    private void createGetAddress() {
+        JPanel getAddressData =new JPanel();
+        getAddressData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+2*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        getAddressData.setOpaque(true);
+        EmptyBorder border = new EmptyBorder(2,5,2,5);
+        getAddressData.setBorder(border);
+        getAddressData.setBackground(Color.white);
+        JLabel street = new JLabel("Street");
+        getAddressStreet = new JTextField("");
+        JLabel avenue = new JLabel("Avenue");
+        getAddressAvenue = new JTextField("");
+
+        getAddressStreet.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+        getAddressAvenue.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+        getAddressData.add(getAddressStreet);
+        getAddressData.add(street);
+        getAddressData.add(getAddressAvenue);
+        getAddressData.add(avenue);
+        add(getAddressData);
+    }
+
+    private void createDestAddress() {
+        JPanel destAddressData =new JPanel();
+        destAddressData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+3*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        destAddressData.setOpaque(true);
+        EmptyBorder border = new EmptyBorder(2,5,2,5);
+        destAddressData.setBorder(border);
+        destAddressData.setBackground(Color.white);
+
+        JLabel street = new JLabel("Street");
+        destAddressStreet = new JTextField("");
+        JLabel avenue = new JLabel("Avenue");
+        destAddressAvenue = new JTextField("");
+
+        destAddressStreet.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+        destAddressAvenue.setPreferredSize( new Dimension( 30, BOX_HEIGHT-10 ) );
+        destAddressData.add(destAddressStreet);
+        destAddressData.add(street);
+        destAddressData.add(destAddressAvenue);
+        destAddressData.add(avenue);
+        add(destAddressData);
     }
 
     private void createButtons() {
@@ -165,9 +229,12 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                     int größe=Integer.parseInt(sizeData.getText());
-                    Date date_desired =Date.valueOf(dateData.getText());
-                    int add_get=getAddressID(getAddressData.getText());
-                    int add_dest=getAddressID(destAddressData.getText());
+                    String date=dateYear.getText()+"-"+dateMonth.getText()+"-"+dateDay.getText();
+                    Date date_desired =Date.valueOf(date);
+                    log.debug.printout(date_desired);
+                    int add_get=getAddressID(getAddressStreet.getText(),getAddressAvenue.getText());
+                    int add_dest=getAddressID(destAddressStreet.getText(),destAddressAvenue.getText());
+
                     String status="open";
                     java.util.Date utilDate = new java.util.Date();
                     Date date_created = new java.sql.Date(utilDate.getTime());
@@ -205,7 +272,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         clearFields.setBackground(Color.lightGray);
         clearFields.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+7*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         logout.setBackground(Color.LIGHT_GRAY);
-        logout.setBounds(X_SIGNEDINTEXT+BOX_LENGTH*2,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
+        logout.setBounds(X_SIGNEDINTEXT+(BOX_LENGTH/2)*3,Y_SIGNEDINTEXT,BOX_LENGTH/2,BOX_HEIGHT);
         assign.setBackground(Color.LIGHT_GRAY);
         assign.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+6*Y_GAP,BOX_LENGTH,BOX_HEIGHT);
 
@@ -224,20 +291,23 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private void clearAllFields() {
         assign.setText("Auftrag abgeben");
         sizeData.setText("");
-        dateData.setText("");
-        getAddressData.setText("");
-        destAddressData.setText("");
+        dateDay.setText("");
+        dateMonth.setText("");
+        dateYear.setText("");
+        getAddressAvenue.setText("");
+        getAddressStreet.setText("");
+        destAddressAvenue.setText("");
+        destAddressStreet.setText("");
         driverData.setText("");
         statusData.setText("open");
         list.clearSelection();
     }
 
-    private int getAddressID(String add) {
-        String[] text;
-        text = add.split(" ");
-        int street= Integer.parseInt(String.valueOf(text[0].charAt(0)));
-        int avenue= Integer.parseInt(String.valueOf(text[1].charAt(0)));
+    private int getAddressID(String stringStreet, String stringAvenue) {
+        int street= Integer.parseInt(stringStreet);
+        int avenue= Integer.parseInt(stringAvenue);
         debug.printout("Street"+street+"  Avenue"+avenue);
+        //TODO eventuell noch fehlerabfangen ob zahlen möglich sind
         int add_id= 0;
         try {
             add_id = DBM.getAddressId(street,avenue);
@@ -246,6 +316,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         }
         return add_id;
     }
+
 
     private void createList() {
         list.setBackground(Color.lightGray);
@@ -274,9 +345,14 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             }else{
                 assign.setText("Auftrag ändern");
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
-                dateData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired()));
-                getAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_pickup()));
-                destAddressData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getAddress_delivery()));
+                dateDay.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getDay()));
+
+                dateMonth.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getMonth()));
+                dateYear.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getYear()+1900));
+                getAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getStreet()));
+                getAddressAvenue.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getAvenue()));
+                destAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDeliveryLocation().getStreet()));
+                destAddressAvenue.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDeliveryLocation().getAvenue()));
                 log.debug.printout(AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id());
                 int ass_id=AssignmentArrayList.get(list.getSelectedIndex()).getDriver_id();
                if(ass_id!=0){
