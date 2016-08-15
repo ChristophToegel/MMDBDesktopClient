@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class GUI extends JFrame {
 
 
-    private JPanel login;
+    private JLayeredPane login;
     private JTabbedPane manager_screen;
     private JLayeredPane driver_screen;
 

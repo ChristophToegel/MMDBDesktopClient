@@ -7,6 +7,7 @@ import objects.Driver;
 import objects.Manager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -15,14 +16,16 @@ import java.sql.SQLException;
  * Created by juli on 29.07.16.
  */
 
-public class login_screen extends JPanel {
+public class login_screen extends JLayeredPane {
 
     private Boolean pwcheck;
-    private JPanel login_window;
+    private static final int X_START = 150; //Start x logintext
+    private static final int Y_START  = 75;  //Start y logintext
+    private static final int Y_GAP = 5;
+    private static final int BOX_LENGTH = 90; //Labellength
+    private static final int BOX_HEIGHT = 20; //Labelheight
 
     public login_screen(){
-        login_window =new JPanel();
-        login_window.setLayout(new BoxLayout(login_window,BoxLayout.PAGE_AXIS));
         createElements();
     }
 
@@ -30,13 +33,29 @@ public class login_screen extends JPanel {
 
         JLabel title= new JLabel("Anmelden");
         JPasswordField password= new JPasswordField("qqq");
+        password.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                password.setText("");
+            }
+
+        });
         JTextField username = new JTextField("User");
+        username.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                username.setText("");
+            }
+
+        });
         JButton loginButton= new JButton("Login");
         JLabel wrongData= new JLabel("Falscher Login");
-        username.setSize(50,15);
-        password.setSize(50,15);
-        loginButton.setSize(50,15);
-        wrongData.setSize(50,15);
+        title.setBounds(X_START,Y_START,BOX_LENGTH,BOX_HEIGHT);
+        username.setBounds(X_START,Y_START+BOX_HEIGHT+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
+        password.setBounds(X_START,Y_START+(BOX_HEIGHT+Y_GAP)*2,BOX_LENGTH,BOX_HEIGHT);
+        loginButton.setBounds(X_START,Y_START+(BOX_HEIGHT+Y_GAP)*3,BOX_LENGTH,BOX_HEIGHT);
+        wrongData.setBounds(X_START,Y_START+(BOX_HEIGHT+Y_GAP)*4,BOX_LENGTH,BOX_HEIGHT);
+
         wrongData.setVisible(false);
 
         loginButton.addMouseListener(new MouseAdapter() {
@@ -64,15 +83,13 @@ public class login_screen extends JPanel {
                     wrongData.setVisible(true);
                 }
             }
-
         });
-        login_window.add(title);
-        login_window.add(username);
-        login_window.add(password);
-        login_window.add(wrongData);
-        login_window.add(loginButton);
-        add(login_window);
-    }
+        add(title);
+        add(username);
+        add(password);
+        add(wrongData);
+        add(loginButton);
 
+    }
 
 }

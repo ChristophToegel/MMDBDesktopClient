@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  * Created by Andi on 04.08.2016.
@@ -38,7 +39,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private DefaultListModel listModel = new DefaultListModel();
     private JList list = new JList(listModel);
     private JTextField sizeData = new JTextField();
-//    private JTextField dateData = new JTextField();
     private JTextField dateYear;
     private JTextField dateMonth;
     private JTextField dateDay;
@@ -110,7 +110,6 @@ public class manager_assignments extends JPanel implements ListSelectionListener
     private void createAssignmentDatafields() {
 
         sizeData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART,BOX_LENGTH,BOX_HEIGHT);
-       // dateData.setBounds(X_FIELDS+BOX_LENGTH/2+X_GAP,Y_FIELDSSTART+Y_GAP,BOX_LENGTH,BOX_HEIGHT);
         createDate();
         createGetAddress();
         createDestAddress();
@@ -125,22 +124,17 @@ public class manager_assignments extends JPanel implements ListSelectionListener
         sizeData.setBorder(border);
         sizeData.setBackground(Color.white);
 
-     //   dateData.setOpaque(true);
-     //   dateData.setBorder(border);
-     //   dateData.setBackground(Color.white);
-
         driverData.setOpaque(true);
         driverData.setBorder(border);
-        driverData.setBackground(Color.white);
+        driverData.setBackground(Color.lightGray);
 
         statusData.setOpaque(true);
         statusData.setBorder(border);
         statusData.setBackground(Color.lightGray);
 
-
+        driverData.setEditable(false);
         statusData.setEditable(false);
         add(sizeData);
-       // add(dateData);
         add(driverData);
         add(statusData);
         add(listScroll);
@@ -345,10 +339,11 @@ public class manager_assignments extends JPanel implements ListSelectionListener
             }else{
                 assign.setText("Auftrag ändern");
                 sizeData.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getSize()));
-                dateDay.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getDay()));
-
-                dateMonth.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getMonth()));
-                dateYear.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired().getYear()+1900));
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(AssignmentArrayList.get(list.getSelectedIndex()).getDate_desired());
+                dateDay.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+                dateMonth.setText(String.valueOf(cal.get(Calendar.MONTH)+1));
+                dateYear.setText(String.valueOf(cal.get(Calendar.YEAR)));
                 getAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getStreet()));
                 getAddressAvenue.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getPickupLocation().getAvenue()));
                 destAddressStreet.setText(String.valueOf(AssignmentArrayList.get(list.getSelectedIndex()).getDeliveryLocation().getStreet()));

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Christoph on 01.08.16.
  */
+
 public class login_driver extends JLayeredPane {
 
 
@@ -62,6 +63,7 @@ public class login_driver extends JLayeredPane {
         createDriverData();
         createDriverText();
     }
+
     //These Labels don't change their TEXT
     public void createTexts(){
         JLabel signedInText = new JLabel("Angemeldet als:");
@@ -183,6 +185,7 @@ public class login_driver extends JLayeredPane {
 
             }
         });
+
         deliveredB.setVisible(false);
         deliveredB.setBackground(Color.lightGray);
         deliveredB.setBounds(200, 325, 100,50);
@@ -216,18 +219,17 @@ public class login_driver extends JLayeredPane {
         if(ass!=null) {
             sizeData.setText(String.valueOf(ass.getSize()));
             datecreatedData.setText(String.valueOf(ass.getDate_created()));
-            getaddressData.setText(ass.getAddress_pickup());
-            destaddressData.setText(ass.getAddress_delivery());
+            getaddressData.setText(ass.getPickupLocation().toText());
+            destaddressData.setText(ass.getDeliveryLocation().toText());
             finaldateData.setText(String.valueOf(ass.getDate_desired()));
             curAssignmentData.setText("ID" + ass.getAss_id());
         }else{
-            //TODO Button aktualisieren??? wenn kein Auftrag mehr vorhanden ist
-            sizeData.setText("-----");
-            datecreatedData.setText("-----");
-            getaddressData.setText("-----");
-            destaddressData.setText("-----");
-            finaldateData.setText("-----");
-            curAssignmentData.setText("ID ");
+            sizeData.setText("");
+            datecreatedData.setText("");
+            getaddressData.setText("");
+            destaddressData.setText("");
+            finaldateData.setText("");
+            curAssignmentData.setText("ID");
         }
     }
 
