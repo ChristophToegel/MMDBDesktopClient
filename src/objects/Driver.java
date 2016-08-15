@@ -77,6 +77,10 @@ public class Driver {
         return vehicle_id;
     }
 
+    public void setLocation_id (int x){
+        location_id = x;
+    }
+
     public String getEmp_sign() {
 
         return emp_sign;

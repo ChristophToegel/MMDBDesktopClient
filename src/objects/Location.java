@@ -30,6 +30,6 @@ public class Location {
     }
 
     public String toText() {
-        return ""+avenue+". Avenue/"+street+" Street";
+       return street+". Street/"+avenue+". Avenue";
     }
 }

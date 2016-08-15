@@ -39,6 +39,7 @@ public class login_driver extends JLayeredPane {
     private JLabel destaddressData = new JLabel();
     private JLabel finaldateData = new JLabel();
     private JLabel curAssignmentData = new JLabel();
+    private JLabel positionData;
 
 
     public login_driver(Driver driver) throws SQLException{
@@ -192,6 +193,9 @@ public class login_driver extends JLayeredPane {
                 try {
                     DBM.updateDriverPos(ass.getDeliveryLocation().getLocation_id(),driver.getDriver_id());
                     DBM.updateAssStatus("finished",ass.getAss_id());
+                    driver.setLocation_id(ass.getDeliveryLocation().getLocation_id());
+                    Location loc = DBM.getLocation(driver.getLocation_id());
+                    positionData.setText(loc.toText());
                     ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
                     if(ass==null) {
                         acceptB.setText("Aktualisieren");
@@ -265,7 +269,7 @@ public class login_driver extends JLayeredPane {
         JLabel emp_signData = new JLabel(driver.getEmp_sign());
         JLabel vehicle_typData = new JLabel(vehicle.getType());
         JLabel vspaceData = new JLabel(Integer.toString(vehicle.getSpace()));
-        JLabel positionData = new JLabel(location.toText());
+        positionData = new JLabel(location.toText());
 
         driverIdData.setBounds(LEFT_ALLIGN_2, DATA_BOT, BOX_LENGTH, BOX_HEIGHT);
         emp_signData.setBounds(LEFT_ALLIGN_2,DATA_BOT+DATA_GAP ,BOX_LENGTH,BOX_HEIGHT);
