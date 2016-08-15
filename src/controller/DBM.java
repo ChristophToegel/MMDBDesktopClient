@@ -451,16 +451,7 @@ public class DBM {
         p.setString(3, status);
         p.setString(4, String.valueOf(add_get));
         p.setString(5, String.valueOf(add_dest));
-        /*DateFormat df = new SimpleDateFormat("YYYY-mm-DD");
-
-            Date createD = new java.sql.Date(date_created.getTime());
-            String reportDate = df.format(createD);
-            if (isDateValid(reportDate) == true) {  */
-                p.setString(6, String.valueOf(date_created));
-        /*  } else {
-              debug.printout("DATE INVALID");
-           } */
-
+        p.setString(6, String.valueOf(date_created));
         p.setString(6, String.valueOf(date_created));
         p.setString(7, String.valueOf(date_desired));
         p.setString(8, String.valueOf(ass_id));
@@ -488,17 +479,5 @@ public class DBM {
         p.executeUpdate();
         closeDBConnection();
     }
-
-    /*final static String DATE_FORMAT = "yyyy-MM-dd";
-    public static boolean isDateValid(String date) {
-        try {
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            df.setLenient(false);
-            df.parse(date);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }*/
 }
 
