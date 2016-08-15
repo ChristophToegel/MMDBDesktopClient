@@ -323,7 +323,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
 
     private void fillList(){
         try {
-            AssignmentArrayList = DBM.getAllAssignments();
+            AssignmentArrayList = DBM.getOpenAssignments(Integer.MAX_VALUE);
             for (Assignment a : AssignmentArrayList)
                 listModel.addElement(a.getAss_id());
         } catch(SQLException e){
