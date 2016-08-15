@@ -167,7 +167,7 @@ public class login_driver extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    if(ass!=null) {
+                    if(ass!=null&&ass.getStatus().equals("open")) {
                         DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
                         DBM.updateAssStatus("executing", ass.getAss_id());
                         deliveredB.setVisible(true);
@@ -186,7 +186,6 @@ public class login_driver extends JLayeredPane {
 
             }
         });
-
         deliveredB.setVisible(false);
         deliveredB.setBackground(Color.lightGray);
         deliveredB.setBounds(200, 325, 100,50);
@@ -212,7 +211,10 @@ public class login_driver extends JLayeredPane {
 
             }
         });
-
+        if(ass.getStatus().equals("executing")){
+            acceptB.setVisible(false);
+            deliveredB.setVisible(true);
+        }
         add(logoutB);
         add(acceptB);
         add(deliveredB);
