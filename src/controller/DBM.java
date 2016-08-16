@@ -218,26 +218,6 @@ public class DBM {
 
     }
 
-
-    public static ArrayList<Assignment> getAllAssignments() throws SQLException {
-        ArrayList<Assignment> assignments=new ArrayList<>();
-        openDBConnection();
-        String query = "SELECT * FROM assignment a INNER JOIN address ad ON" +
-                " a.address_delivery = ad.address_id INNER JOIN address ON a.address_pickup = address.address_id";
-        PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
-        p.executeQuery();
-        ResultSet rs = p.getResultSet();
-
-        while (rs.next()){
-            Assignment aktassignment = new Assignment(rs);
-            assignments.add(aktassignment);
-        }
-        log.debug.printout(assignments.size());
-        closeDBConnection();
-        log.debug.printout(assignments.size()+"Aufträge");
-        return assignments;
-    }
-
     public static ArrayList<Driver> getDriverList() throws SQLException {
         openDBConnection();
         ArrayList<Driver> liste = new ArrayList<Driver>();
@@ -258,29 +238,6 @@ public class DBM {
                     +liste.get(i).getVehicle().getType());
         }
         return liste;
-    }
-
-    public static ArrayList<Driver> getOpenDrivers() throws SQLException {
-        openDBConnection();
-        ArrayList<Driver> list = new ArrayList<Driver>();
-        String query = "SELECT employee.firstname, employee.lastname, employee.password, driver.driver_id, vehicle.vehicle_id," +
-                "vehicle.space, vehicle.model FROM employee INNER JOIN driver ON employee.emp_id=driver.emp_id LEFT JOIN vehicle ON " +
-                "driver.vehicle_id=vehicle.vehicle_id WHERE driver.status = 1" ;
-        PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query);
-        ps.executeQuery();
-        ResultSet rs = ps.getResultSet();
-        while(rs.next()){
-            Vehicle veh = new Vehicle(rs.getInt(5), rs.getString(7), rs.getInt(6));
-            Driver d = new Driver(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), veh, rs.getDate(8));
-            list.add(d);
-
-        }
-        closeDBConnection();
-        for(int i = 0; i<list.size(); i++){
-            debug.printout("OpenDriver Liste " + list.get(i).getDriver_id() + list.get(i).getFirstname() + list.get(i).getLastname() + list.get(i).getPassword()
-                    + list.get(i).getVehicle().getType());
-        }
-    return list;
     }
 
     public static ArrayList<Assignment> getOpenAssignments(int size) throws SQLException {
@@ -478,6 +435,16 @@ public class DBM {
         p.setString(2, String.valueOf(ass_id));
         p.executeUpdate();
         closeDBConnection();
+    }
+
+    public static void updateAssDateDelivered(Date date_delievered, int assignment_id)  throws SQLException {
+            openDBConnection();
+            String query = "UPDATE assignment SET date_delievered=? WHERE assignment_id=?";
+            PreparedStatement p = (PreparedStatement) conn.prepareStatement(query);
+            p.setString(1, String.valueOf(date_delievered));
+            p.setString(2, String.valueOf(assignment_id));
+            p.executeUpdate();
+            closeDBConnection();
     }
 }
 

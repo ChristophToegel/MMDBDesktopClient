@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -170,6 +171,9 @@ public class login_driver extends JLayeredPane {
                     if(assignment!=null&&assignment.getStatus().equals("open")) {
                         DBM.updateAssDriver_id(assignment.getAss_id(),driver.getDriver_id());
                         DBM.updateAssStatus("executing", assignment.getAss_id());
+                        java.util.Date utilDate = new java.util.Date();
+                        Date date_delievered = new java.sql.Date(utilDate.getTime());
+                        DBM.updateAssDateDelivered(date_delievered, assignment.getAss_id());
                         deliveredB.setVisible(true);
                         acceptB.setVisible(false);
                     }else{

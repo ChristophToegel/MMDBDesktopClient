@@ -228,10 +228,11 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                     log.debug.printout(date_desired);
                     int add_get=getAddressID(getAddressStreet.getText(),getAddressAvenue.getText());
                     int add_dest=getAddressID(destAddressStreet.getText(),destAddressAvenue.getText());
-
                     String status="open";
                     java.util.Date utilDate = new java.util.Date();
                     Date date_created = new java.sql.Date(utilDate.getTime());
+                    clearAllFields();
+
                 if(list.isSelectionEmpty()){
                     debug.printout("insert");
                    try {
