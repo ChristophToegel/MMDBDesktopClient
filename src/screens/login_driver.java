@@ -32,7 +32,7 @@ public class login_driver extends JLayeredPane {
     private Vehicle vehicle;
     private Location location;
     private Driver driver;
-    private Assignment ass;
+    private Assignment assignment;
 
     private JLabel sizeData = new JLabel();
     private JLabel datecreatedData = new JLabel();
@@ -47,11 +47,11 @@ public class login_driver extends JLayeredPane {
         this.driver=driver;
         location =DBM.getLocation(driver.getLocation_id());
         vehicle = DBM.getVehicle(driver.getVehicle_id());
-        ass=DBM.getAssignmentData(driver.getDriver_id());
-        if(ass==null) {
-            ass = getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()), driver);
-            if(ass!=null){
-                DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
+        assignment=DBM.getAssignmentData(driver.getDriver_id());
+        if(assignment==null) {
+            assignment = getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()), driver);
+            if(assignment!=null){
+                DBM.updateAssDriver_id(assignment.getAss_id(),driver.getDriver_id());
             }
         }
         createElements();
@@ -162,20 +162,20 @@ public class login_driver extends JLayeredPane {
         });
         acceptB.setBackground(Color.lightGray);
         acceptB.setBounds(200,275,100,50);
-        if(ass==null){acceptB.setText("Aktualisieren");}
+        if(assignment==null){acceptB.setText("Aktualisieren");}
         acceptB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    if(ass!=null&&ass.getStatus().equals("open")) {
-                        DBM.updateAssDriver_id(ass.getAss_id(),driver.getDriver_id());
-                        DBM.updateAssStatus("executing", ass.getAss_id());
+                    if(assignment!=null&&assignment.getStatus().equals("open")) {
+                        DBM.updateAssDriver_id(assignment.getAss_id(),driver.getDriver_id());
+                        DBM.updateAssStatus("executing", assignment.getAss_id());
                         deliveredB.setVisible(true);
                         acceptB.setVisible(false);
                     }else{
                      acceptB.setText("Aktualisieren");
-                        ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
-                        if (ass!=null){
+                        assignment=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
+                        if (assignment!=null){
                             acceptB.setText("Annehmen");
                             updateAssData();
                         }
@@ -193,13 +193,13 @@ public class login_driver extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    DBM.updateDriverPos(ass.getDeliveryLocation().getLocation_id(),driver.getDriver_id());
-                    DBM.updateAssStatus("finished",ass.getAss_id());
-                    driver.setLocation_id(ass.getDeliveryLocation().getLocation_id());
+                    DBM.updateDriverPos(assignment.getDeliveryLocation().getLocation_id(),driver.getDriver_id());
+                    DBM.updateAssStatus("finished",assignment.getAss_id());
+                    driver.setLocation_id(assignment.getDeliveryLocation().getLocation_id());
                     Location loc = DBM.getLocation(driver.getLocation_id());
                     positionData.setText(loc.toText());
-                    ass=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
-                    if(ass==null) {
+                    assignment=getBestAssignment(DBM.getOpenAssignments(vehicle.getSpace()),driver);
+                    if(assignment==null) {
                         acceptB.setText("Aktualisieren");
                     }
                 } catch (SQLException e1) {
@@ -211,7 +211,7 @@ public class login_driver extends JLayeredPane {
 
             }
         });
-        if(ass.getStatus().equals("executing")){
+        if(assignment.getStatus().equals("executing")){
             acceptB.setVisible(false);
             deliveredB.setVisible(true);
         }
@@ -222,13 +222,13 @@ public class login_driver extends JLayeredPane {
 
     //updates Textfields
     private void updateAssData(){
-        if(ass!=null) {
-            sizeData.setText(String.valueOf(ass.getSize()));
-            datecreatedData.setText(String.valueOf(ass.getDate_created()));
-            getaddressData.setText(ass.getPickupLocation().toText());
-            destaddressData.setText(ass.getDeliveryLocation().toText());
-            finaldateData.setText(String.valueOf(ass.getDate_desired()));
-            curAssignmentData.setText("ID" + ass.getAss_id());
+        if(assignment!=null) {
+            sizeData.setText(String.valueOf(assignment.getSize()));
+            datecreatedData.setText(String.valueOf(assignment.getDate_created()));
+            getaddressData.setText(assignment.getPickupLocation().toText());
+            destaddressData.setText(assignment.getDeliveryLocation().toText());
+            finaldateData.setText(String.valueOf(assignment.getDate_desired()));
+            curAssignmentData.setText("ID" + assignment.getAss_id());
         }else{
             sizeData.setText("");
             datecreatedData.setText("");
@@ -291,20 +291,20 @@ public class login_driver extends JLayeredPane {
     public Assignment getBestAssignment(ArrayList<Assignment> openList, Driver driver) throws SQLException {
         if(openList.size()==0) {
             log.debug.printout("Keine Aufträge vorhanden");
-            ass = null;
+            assignment = null;
             updateAssData();
-            return ass;
+            return assignment;
         }else {
                 Location driLoc = DBM.getLocation(driver.getLocation_id());
                 int currentStreet = driLoc.getStreet();
                 int currentAvenue = driLoc.getAvenue();
-                Assignment ass = null;
+                Assignment assignment = null;
                 for(Assignment a: openList) {
-                    if(ass==null || a.Manhattan(currentStreet,currentAvenue)<ass.Manhattan(currentStreet,currentAvenue)) {
-                        ass=a;
+                    if(assignment==null || a.Manhattan(currentStreet,currentAvenue)<assignment.Manhattan(currentStreet,currentAvenue)) {
+                        assignment=a;
                     }
                 }
-                return ass;
+                return assignment;
         }
     }
 
