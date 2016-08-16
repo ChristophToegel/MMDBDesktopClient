@@ -237,6 +237,7 @@ public class manager_assignments extends JPanel implements ListSelectionListener
                     debug.printout("insert");
                    try {
                         DBM.InsertAssignment(manager.getManager_id(),größe,status,add_get,add_dest,date_created,date_desired);
+                        clearAllFields();
                     } catch (SQLException e1) {
                        e1.printStackTrace();
                     }
