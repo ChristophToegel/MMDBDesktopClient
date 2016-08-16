@@ -32,7 +32,7 @@ public class login_screen extends JLayeredPane {
     private void createElements() {
 
         JLabel title= new JLabel("Anmelden");
-        JPasswordField password= new JPasswordField("qqq");
+        JPasswordField password= new JPasswordField("");
         password.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -40,7 +40,7 @@ public class login_screen extends JLayeredPane {
             }
 
         });
-        JTextField username = new JTextField("User");
+        JTextField username = new JTextField("UserID");
         username.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

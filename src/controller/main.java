@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.*;
 
+import com.mysql.jdbc.PreparedStatement;
 import objects.*;
 
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class main{
 
 
 
-    public static void main(String args[])  {
+    public static void main(String args[]) {
         initGui();
     }
 
